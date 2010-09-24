@@ -1,0 +1,34 @@
+  <p>
+    <%= form.label :picture %><br />
+  	<%= image_tag form.object.picture.url(:small) if form.object.picture? %><%= "<br />" if form.object.picture? %>
+  	<%= form.file_field :picture %>
+  </p>
+  <p>
+    <%= form.label :first_name %><br />
+    <%= form.text_field :first_name %>
+  </p>
+  <p>
+    <%= form.label :last_name %><br />
+    <%= form.text_field :last_name %>
+  </p>
+  <p>
+    <%= form.label :gender %><br />
+    <%= form.select :gender, %w[Male Female], {:prompt => 'Select Gender'} %>
+  </p>
+  <!-- Uncomment if using login / username
+  <p>
+    <%#= form.label :login, "Username" %><br />
+    <%#= form.text_field :login %>
+  </p> -->
+  <p>
+    <%= form.label :email %><br />
+    <%= form.text_field :email %>
+  </p>
+  <p>
+    <%= form.label :password %><br />
+    <%= form.password_field :password %>
+  </p>
+  <p>
+    <%= form.label :password_confirmation %><br />
+    <%= form.password_field :password_confirmation %>
+  </p>
