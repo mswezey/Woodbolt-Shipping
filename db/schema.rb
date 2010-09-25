@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100925175655) do
+ActiveRecord::Schema.define(:version => 20100925200847) do
 
   create_table "contacts", :force => true do |t|
     t.integer  "contact_type_id"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(:version => 20100925175655) do
     t.integer  "shipper_id"
     t.integer  "consignee_id"
     t.string   "state"
+    t.string   "bol_file_name"
+    t.string   "bol_content_type"
+    t.integer  "bol_file_size"
+    t.datetime "bol_updated_at"
+    t.string   "packing_list_file_name"
+    t.string   "packing_list_content_type"
+    t.integer  "packing_list_file_size"
+    t.datetime "packing_list_updated_at"
   end
 
   create_table "users", :force => true do |t|

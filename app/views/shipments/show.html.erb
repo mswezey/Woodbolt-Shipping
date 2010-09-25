@@ -1,16 +1,20 @@
 <% title "Shipment" %>
+<p>
+  <strong>Status:</strong>
+  <%=h @shipment.state.try(:humanize) %>
+</p>
 
 <p>
   <strong>Submitter:</strong>
-  <%=h @shipment.submitter_id %>
+  <%=h @shipment.submitter.try(:name) %>
 </p>
 <p>
   <strong>Assigned To:</strong>
-  <%=h @shipment.assigned_to_id %>
+  <%=h @shipment.assigned_to.try(:name) %>
 </p>
 <p>
   <strong>Bill To:</strong>
-  <%=h @shipment.bill_to_id %>
+  <%=h @shipment.bill_to.try(:name) %>
 </p>
 <p>
   <strong>Reference Number:</strong>
@@ -18,10 +22,10 @@
 </p>
 <p>
   <strong>Classification:</strong>
-  <%=h @shipment.classification_id %>
+  <%=h @shipment.classification_type %>
 </p>
 <p>
-  <strong>Bol Pro Number:</strong>
+  <strong>BOL/PRO Number:</strong>
   <%=h @shipment.bol_pro_number %>
 </p>
 <p>
@@ -34,7 +38,7 @@
 </p>
 <p>
   <strong>Cost:</strong>
-  <%=h @shipment.cost %>
+  <%=h number_to_currency(@shipment.cost) %>
 </p>
 <p>
   <strong>Ship Date:</strong>
@@ -51,6 +55,54 @@
 <p>
   <strong>Debit Memo Number:</strong>
   <%=h @shipment.debit_memo_number %>
+</p>
+<p>
+  <strong>Comments:</strong>
+  <%=h @shipment.comments %>
+</p>
+<p>
+  <strong>Invoiced By:</strong>
+  <%=h @shipment.invoiced_by.try(:name) %>
+</p>
+<p>
+  <strong>Scheduled By:</strong>
+  <%=h @shipment.scheduled_by.try(:name) %>
+</p>
+<p>
+  <strong>Scheduled Pickup:</strong>
+  <%=h @shipment.scheduled_pickup %>
+</p>
+<p>
+  <strong>Pallets:</strong>
+  <%=h @shipment.pallet_qty %>
+</p>
+<p>
+  <strong>Pallet Dimentions:</strong>
+  <%=h @shipment.pallet_dimentions %>
+</p>
+<p>
+  <strong>Weight:</strong>
+  <%=h @shipment.weight %>
+</p>
+<p>
+  <strong>BOL Date:</strong>
+  <%=h @shipment.bol_date %>
+</p>
+<p>
+  <strong>Shipper:</strong>
+  <%=h @shipment.shipper.try(:name) %>
+</p>
+<p>
+  <strong>Consignee:</strong>
+  <%=h @shipment.consignee.try(:name) %>
+</p>
+<p>
+  <strong>BOL:</strong>
+  <%= @shipment.bol.exists? ? link_to("download", @shipment.bol.url) : "none" %>
+</p>
+<p>
+  <strong>Packing List:</strong>
+  <%= @shipment.packing_list.exists? ? link_to("download", @shipment.packing_list.url) : "none" %>
 </p>
 
 <p>

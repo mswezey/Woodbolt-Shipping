@@ -1,14 +1,14 @@
 development:
-  bucket: appname.dev
-  access_key_id: XXXXXXXXXXXXX
-  secret_access_key: XXXXXXXXXXXXXXXXXXXXXXXXXX
+  bucket: wb-shipping.dev
+  access_key_id: AKIAIITWZB2PBUGGNJNQ
+  secret_access_key: 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
 
 test:
-  bucket: appname.test
-  access_key_id: XXXXXXXXXXXXX
-  secret_access_key: XXXXXXXXXXXXXXXXXXXXXXXXXX
+  bucket: wb-shipping.test
+  access_key_id: AKIAIITWZB2PBUGGNJNQ
+  secret_access_key: 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
 
 production:
-  bucket: appname.com
-  access_key_id: XXXXXXXXXXXXX #change these once they get their own s3 account
-  secret_access_key: XXXXXXXXXXXXXXXXXXXXXXXXXX
+  bucket: wb-shipping
+  access_key_id: AKIAIITWZB2PBUGGNJNQ
+  secret_access_key: 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

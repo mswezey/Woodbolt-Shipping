@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :pictures, :as => :owner, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :reject_if => lambda { |a| a[:file].blank? }, :allow_destroy => true
   
+  has_many :assigned_shipments, :class_name => 'Shipment', :foreign_key => 'assigned_to_id'
+  
   def name
     "#{self.first_name} #{self.last_name}"
   end

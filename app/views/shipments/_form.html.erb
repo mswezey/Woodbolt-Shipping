@@ -25,7 +25,11 @@
   <p>
     <%= f.label :assigned_to_id, "Assigned To" %><br />
     <%= f.select :assigned_to_id, User.all.collect {|u| [u.name, u.id]} %>
-  </p>	
+  </p>
+  <p>
+    <%= f.label :state, "Status" %><br />
+    <%= f.select :state, %w[pending delivered invoiced] %>
+  </p>
 </div>
 
 <br clear="all" />
@@ -33,7 +37,11 @@
 <div class="col-left">
 	<p>
     <%= f.label :bol_date, "Bill of Lading Date" %><br />
-    <%= f.date_select :bol_date %>
+    <%= f.date_select :bol_date, :prompt => true %>
+  </p>
+	<p>
+    <%= f.label :bol, "Attach Bill of Lading" %><br />
+    <%= f.file_field :bol %>
   </p>
   <p>
     <%= f.label :carrier_id %><br />
@@ -52,7 +60,7 @@
 <div class="col-right">
 	<p>
     <%= f.label :scheduled_pickup %><br />
-    <%= f.date_select :scheduled_pickup %>
+    <%= f.date_select :scheduled_pickup, :prompt => true %>
   </p>
   <p>
     <%= f.label :scheduled_by_id %><br />
@@ -64,11 +72,11 @@
   </p>
   <p>
     <%= f.label :ship_date, "Deliver By ?" %><br />
-    <%= f.date_select :ship_date %>
+    <%= f.date_select :ship_date, :prompt => true %>
   </p>
   <p>
     <%= f.label :picked_up_at %><br />
-    <%= f.datetime_select :picked_up_at %>
+    <%= f.datetime_select :picked_up_at, :prompt => true %>
   </p>
 </div>
 
@@ -94,6 +102,10 @@
   <p>
     <%= f.label :reference_number %><br />
     <%= f.text_field :reference_number %>
+  </p>
+	<p>
+    <%= f.label :packing_list, "Attach Packing List" %><br />
+    <%= f.file_field :packing_list %>
   </p>
   <p>
     <%= f.label :pallet_qty, "Pallets" %><br />

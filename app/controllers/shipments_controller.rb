@@ -1,7 +1,12 @@
 class ShipmentsController < ApplicationController
   before_filter :require_user
   def index
-    @shipments = params[:status] ? Shipment.with_state(params[:status].to_sym) : Shipment.all
+    if params[:team_member_id]
+      @user = User.find(params[:team_member_id])
+      @shipments = params[:status] ? @user.assigned_shipments.with_state(params[:status].to_sym) : @user.assigned_shipments.all
+    else
+      @shipments = params[:status] ? Shipment.with_state(params[:status].to_sym) : Shipment.all
+    end
   end
   
   def show

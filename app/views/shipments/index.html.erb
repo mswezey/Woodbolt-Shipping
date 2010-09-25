@@ -1,4 +1,9 @@
-<% title "Shipments" %>
+<% title "#{params[:status].humanize if params[:status]} Shipments" %>
+
+<% if @user -%>
+	<h3 style='display:inline;'>Assigned to <%= @user.name %></h3> <%= link_to "View All", shipments_path(:status => params[:status]) if params[:status] %>
+	<br /><br />
+<% end -%>
 
 <table>
   <tr>

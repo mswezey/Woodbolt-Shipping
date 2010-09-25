@@ -1,5 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :team_members
+
+  map.resources :team_members do |team_members|
+    team_members.resources :shipments
+  end
 
   map.resources :contacts
 
