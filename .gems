@@ -1,0 +1,5 @@
+rails --version 2.3.8
+authlogic  
+will_paginate --version 2.3.11
+geokit
+aws-s3
