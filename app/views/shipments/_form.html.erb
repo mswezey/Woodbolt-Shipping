@@ -3,6 +3,10 @@
 	float:left;
 	width:400px;
 }
+.col-left-small, .col-right-small {
+	float:left;
+	width:300px;
+}
 </style>
 <% form_for @shipment do |f| %>
   <%= f.error_messages %>
@@ -129,6 +133,7 @@
 	    <%= f.label :contact_type_id %><br />
 	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID %>
 	  </p>
+	<div class='col-left-small'>
 	  <p>
 	    <%= f.label :first_name %><br />
 	    <%= f.text_field :first_name %>
@@ -141,6 +146,8 @@
 	    <%= f.label :email %><br />
 	    <%= f.text_field :email %>
 	  </p>
+	</div>
+	<div class='col-right-small'>
 	  <p>
 	    <%= f.label :street_1 %><br />
 	    <%= f.text_field :street_1 %>
@@ -169,13 +176,15 @@
 	    <%= f.label :fax %><br />
 	    <%= f.text_field :fax %>
 	  </p>
+	</div>
+	<br clear="all" />
 	  <p><%= f.submit "Submit" %></p>
 	<% end %>
 </div>
 
 <script>
 $(function(){
-	$("#new-contact").dialog({ autoOpen: false });
+	$("#new-contact").dialog({ autoOpen: false, width : '660px' });
 	$(".new-contact").click(function(){
 		$("#new-contact").dialog('open');
 		$("#contact_contact_type_id").val( $(this).attr("rel") == "shipper" ? 1 : 2 );
