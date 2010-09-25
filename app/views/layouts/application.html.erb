@@ -21,7 +21,7 @@
 	    <br clear="all" />
 
     	<div id="nav">
-				<%= link_to "Home", root_path %> | <%= link_to "Create", new_shipment_path %> | <%= link_to "Pending", shipments_path %> | <%= link_to "Delivered", shipments_path %> | <%= link_to "Invoiced", shipments_path %>
+				<%= link_to "Home", root_path %> | <%= link_to "Create", new_shipment_path %> | <%= link_to "Pending", shipments_path(:status => :pending) %> | <%= link_to "Delivered", shipments_path(:status => :delivered) %> | <%= link_to "Invoiced", shipments_path(:status => :invoiced) %>
 			</div>
 			
       <%- flash.each do |name, msg| -%>

@@ -40,8 +40,8 @@
     <%= f.text_field :carrier_id %>
   </p>
   <p>
-    <%= f.label :invoiced_by %><br />
-    <%= f.select :invoiced_by, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
+    <%= f.label :invoiced_by_id %><br />
+    <%= f.select :invoiced_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
     <%= f.label :bol_pro_number %><br />

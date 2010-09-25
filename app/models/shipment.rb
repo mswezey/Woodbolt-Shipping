@@ -7,6 +7,8 @@ class Shipment < ActiveRecord::Base
   belongs_to :shipper, :class_name => "Contact"
   belongs_to :consignee, :class_name => "Contact"
   belongs_to :carrier, :class_name => "Contact"
+  
+  after_create :notify_assignee
 
   CLASSIFICATION_TYPE_ID = {
     "FI" => 1,
@@ -18,6 +20,25 @@ class Shipment < ActiveRecord::Base
   
   def classification_type
     CLASSIFICATION_TYPE_NAME[classification_id]
+  end
+  
+  state_machine :state, :initial => :pending do
+
+    event :deliver do
+      transition :pending => :delivered, :if => :ready_for_deliver?
+    end
+
+    state :pending, :delivered, :invoiced do
+    end
+
+  end
+  
+  def notify_assignee
+
+  end
+  
+  def ready_for_deliver?
+    true
   end
   
 end

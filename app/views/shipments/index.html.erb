@@ -2,6 +2,25 @@
 
 <table>
   <tr>
+		<%= case params[:status]
+					when 'pending' then render :partial => 'pending_headers'
+					when 'delivered' then render :partial => 'delivered_headers'
+					when 'invoiced' then render :partial => 'invoiced_headers'
+				end	
+		%>
+  </tr>
+	<%= case params[:status]
+				when 'pending' then render :partial => 'pending', :collection => @shipments
+				when 'delivered' then render :partial => 'delivered', :collection => @shipments
+				when 'invoiced' then render :partial => 'invoiced', :collection => @shipments
+			end	
+	%>
+
+
+</table>
+
+<!-- <table>
+  <tr>
     <th>Submitter</th>
     <th>Assigned To</th>
     <th>Bill To</th>
@@ -36,6 +55,4 @@
       <td><%= link_to "Destroy", shipment, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
-</table>
-
-<p><%= link_to "New Shipment", new_shipment_path %></p>
+</table> -->

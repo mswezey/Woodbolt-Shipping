@@ -1,0 +1,19 @@
+		<% shipment = pending -%>
+    <tr>
+      <td><%=h shipment.reference_number %></td>
+      <td><%=h shipment.bol_pro_number %></td>
+      <td><%=h shipment.carrier_id %> Need to make carrier model</td>
+      <td><%=h shipment.ship_date %></td>
+
+			<td>needs attch</td>
+			<td>needs attch</td>
+
+      <td><%=h shipment.picked_up_at %></td>
+
+      <td><%=h shipment.stock_transfer_wo_number %></td>
+			<td><%= check_box "delivered", shipment.id%>
+
+      <td><%= link_to "Show", shipment %></td>
+      <td><%= link_to "Edit", edit_shipment_path(shipment) %></td>
+      <td><%= link_to "Destroy", shipment, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
