@@ -1,0 +1,25 @@
+one:
+  contact_type_id: 1
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  street_1: MyString
+  street_2: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  phone: MyString
+  fax: MyString
+
+two:
+  contact_type_id: 1
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  street_1: MyString
+  street_2: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  phone: MyString
+  fax: MyString

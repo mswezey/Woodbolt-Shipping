@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :contacts
+
+  map.resources :shipments
+
   map.resources :password_resets
 
   map.signup 'signup', :controller => 'users', :action => 'new'

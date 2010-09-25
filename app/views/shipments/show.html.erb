@@ -1,0 +1,60 @@
+<% title "Shipment" %>
+
+<p>
+  <strong>Submitter:</strong>
+  <%=h @shipment.submitter_id %>
+</p>
+<p>
+  <strong>Assigned To:</strong>
+  <%=h @shipment.assigned_to_id %>
+</p>
+<p>
+  <strong>Bill To:</strong>
+  <%=h @shipment.bill_to_id %>
+</p>
+<p>
+  <strong>Reference Number:</strong>
+  <%=h @shipment.reference_number %>
+</p>
+<p>
+  <strong>Classification:</strong>
+  <%=h @shipment.classification_id %>
+</p>
+<p>
+  <strong>Bol Pro Number:</strong>
+  <%=h @shipment.bol_pro_number %>
+</p>
+<p>
+  <strong>Carrier:</strong>
+  <%=h @shipment.carrier_id %>
+</p>
+<p>
+  <strong>Carrier Invoice Number:</strong>
+  <%=h @shipment.carrier_invoice_number %>
+</p>
+<p>
+  <strong>Cost:</strong>
+  <%=h @shipment.cost %>
+</p>
+<p>
+  <strong>Ship Date:</strong>
+  <%=h @shipment.ship_date %>
+</p>
+<p>
+  <strong>Picked Up At:</strong>
+  <%=h @shipment.picked_up_at %>
+</p>
+<p>
+  <strong>Stock Transfer Wo Number:</strong>
+  <%=h @shipment.stock_transfer_wo_number %>
+</p>
+<p>
+  <strong>Debit Memo Number:</strong>
+  <%=h @shipment.debit_memo_number %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_shipment_path(@shipment) %> |
+  <%= link_to "Destroy", @shipment, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", shipments_path %>
+</p>

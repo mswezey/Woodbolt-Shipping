@@ -9,7 +9,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100924192033) do
+ActiveRecord::Schema.define(:version => 20100924203408) do
+
+  create_table "contacts", :force => true do |t|
+    t.integer  "contact_type_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "street_1"
+    t.string   "street_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "fax"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pictures", :force => true do |t|
     t.integer  "owner_id",          :null => false
@@ -23,6 +39,34 @@ ActiveRecord::Schema.define(:version => 20100924192033) do
   end
 
   add_index "pictures", ["owner_id", "owner_type"], :name => "index_pictures_on_owner_id_and_owner_type"
+
+  create_table "shipments", :force => true do |t|
+    t.integer  "submitter_id"
+    t.integer  "assigned_to_id"
+    t.integer  "bill_to_id"
+    t.string   "reference_number"
+    t.integer  "classification_id"
+    t.string   "bol_pro_number"
+    t.integer  "carrier_id"
+    t.string   "carrier_invoice_number"
+    t.float    "cost"
+    t.date     "ship_date"
+    t.datetime "picked_up_at"
+    t.string   "stock_transfer_wo_number"
+    t.string   "debit_memo_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "comments"
+    t.integer  "invoiced_by_id"
+    t.integer  "scheduled_by_id"
+    t.date     "scheduled_pickup"
+    t.integer  "pallet_qty"
+    t.string   "pallet_dimentions"
+    t.string   "weight"
+    t.date     "bol_date"
+    t.integer  "shipper_id"
+    t.integer  "cosignee_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

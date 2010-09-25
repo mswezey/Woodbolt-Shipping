@@ -1,0 +1,188 @@
+<style>
+.col-left, .col-right {
+	float:left;
+	width:400px;
+}
+</style>
+<% form_for @shipment do |f| %>
+  <%= f.error_messages %>
+<div class="col-left">
+	<p>
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments, :rows => 10 %>
+  </p>
+</div>
+
+<div class="col-left">
+	<p>
+    <%= f.label :submitter_id, "Submitter" %><br />
+    <%= current_user.name %>
+  </p>
+  <p>
+    <%= f.label :assigned_to_id, "Assigned To" %><br />
+    <%= f.select :assigned_to_id, User.all.collect {|u| [u.name, u.id]} %>
+  </p>	
+</div>
+
+<br clear="all" />
+
+<div class="col-left">
+	<p>
+    <%= f.label :bol_date, "Bill of Lading Date" %><br />
+    <%= f.date_select :bol_date %>
+  </p>
+  <p>
+    <%= f.label :carrier_id %><br />
+    <%= f.text_field :carrier_id %>
+  </p>
+  <p>
+    <%= f.label :invoiced_by, "Assigned To" %><br />
+    <%= f.select :invoiced_by, User.all.collect {|u| [u.name, u.id]} %>
+  </p>
+  <p>
+    <%= f.label :bol_pro_number %><br />
+    <%= f.text_field :bol_pro_number %>
+  </p>
+</div>
+
+<div class="col-right">
+	<p>
+    <%= f.label :scheduled_pickup %><br />
+    <%= f.date_select :scheduled_pickup %>
+  </p>
+  <p>
+    <%= f.label :scheduled_by_id %><br />
+    <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]} %>
+  </p>
+  <p>
+    <%= f.label :bill_to_id %><br />
+    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.name, u.id]} %>
+  </p>
+  <p>
+    <%= f.label :ship_date, "Deliver By ?" %><br />
+    <%= f.date_select :ship_date %>
+  </p>
+  <p>
+    <%= f.label :picked_up_at %><br />
+    <%= f.datetime_select :picked_up_at %>
+  </p>
+</div>
+
+<br clear="all" />
+
+<div class="col-left">
+	<p>
+	  <%= f.label :shipper_id %> <a class='new-contact' href='#' rel='shipper'>Add New</a><br />
+	  <%= f.select :shipper_id, Contact.shippers.collect {|u| [u.name, u.id]} %>
+	</p>
+</div>
+
+<div class="col-right">
+	<p>
+	  <%= f.label :cosignee_id %> <a class='new-contact' href='#' rel='cosignee'>Add New</a><br />
+	  <%= f.select :cosignee_id, Contact.cosignees.collect {|u| [u.name, u.id]} %>
+	</p>
+</div>
+
+<br clear="all" />
+
+<div class="col-left">
+  <p>
+    <%= f.label :reference_number %><br />
+    <%= f.text_field :reference_number %>
+  </p>
+  <p>
+    <%= f.label :pallet_qty, "Pallets" %><br />
+    <%= f.text_field :pallet_qty %>
+  </p>
+  <p>
+    <%= f.label :pallet_dimentions %><br />
+    <%= f.text_field :pallet_dimentions %>
+  </p>
+  <p>
+    <%= f.label :weight %><br />
+    <%= f.text_field :weight %>
+  </p>
+</div>
+
+<div class="col-right">
+  <p>
+    <%= f.label :carrier_invoice_number %><br />
+    <%= f.text_field :carrier_invoice_number %>
+  </p>
+  <p>
+    <%= f.label :classification_id %><br />
+    <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
+  </p>
+</div>
+
+<br clear="all" />
+
+  <p><%= f.submit "Submit" %></p>
+
+<% end %>
+
+<div id="new-contact">
+	<% form_for :contact, :url => contacts_path, :html => {:id => "new-contact-form"} do |f| %>
+	  <%= f.error_messages %>
+	  <p>
+	    <%= f.label :contact_type_id %><br />
+	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID %>
+	  </p>
+	  <p>
+	    <%= f.label :first_name %><br />
+	    <%= f.text_field :first_name %>
+	  </p>
+	  <p>
+	    <%= f.label :last_name %><br />
+	    <%= f.text_field :last_name %>
+	  </p>
+	  <p>
+	    <%= f.label :email %><br />
+	    <%= f.text_field :email %>
+	  </p>
+	  <p>
+	    <%= f.label :street_1 %><br />
+	    <%= f.text_field :street_1 %>
+	  </p>
+	  <p>
+	    <%= f.label :street_2 %><br />
+	    <%= f.text_field :street_2 %>
+	  </p>
+	  <p>
+	    <%= f.label :city %><br />
+	    <%= f.text_field :city %>
+	  </p>
+	  <p>
+	    <%= f.label :state %><br />
+	    <%= f.text_field :state %>
+	  </p>
+	  <p>
+	    <%= f.label :zip %><br />
+	    <%= f.text_field :zip %>
+	  </p>
+	  <p>
+	    <%= f.label :phone %><br />
+	    <%= f.text_field :phone %>
+	  </p>
+	  <p>
+	    <%= f.label :fax %><br />
+	    <%= f.text_field :fax %>
+	  </p>
+	  <p><%= f.submit "Submit" %></p>
+	<% end %>
+</div>
+
+<script>
+$(function(){
+	$("#new-contact").dialog({ autoOpen: false });
+	$(".new-contact").click(function(){
+		$("#new-contact").dialog('open');
+		$("#contact_contact_type_id").val( $(this).attr("rel") == "shipper" ? 1 : 2 );
+	});
+	$("#new-contact-form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;
+	});
+});
+</script>

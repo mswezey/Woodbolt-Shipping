@@ -1,0 +1,29 @@
+one:
+  submitter_id: 1
+  assigned_to_id: 1
+  bill_to_id: 1
+  reference_number: MyString
+  classification_id: 1
+  bol_pro_number: MyString
+  carrier_id: 1
+  carrier_invoice_number: MyString
+  cost: 1.5
+  ship_date: 2010-09-24
+  picked_up_at: 2010-09-24 14:33:45
+  stock_transfer_wo_number: MyString
+  debit_memo_number: MyString
+
+two:
+  submitter_id: 1
+  assigned_to_id: 1
+  bill_to_id: 1
+  reference_number: MyString
+  classification_id: 1
+  bol_pro_number: MyString
+  carrier_id: 1
+  carrier_invoice_number: MyString
+  cost: 1.5
+  ship_date: 2010-09-24
+  picked_up_at: 2010-09-24 14:33:45
+  stock_transfer_wo_number: MyString
+  debit_memo_number: MyString
