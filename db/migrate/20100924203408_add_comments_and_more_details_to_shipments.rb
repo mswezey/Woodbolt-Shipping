@@ -9,11 +9,11 @@ class AddCommentsAndMoreDetailsToShipments < ActiveRecord::Migration
     add_column :shipments, :weight, :string
     add_column :shipments, :bol_date, :date
     add_column :shipments, :shipper_id, :integer
-    add_column :shipments, :cosignee_id, :integer
+    add_column :shipments, :consignee_id, :integer
   end
 
   def self.down
-    remove_column :shipments, :cosignee_id
+    remove_column :shipments, :consignee_id
     remove_column :shipments, :shipper_id
     remove_column :shipments, :bol_date
     remove_column :shipments, :weight

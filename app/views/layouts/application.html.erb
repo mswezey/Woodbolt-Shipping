@@ -19,6 +19,11 @@
         <% end %>
       </div>
 	    <br clear="all" />
+
+    	<div id="nav">
+				<%= link_to "Home", root_path %> | <%= link_to "Create", new_shipment_path %> | <%= link_to "Pending", shipments_path %> | <%= link_to "Delivered", shipments_path %> | <%= link_to "Invoiced", shipments_path %>
+			</div>
+			
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
@@ -26,7 +31,7 @@
       <%- if show_title? -%>
         <h1><%=h yield(:title) %></h1>
       <%- end -%>
-      
+
       <%= yield %>
     </div>
   </body>

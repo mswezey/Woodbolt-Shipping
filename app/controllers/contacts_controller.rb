@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
           redirect_to @contact
         }
         format.js {
-          render :js => "$('#shipment_#{@contact.contact_type == "Shipper" ? "shipper" : "cosignee"}_id').append($('<option></option>').attr('value','#{@contact.id}').text('#{@contact.name}'));$('#shipment_#{@contact.contact_type == "Shipper" ? "shipper" : "cosignee"}_id').val(#{@contact.id});$('#new-contact').dialog('close');$('#new-contact input').not('input:submit').val('');"
+          render :js => "$('#shipment_#{@contact.contact_type == "Shipper" ? "shipper" : "consignee"}_id').append($('<option></option>').attr('value','#{@contact.id}').text('#{@contact.name}'));$('#shipment_#{@contact.contact_type == "Shipper" ? "shipper" : "consignee"}_id').val(#{@contact.id});$('#new-contact').dialog('close');$('#new-contact input').not('input:submit').val('');"
         }
       end
     else

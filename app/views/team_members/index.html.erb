@@ -1,0 +1,22 @@
+<% title "Team Members" %>
+
+<div id="flash_status" style="display:none;text-align:center;"><span id="name"></span> Position Updated</div>
+<!-- <div id="map" style="width:100%;height:300px;"></div> -->
+<table width="100%">
+	<tr style="text-align:left;">
+		<th>Name</th>
+		<th>Email</th>
+		<th>Last Seen</th>
+		<th>Roles</th>
+		<th>Actions</th>
+	</tr>
+	<% @users.each do |user| %>
+	<tr>
+	  <td><%= link_to h(user.name), team_member_path(user) %></td>
+	  <td><%= link_to "send email", "mailto:#{user.email}" %></td>	
+		<td><%= link_to "Edit", edit_team_member_path(user) %> <%= link_to "Delete", team_member_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
+	</tr>
+	<% end %>
+</table>
+
+<p><%= link_to "New Team Member", new_team_member_path %></p>

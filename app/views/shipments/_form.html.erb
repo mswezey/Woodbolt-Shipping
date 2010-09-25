@@ -40,8 +40,8 @@
     <%= f.text_field :carrier_id %>
   </p>
   <p>
-    <%= f.label :invoiced_by, "Assigned To" %><br />
-    <%= f.select :invoiced_by, User.all.collect {|u| [u.name, u.id]} %>
+    <%= f.label :invoiced_by %><br />
+    <%= f.select :invoiced_by, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
     <%= f.label :bol_pro_number %><br />
@@ -56,11 +56,11 @@
   </p>
   <p>
     <%= f.label :scheduled_by_id %><br />
-    <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]} %>
+    <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
     <%= f.label :bill_to_id %><br />
-    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.name, u.id]} %>
+    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
     <%= f.label :ship_date, "Deliver By ?" %><br />
@@ -77,14 +77,14 @@
 <div class="col-left">
 	<p>
 	  <%= f.label :shipper_id %> <a class='new-contact' href='#' rel='shipper'>Add New</a><br />
-	  <%= f.select :shipper_id, Contact.shippers.collect {|u| [u.name, u.id]} %>
+	  <%= f.select :shipper_id, Contact.shippers.collect {|u| [u.name, u.id]}, :include_blank => true %>
 	</p>
 </div>
 
 <div class="col-right">
 	<p>
-	  <%= f.label :cosignee_id %> <a class='new-contact' href='#' rel='cosignee'>Add New</a><br />
-	  <%= f.select :cosignee_id, Contact.cosignees.collect {|u| [u.name, u.id]} %>
+	  <%= f.label :consignee_id %> <a class='new-contact' href='#' rel='consignee'>Add New</a><br />
+	  <%= f.select :consignee_id, Contact.consignees.collect {|u| [u.name, u.id]}, :include_blank => true %>
 	</p>
 </div>
 
@@ -188,6 +188,7 @@ $(function(){
 	$(".new-contact").click(function(){
 		$("#new-contact").dialog('open');
 		$("#contact_contact_type_id").val( $(this).attr("rel") == "shipper" ? 1 : 2 );
+		return false;
 	});
 	$("#new-contact-form").submit(function(){
 		$.post($(this).attr('action'), $(this).serialize(), null, "script");

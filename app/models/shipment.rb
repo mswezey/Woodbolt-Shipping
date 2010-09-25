@@ -1,12 +1,12 @@
 class Shipment < ActiveRecord::Base
-  attr_accessible :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :ship_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by_id, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date
-  has_one :submitter, :class_name => "User"
-  has_one :scheduled_by, :class_name => "User"
-  has_one :invoiced_by, :class_name => "User"
-  has_one :assigned_to, :class_name => "User"
-  has_one :shipper, :class_name => "User"
-  has_one :cosignee, :class_name => "User"
-  has_one :carrier, :class_name => "Contact"
+  attr_accessible :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :ship_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by_id, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id
+  belongs_to :submitter, :class_name => "User"
+  belongs_to :scheduled_by, :class_name => "User"
+  belongs_to :invoiced_by, :class_name => "User"
+  belongs_to :assigned_to, :class_name => "User"
+  belongs_to :shipper, :class_name => "Contact"
+  belongs_to :consignee, :class_name => "Contact"
+  belongs_to :carrier, :class_name => "Contact"
 
   CLASSIFICATION_TYPE_ID = {
     "FI" => 1,

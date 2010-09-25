@@ -5,7 +5,7 @@ class Contact < ActiveRecord::Base
   validates_length_of :last_name, :minimum => 2
   
   named_scope :shippers, :conditions => ["contact_type_id = 1"]
-  named_scope :cosignees, :conditions => ["contact_type_id = 2"]
+  named_scope :consignees, :conditions => ["contact_type_id = 2"]
   
   CONTACT_TYPE_ID = {
     "Shipper" => 1,

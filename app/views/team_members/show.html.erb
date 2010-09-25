@@ -1,0 +1,9 @@
+<% title @user.name %>
+
+<%= @user.email %>
+
+<p>
+  <%= link_to "Edit", edit_team_member_path(@user) %> |
+  <%= link_to "Destroy", team_member_path(@user), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", team_members_path %>
+</p>

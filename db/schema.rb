@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20100924203408) do
     t.string   "weight"
     t.date     "bol_date"
     t.integer  "shipper_id"
-    t.integer  "cosignee_id"
+    t.integer  "consignee_id"
   end
 
   create_table "users", :force => true do |t|
