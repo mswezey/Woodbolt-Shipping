@@ -60,7 +60,7 @@
 <div class="col-right">
 	<p>
     <%= f.label :scheduled_pickup %><br />
-    <%= f.date_select :scheduled_pickup, :prompt => true %>
+    <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year %>
   </p>
   <p>
     <%= f.label :scheduled_by_id %><br />
@@ -72,11 +72,11 @@
   </p>
   <p>
     <%= f.label :ship_date, "Deliver By ?" %><br />
-    <%= f.date_select :ship_date, :prompt => true %>
+    <%= f.date_select :ship_date, :prompt => true, :start_year => Date.today.year %>
   </p>
   <p>
     <%= f.label :picked_up_at %><br />
-    <%= f.datetime_select :picked_up_at, :prompt => true %>
+    <%= f.datetime_select :picked_up_at, :prompt => true, :start_year => Date.today.year %>
   </p>
 </div>
 

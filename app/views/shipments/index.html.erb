@@ -61,3 +61,38 @@
     </tr>
   <% end %>
 </table> -->
+<script>
+$(function(){
+	$('.edit').editable(function(value, settings) {
+			$.ajax({
+			   type: "PUT",
+			   url: "/shipments/"+ $(this).parent().parent().attr("data-id")+".js",
+			   data: "shipment["+ $(this).attr("name") +"]="+value,
+			   success: function(msg){
+			   }
+			 });
+			return(value);
+	}, { 
+	   submit  : 'OK',
+	});
+	$('.deliver').change(function(){
+		
+		if($(this).is(":checked")){
+			var checkbox = $(this);
+			$.ajax({
+			   type: "GET",
+			   url: "/shipments/"+ $(this).parent().parent().attr("data-id")+"/deliver.js",
+			   success: function(){
+					checkbox.parent().parent().slideUp("slow");
+					alert("Shipment status successfully changed to Delivered")
+			   },
+					error: function(xhr){
+						alert(xhr.responseText);
+						checkbox.attr('checked', false);
+					}
+			 });
+		}
+		
+	});
+});
+</script>

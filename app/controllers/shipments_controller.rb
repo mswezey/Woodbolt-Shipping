@@ -5,7 +5,11 @@ class ShipmentsController < ApplicationController
       @user = User.find(params[:team_member_id])
       @shipments = params[:status] ? @user.assigned_shipments.with_state(params[:status].to_sym) : @user.assigned_shipments.all
     else
-      @shipments = params[:status] ? Shipment.with_state(params[:status].to_sym) : Shipment.all
+      if params[:status] 
+        @shipments = Shipment.with_state(params[:status].to_sym) 
+      else
+        redirect_to shipments_path(:status => :pending)
+      end
     end
   end
   
@@ -35,10 +39,41 @@ class ShipmentsController < ApplicationController
   def update
     @shipment = Shipment.find(params[:id])
     if @shipment.update_attributes(params[:shipment])
-      flash[:notice] = "Successfully updated shipment."
-      redirect_to @shipment
+      respond_to do |format|
+         format.html {
+           flash[:notice] = "Successfully updated shipment."
+           redirect_to @shipment
+         }
+         format.js {
+           render :nothing => true
+         }
+      end
     else
       render :action => 'edit'
+    end
+  end
+  
+  def deliver
+    @shipment = Shipment.find(params[:id])
+    if @shipment.deliver
+      respond_to do |format|
+         format.html {
+           flash[:notice] = "Successfully updated shipment."
+           redirect_to @shipment
+         }
+         format.js {
+           render :nothing => true
+         }
+      end
+    else
+      respond_to do |format|
+         format.html {
+           render :action => 'edit'
+         }
+         format.js {
+           render :json => "#{@shipment.errors.map {|e| e.join(' ').to_s.humanize }.join(' ')}", :status => 400
+         }
+      end
     end
   end
   

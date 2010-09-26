@@ -1,5 +1,9 @@
 class Shipment < ActiveRecord::Base
   attr_accessible :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :ship_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by_id, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list
+
+  validates_presence_of :reference_number
+  validates_presence_of :stock_transfer_wo_number, :if => lambda { |o| o.state == "delivered" }
+
   belongs_to :submitter, :class_name => "User"
   belongs_to :scheduled_by, :class_name => "User"
   belongs_to :bill_to, :class_name => "Contact"
