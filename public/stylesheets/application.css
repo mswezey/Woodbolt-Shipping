@@ -83,3 +83,8 @@ a {
   font-size: 12px;
   list-style: disc;
 }
+
+.edit {
+	background:#eee;
+	padding:3px;
+}

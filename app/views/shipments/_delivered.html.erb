@@ -3,9 +3,9 @@
     <td><%=h shipment.reference_number %></td>
     <td><%=h shipment.bol_pro_number %></td>
     <td><%=h shipment.carrier_id %> Need to make carrier model</td>
-    <td><span class='edit' name='carrier_invoice_number'><%=h shipment.carrier_invoice_number %></span></td>
+    <td><div class='edit' name='carrier_invoice_number'><%=h shipment.carrier_invoice_number %></div></td>
 
-    <td><span class='edit' name='cost'><%=h number_to_currency shipment.cost %></span></td>
+    <td><div class='edit' name='cost'><%=h number_to_currency shipment.cost %></div></td>
     <td><%=h shipment.classification_type %></td>
 
     <td>credits?</td>
