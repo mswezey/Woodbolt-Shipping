@@ -5,7 +5,7 @@
 	    <td><%=h shipment.carrier_id %> Need to make carrier model</td>
 	    <td><%=h shipment.carrier_invoice_number %></td>
 
-	    <td><%=h shipment.cost %></td>
+	    <td><%=h number_to_currency shipment.cost %></td>
 	    <td><%=h shipment.classification_type %></td>
 
 	    <td>credits?</td>

@@ -3,6 +3,8 @@ class Shipment < ActiveRecord::Base
 
   validates_presence_of :reference_number
   validates_presence_of :stock_transfer_wo_number, :if => lambda { |o| o.state == "delivered" }
+  
+  validates_presence_of :carrier_invoice_number, :cost, :if => lambda { |o| o.state == "invoiced" }
 
   belongs_to :submitter, :class_name => "User"
   belongs_to :scheduled_by, :class_name => "User"
@@ -42,7 +44,11 @@ class Shipment < ActiveRecord::Base
   state_machine :state, :initial => :pending do
 
     event :deliver do
-      transition :pending => :delivered, :if => :ready_for_deliver?
+      transition :pending => :delivered
+    end
+    
+    event :invoice do
+      transition :delivered => :invoiced
     end
 
     state :pending, :delivered, :invoiced do
@@ -51,11 +57,8 @@ class Shipment < ActiveRecord::Base
   end
   
   def notify_assignee
-
+    #send email to assignee
   end
   
-  def ready_for_deliver?
-    true
-  end
   
 end

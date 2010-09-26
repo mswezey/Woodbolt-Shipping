@@ -76,15 +76,32 @@ $(function(){
 	   submit  : 'OK',
 	});
 	$('.deliver').change(function(){
-		
 		if($(this).is(":checked")){
 			var checkbox = $(this);
 			$.ajax({
 			   type: "GET",
 			   url: "/shipments/"+ $(this).parent().parent().attr("data-id")+"/deliver.js",
 			   success: function(){
-					checkbox.parent().parent().slideUp("slow");
+					checkbox.parent().parent().hide();
 					alert("Shipment status successfully changed to Delivered")
+			   },
+					error: function(xhr){
+						alert(xhr.responseText);
+						checkbox.attr('checked', false);
+					}
+			 });
+		}
+	});
+	$('.invoice').change(function(){
+		
+		if($(this).is(":checked")){
+			var checkbox = $(this);
+			$.ajax({
+			   type: "GET",
+			   url: "/shipments/"+ $(this).parent().parent().attr("data-id")+"/invoice.js",
+			   success: function(){
+					checkbox.parent().parent().hide();
+					alert("Shipment status successfully changed to Invoiced");
 			   },
 					error: function(xhr){
 						alert(xhr.responseText);

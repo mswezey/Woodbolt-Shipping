@@ -77,6 +77,30 @@ class ShipmentsController < ApplicationController
     end
   end
   
+  def invoice
+    @shipment = Shipment.find(params[:id])
+    if @shipment.invoice
+      respond_to do |format|
+         format.html {
+           flash[:notice] = "Successfully updated shipment."
+           redirect_to @shipment
+         }
+         format.js {
+           render :nothing => true
+         }
+      end
+    else
+      respond_to do |format|
+         format.html {
+           render :action => 'edit'
+         }
+         format.js {
+           render :json => "#{@shipment.errors.map {|e| e.join(' ').to_s.humanize }.join(' ')}", :status => 400
+         }
+      end
+    end
+  end
+  
   def destroy
     @shipment = Shipment.find(params[:id])
     @shipment.destroy

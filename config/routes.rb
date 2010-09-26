@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :contacts
 
-  map.resources :shipments, :member => {:deliver => [:get]}
+  map.resources :shipments, :member => {:deliver => :get, :invoice => :get}
 
   map.resources :password_resets
 
