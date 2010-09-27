@@ -67,7 +67,7 @@ $(function(){
 			$.ajax({
 			   type: "PUT",
 			   url: "/shipments/"+ $(this).parent().parent().attr("data-id")+".js",
-			   data: "shipment["+ $(this).attr("name") +"]="+value,
+			   data: "shipment["+ $(this).attr("name") +"]="+value.replace(/\$/g,''),
 			   success: function(msg){
 			   }
 			 });
