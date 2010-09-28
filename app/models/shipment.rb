@@ -3,9 +3,11 @@ class Shipment < ActiveRecord::Base
 
   validates_presence_of :reference_number, :deliver_by_date
 
+  validates_attachment_presence :packing_list, :if => lambda { |o| o.state == "delivered" }
+  validates_attachment_presence :bol, :if => lambda { |o| o.state == "delivered" }
   validates_presence_of :picked_up_at, :if => lambda { |o| o.state == "delivered" }
   validates_presence_of :stock_transfer_wo_number, :if => lambda { |o| o.state == "delivered" }
-  
+
   validates_presence_of :carrier_invoice_number, :cost, :if => lambda { |o| o.state == "invoiced" }
 
   belongs_to :submitter, :class_name => "User"
