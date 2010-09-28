@@ -16,7 +16,7 @@
   </tr>
   <% for contact in @contacts %>
     <tr>
-      <td><%=h contact.contact_type %></td>
+      <td><%=h contact.contact_type.try(:humanize) %></td>
       <td><%=h contact.first_name %></td>
       <td><%=h contact.last_name %></td>
       <td><%=h contact.email %></td>

@@ -44,8 +44,8 @@
     <%= f.file_field :bol %>
   </p>
   <p>
-    <%= f.label :carrier_id %><br />
-    <%= f.text_field :carrier_id %>
+		<%= f.label :carrier_id %> <a class='new-carrier' href='#' rel='shipper'>Add New</a><br />
+	  <%= f.select :carrier_id, Carrier.all.collect {|u| [u.name, u.id]}, :prompt => 'Choose Carrier' %>
   </p>
   <p>
     <%= f.label :invoiced_by_id %><br />
@@ -67,7 +67,7 @@
     <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
-    <%= f.label :bill_to_id %><br />
+    <%= f.label :bill_to_id %> <a class='new-contact' href='#'>Add New</a><br />
     <%= f.select :bill_to_id, Contact.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
@@ -138,12 +138,23 @@
 
 <% end %>
 
+<div id="new-carrier">
+	<% form_for :carrier, :url => carriers_path, :html => {:id => "new-carrier-form"} do |f| %>
+	  <%= f.error_messages %>
+	  <p>
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name %>
+	  </p>
+	  <p><%= f.submit "Submit" %></p>
+	<% end %>
+</div>
+
 <div id="new-contact">
 	<% form_for :contact, :url => contacts_path, :html => {:id => "new-contact-form"} do |f| %>
 	  <%= f.error_messages %>
 	  <p>
 	    <%= f.label :contact_type_id %><br />
-	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID %>
+	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID.map {|c| [c[0].humanize, c[1]]}.sort, :prompt => 'Select Contact Type' %>
 	  </p>
 	<div class='col-left-small'>
 	  <p>
@@ -196,10 +207,34 @@
 
 <script>
 $(function(){
-	$("#new-contact").dialog({ autoOpen: false, width : '660px' });
+	$("#new-carrier").dialog({ autoOpen: false, width : '300px', title : "New Carrier" });
+	$(".new-carrier").click(function(){
+		$("#new-carrier").dialog('open');
+		return false;
+	});
+	$("#new-carrier-form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;
+	});
+	
+	$("#new-contact").dialog({ autoOpen: false, width : '660px', title : "New Contact" });
 	$(".new-contact").click(function(){
+		switch( $(this).attr("rel") )
+		{
+		case "shipper":
+		 var newContactValue =  1;
+		  break;
+		case "consignee":
+		 var newContactValue =  2;
+		  break;
+		case "third_party":
+		 var newContactValue =  3;
+		  break;
+		default:
+		 var newContactValue =  '';
+		}
+		$("#contact_contact_type_id").val(newContactValue);
 		$("#new-contact").dialog('open');
-		$("#contact_contact_type_id").val( $(this).attr("rel") == "shipper" ? 1 : 2 );
 		return false;
 	});
 	$("#new-contact-form").submit(function(){

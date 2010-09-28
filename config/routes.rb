@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :carriers
+
 
   map.resources :team_members do |team_members|
     team_members.resources :shipments

@@ -1,0 +1,12 @@
+<% title "Carrier" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @carrier.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_carrier_path(@carrier) %> |
+  <%= link_to "Destroy", @carrier, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", carriers_path %>
+</p>

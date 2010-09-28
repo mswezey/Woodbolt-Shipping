@@ -13,7 +13,7 @@ class Shipment < ActiveRecord::Base
   belongs_to :assigned_to, :class_name => "User"
   belongs_to :shipper, :class_name => "Contact"
   belongs_to :consignee, :class_name => "Contact"
-  belongs_to :carrier, :class_name => "Contact"
+  belongs_to :carrier
   
   has_attached_file :bol,
                     :storage => :s3,

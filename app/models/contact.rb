@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
   attr_accessible :contact_type_id, :first_name, :last_name, :email, :street_1, :street_2, :city, :state, :zip, :phone, :fax
-  
+
+  validates_presence_of :contact_type_id
   validates_length_of :first_name, :minimum => 2
   validates_length_of :last_name, :minimum => 2
   
@@ -8,8 +9,9 @@ class Contact < ActiveRecord::Base
   named_scope :consignees, :conditions => ["contact_type_id = 2"]
   
   CONTACT_TYPE_ID = {
-    "Shipper" => 1,
-    "Consignee" => 2
+    "shipper" => 1,
+    "consignee" => 2,
+    "third_party" => 3
   }
   CONTACT_TYPE_NAME = CONTACT_TYPE_ID.invert
   
