@@ -5,8 +5,8 @@
       <td><%=h shipment.carrier_id %> Need to make carrier model</td>
       <td><%=h shipment.deliver_by_date %></td>
 
-			<td>needs attch</td>
-			<td>needs attch</td>
+			<td><%= shipment.bol.exists? ? link_to("BOL", shipment.bol.url) : "none" %></td>
+			<td><%= shipment.packing_list.exists? ? link_to("Packing List", shipment.packing_list.url) : "none" %></td>
 
       <td><%=h shipment.picked_up_at %></td>
 

@@ -8,7 +8,7 @@
 	width:300px;
 }
 </style>
-<% form_for @shipment do |f| %>
+<% form_for @shipment, :html => {:multipart => true} do |f| %>
   <%= f.error_messages %>
 <div class="col-left">
 	<p>

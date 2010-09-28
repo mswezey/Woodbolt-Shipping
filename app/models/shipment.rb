@@ -20,14 +20,14 @@ class Shipment < ActiveRecord::Base
   has_attached_file :bol,
                     :storage => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-                    :url => "/shipments/:id/bol/:style.:extension",
-                    :path => "/shipments/:id/bol/:style.:extension"
+                    :url => "/shipments/:id/bol/:id-:style.:extension",
+                    :path => "/shipments/:id/bol/:id-:style.:extension"
 
   has_attached_file :packing_list,
                     :storage => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-                    :url => "/shipments/:id/packing_list/:style.:extension",
-                    :path => "/shipments/:id/packing_list/:style.:extension"
+                    :url => "/shipments/:id/packing_list/:id-:style.:extension",
+                    :path => "/shipments/:id/packing_list/:id-:style.:extension"
   
   after_create :notify_assignee
 
