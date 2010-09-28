@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100928013119) do
+ActiveRecord::Schema.define(:version => 20100928014331) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20100928013119) do
     t.integer  "carrier_id"
     t.string   "carrier_invoice_number"
     t.float    "cost"
-    t.date     "ship_date"
+    t.date     "deliver_by_date"
     t.datetime "picked_up_at"
     t.string   "stock_transfer_wo_number"
     t.string   "debit_memo_number"

@@ -71,8 +71,8 @@
     <%= f.select :bill_to_id, Contact.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
   </p>
   <p>
-    <%= f.label :ship_date, "Deliver By ?" %><br />
-    <%= f.date_select :ship_date, :prompt => true, :start_year => Date.today.year %>
+    <%= f.label :deliver_by_date, "Deliver By" %><br />
+    <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year %>
   </p>
   <p>
     <%= f.label :picked_up_at %><br />
