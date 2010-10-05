@@ -13,6 +13,7 @@ ActiveRecord::Schema.define(:version => 20100928014331) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

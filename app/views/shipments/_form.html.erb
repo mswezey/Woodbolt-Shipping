@@ -49,7 +49,7 @@
   </p>
   <p>
     <%= f.label :invoiced_by_id %><br />
-    <%= f.select :invoiced_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
+    <%= f.text_field :invoiced_by_id %>
   </p>
   <p>
     <%= f.label :bol_pro_number %><br />
@@ -144,6 +144,10 @@
 	  <p>
 	    <%= f.label :name %><br />
 	    <%= f.text_field :name %>
+	  </p>
+	  <p>
+	    <%= f.label :url %><br />
+	    <%= f.text_field :url %>
 	  </p>
 	  <p><%= f.submit "Submit" %></p>
 	<% end %>
