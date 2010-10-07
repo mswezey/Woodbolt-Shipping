@@ -1,5 +1,89 @@
 class ShipmentsController < ApplicationController
   before_filter :require_user
+  protect_from_forgery :except => [:pending_post_data, :delivered_post_data, :invoiced_post_data, :bol_upload]
+  
+  def bol_upload
+    @shipment = Shipment.find(params[:id])
+    if @shipment.update_attributes(:bol => params[:bol_file])
+      render :js => 'saved'
+    else
+      render :js => 'error', :status => 500
+    end
+  end
+
+  def pending
+    @first_shipment = Shipment.find(1)
+    shipments = Shipment.with_state(:pending).find(:all) do
+      if params[:_search] == "true"
+        reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
+        carrier_id =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
+        deliver_by_date  =~ "%#{params[:deliver_by_date]}%" if params[:deliver_by_date].present?
+        picked_up_at     =~ "%#{params[:picked_up_at]}%" if params[:picked_up_at].present?
+        stock_transfer_wo_number      =~ "%#{params[:stock_transfer_wo_number]}%" if params[:stock_transfer_wo_number].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+    respond_to do |format|
+      format.html
+      format.json { 
+        render :json => shipments.to_jqgrid_json([:id, :reference_number, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :delivered_check], 
+                                                         params[:page], params[:rows], shipments.total_entries) }
+    end
+  end
+
+  def pending_post_data
+    if params[:oper] == "del"
+      Shipment.find(params[:id]).destroy
+    else
+      shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], :deliver_by_date => params[:deliver_by_date], 
+                      :picked_up_at => params[:picked_up_at], :stock_transfer_wo_number => params[:stock_transfer_wo_number] }
+      if params[:id] == "_empty"
+        Shipment.create(shipment_params)
+      else
+        Shipment.find(params[:id]).update_attributes(shipment_params)
+      end
+    end
+    render :nothing => true
+  end
+  
+  def delivered
+    shipments = Shipment.with_state(:delivered).find(:all) do
+      if params[:_search] == "true"
+        reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
+        carrier_id  =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
+        carrier_invoice_number     =~ "%#{params[:carrier_invoice_number]}%" if params[:carrier_invoice_number].present?
+        cost      =~ "%#{params[:cost]}%" if params[:cost].present?
+        classification_type      =~ "%#{params[:classification_type]}%" if params[:classification_type].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+    respond_to do |format|
+      format.html
+      format.json { 
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type],
+                                                         params[:page], params[:rows], shipments.total_entries) }
+    end
+  end
+
+  def delivered_post_data
+    if params[:oper] == "del"
+      Shipment.find(params[:id]).destroy
+    else
+      shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], 
+                      :carrier_invoice_number => params[:carrier_invoice_number], :cost => params[:cost], :classification_id => params[:classification_id] }
+      if params[:id] == "_empty"
+        Shipment.create(shipment_params)
+      else
+        Shipment.find(params[:id]).update_attributes(shipment_params)
+      end
+    end
+    render :nothing => true
+  end
+
   def index
     if params[:team_member_id]
       @user = User.find(params[:team_member_id])
@@ -19,6 +103,8 @@ class ShipmentsController < ApplicationController
   
   def new
     @shipment = Shipment.new
+    @packing_slip = @shipment.build_packing_slip
+    @packing_slip.list_items.build
   end
   
   def create

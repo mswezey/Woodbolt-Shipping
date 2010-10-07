@@ -88,3 +88,12 @@ a {
 	background:#eee;
 	padding:3px;
 }
+
+.col-left, .col-right {
+	float:left;
+	width:400px;
+}
+.col-left-small, .col-right-small {
+	float:left;
+	width:300px;
+}

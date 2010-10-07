@@ -1,13 +1,13 @@
 <% title "Woodbolt Shipping" %>
 
 <% if current_user %>
-	<p>Welcome <%= current_user.name %>,</p>
-	<p>There are currently</p>
+	<p>Welcome <%= current_user.name %></p>
+	<!-- <p>There are currently</p>
 	<ul>
 		<li><%= link_to pluralize(current_user.assigned_shipments.with_state(:pending).size, "pending shipment"), team_member_shipments_path(current_user, :status => :pending) %> assigned to you</li>
 		<li><%= link_to pluralize(current_user.assigned_shipments.with_state(:delivered).size, "delivered shipment"), team_member_shipments_path(current_user, :status => :delivered) %> assigned to you</li>
 		<li><%= link_to pluralize(current_user.assigned_shipments.with_state(:invoiced).size, "invoiced shipment"), team_member_shipments_path(current_user, :status => :invoiced) %> assigned to you</li>
-	</ul>
+	</ul> -->
 <% else %>
 	<p>Welcome, please <%= link_to "login", login_path %>.</p>
 <% end %>

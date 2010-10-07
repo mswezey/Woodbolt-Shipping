@@ -1,14 +1,14 @@
 development:
-  bucket: wb-shipping.dev
-  access_key_id: AKIAIITWZB2PBUGGNJNQ
-  secret_access_key: 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
+  bucket: wb-shipping-manifest-development
+  access_key_id: AKIAJCCHONQAJQSYJCPQ
+  secret_access_key: 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
 
 test:
-  bucket: wb-shipping.test
-  access_key_id: AKIAIITWZB2PBUGGNJNQ
-  secret_access_key: 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
+  bucket: wb-shipping-manifest-test
+  access_key_id: AKIAJCCHONQAJQSYJCPQ
+  secret_access_key: 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
 
 production:
-  bucket: wb-shipping
-  access_key_id: AKIAIITWZB2PBUGGNJNQ
-  secret_access_key: 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
+  bucket: wb-shipping-manifest
+  access_key_id: AKIAJCCHONQAJQSYJCPQ
+  secret_access_key: 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

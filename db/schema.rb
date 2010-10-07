@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100928014331) do
+ActiveRecord::Schema.define(:version => 20101006171417) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20100928014331) do
 
   create_table "contacts", :force => true do |t|
     t.integer  "contact_type_id"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "company_name"
+    t.string   "contact_name"
     t.string   "email"
     t.string   "street_1"
     t.string   "street_2"
@@ -30,6 +30,34 @@ ActiveRecord::Schema.define(:version => 20100928014331) do
     t.string   "zip"
     t.string   "phone"
     t.string   "fax"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.string   "uom"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "list_items", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "packing_slip_id"
+    t.string   "qty"
+    t.string   "lot_number"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "packing_slips", :force => true do |t|
+    t.integer  "shipment_id"
+    t.integer  "shipper_id"
+    t.integer  "consignee_id"
+    t.string   "pallets"
+    t.string   "total_weight"
+    t.string   "reference_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,13 +86,13 @@ ActiveRecord::Schema.define(:version => 20100928014331) do
     t.string   "carrier_invoice_number"
     t.float    "cost"
     t.date     "deliver_by_date"
-    t.datetime "picked_up_at"
+    t.string   "picked_up_at"
     t.string   "stock_transfer_wo_number"
     t.string   "debit_memo_number"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "comments"
-    t.integer  "invoiced_by_id"
+    t.string   "invoiced_by"
     t.integer  "scheduled_by_id"
     t.date     "scheduled_pickup"
     t.integer  "pallet_qty"
@@ -78,10 +106,6 @@ ActiveRecord::Schema.define(:version => 20100928014331) do
     t.string   "bol_content_type"
     t.integer  "bol_file_size"
     t.datetime "bol_updated_at"
-    t.string   "packing_list_file_name"
-    t.string   "packing_list_content_type"
-    t.integer  "packing_list_file_size"
-    t.datetime "packing_list_updated_at"
   end
 
   create_table "users", :force => true do |t|

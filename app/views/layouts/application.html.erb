@@ -4,7 +4,7 @@
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
     <%= stylesheet_link_tag 'application', "jquery-ui" %>
-    <%= javascript_include_tag "jquery", "jquery-ui", "jquery.jeditable" %>
+    <%= javascript_include_tag "jquery", "jquery-ui", "jquery.jeditable", "application" %>
     <%= yield(:head) %>
   </head>
   <body>
@@ -21,7 +21,7 @@
 	    <br clear="all" />
 
     	<div id="nav">
-				<%= link_to "Home", root_path %> | <%= link_to "Create", new_shipment_path %> | <%= link_to "Pending", shipments_path(:status => :pending) %> | <%= link_to "Delivered", shipments_path(:status => :delivered) %> | <%= link_to "Invoiced", shipments_path(:status => :invoiced) %>
+				<%= link_to "Home", root_path %> | <%= link_to "Create", new_shipment_path %> | <%= link_to "Pending", pending_shipments_path %> | <%= link_to "Delivered", delivered_shipments_path %> | <%= link_to "Invoiced", invoiced_shipments_path %>
 			</div>
 			
       <%- flash.each do |name, msg| -%>

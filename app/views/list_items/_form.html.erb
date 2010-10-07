@@ -1,0 +1,24 @@
+<% form_for @list_item do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :item_id %><br />
+    <%= f.text_field :item_id %>
+  </p>
+  <p>
+    <%= f.label :packing_slip_id %><br />
+    <%= f.text_field :packing_slip_id %>
+  </p>
+  <p>
+    <%= f.label :qty %><br />
+    <%= f.text_field :qty %>
+  </p>
+  <p>
+    <%= f.label :lot_number %><br />
+    <%= f.text_field :lot_number %>
+  </p>
+  <p>
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

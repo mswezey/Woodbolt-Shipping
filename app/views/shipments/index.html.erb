@@ -5,16 +5,16 @@
 	<br /><br />
 <% end -%>
 
-<table>
+<!-- <table>
   <tr>
-		<%= case params[:status]
+		<%#= case params[:status]
 					when 'pending' then render :partial => 'pending_headers'
 					when 'delivered' then render :partial => 'delivered_headers'
 					when 'invoiced' then render :partial => 'invoiced_headers'
 				end	
 		%>
   </tr>
-	<%= case params[:status]
+	<%#= case params[:status]
 				when 'pending' then render :partial => 'pending', :collection => @shipments
 				when 'delivered' then render :partial => 'delivered', :collection => @shipments
 				when 'invoiced' then render :partial => 'invoiced', :collection => @shipments
@@ -22,45 +22,17 @@
 	%>
 
 
-</table>
-
-<!-- <table>
-  <tr>
-    <th>Submitter</th>
-    <th>Assigned To</th>
-    <th>Bill To</th>
-    <th>Reference Number</th>
-    <th>Classification</th>
-    <th>Bol Pro Number</th>
-    <th>Carrier</th>
-    <th>Carrier Invoice Number</th>
-    <th>Cost</th>
-    <th>Ship Date</th>
-    <th>Picked Up At</th>
-    <th>Stock Transfer Wo Number</th>
-    <th>Debit Memo Number</th>
-  </tr>
-  <% for shipment in @shipments %>
-    <tr>
-      <td><%=h shipment.submitter_id %></td>
-      <td><%=h shipment.assigned_to_id %></td>
-      <td><%=h shipment.bill_to_id %></td>
-      <td><%=h shipment.reference_number %></td>
-      <td><%=h shipment.classification_id %></td>
-      <td><%=h shipment.bol_pro_number %></td>
-      <td><%=h shipment.carrier_id %></td>
-      <td><%=h shipment.carrier_invoice_number %></td>
-      <td><%=h shipment.cost %></td>
-      <td><%=h shipment.deliver_by_date %></td>
-      <td><%=h shipment.picked_up_at %></td>
-      <td><%=h shipment.stock_transfer_wo_number %></td>
-      <td><%=h shipment.debit_memo_number %></td>
-      <td><%= link_to "Show", shipment %></td>
-      <td><%= link_to "Edit", edit_shipment_path(shipment) %></td>
-      <td><%= link_to "Destroy", shipment, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
 </table> -->
+
+
+<%= case params[:status]
+			when 'pending' then render :partial => 'pending_grid'
+			when 'delivered' then render :partial => 'delivered_grid'
+			when 'invoiced' then render :partial => 'invoiced', :collection => @shipments
+		end	
+%>
+
+
 <script>
 $(function(){
 	$('.edit').editable(function(value, settings) {

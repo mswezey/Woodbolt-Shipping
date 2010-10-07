@@ -3,8 +3,8 @@
 <table>
   <tr>
     <th>Contact Type</th>
-    <th>First Name</th>
-    <th>Last Name</th>
+    <th>Company Name</th>
+    <th>Contact Name</th>
     <th>Email</th>
     <th>Street 1</th>
     <th>Street 2</th>
@@ -17,8 +17,8 @@
   <% for contact in @contacts %>
     <tr>
       <td><%=h contact.contact_type.try(:humanize) %></td>
-      <td><%=h contact.first_name %></td>
-      <td><%=h contact.last_name %></td>
+      <td><%=h contact.company_name %></td>
+      <td><%=h contact.contact_name %></td>
       <td><%=h contact.email %></td>
       <td><%=h contact.street_1 %></td>
       <td><%=h contact.street_2 %></td>

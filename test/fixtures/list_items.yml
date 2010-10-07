@@ -1,0 +1,13 @@
+one:
+  item_id: 1
+  packing_slip_id: 1
+  qty: MyString
+  lot_number: MyString
+  comments: MyText
+
+two:
+  item_id: 1
+  packing_slip_id: 1
+  qty: MyString
+  lot_number: MyString
+  comments: MyText

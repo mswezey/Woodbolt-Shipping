@@ -14,7 +14,7 @@
 </p>
 <p>
   <strong>Bill To:</strong>
-  <%=h @shipment.bill_to.try(:name) %>
+  <%=h @shipment.bill_to.try(:company_name) %>
 </p>
 <p>
   <strong>Reference Number:</strong>
@@ -62,7 +62,7 @@
 </p>
 <p>
   <strong>Invoiced By:</strong>
-  <%=h @shipment.invoiced_by.try(:name) %>
+  <%=h @shipment.invoiced_by %>
 </p>
 <p>
   <strong>Scheduled By:</strong>
@@ -89,20 +89,32 @@
   <%=h @shipment.bol_date %>
 </p>
 <p>
-  <strong>Shipper:</strong>
-  <%=h @shipment.shipper.try(:name) %>
-</p>
-<p>
-  <strong>Consignee:</strong>
-  <%=h @shipment.consignee.try(:name) %>
-</p>
-<p>
   <strong>BOL:</strong>
   <%= @shipment.bol.exists? ? link_to("download", @shipment.bol.url) : "none" %>
 </p>
 <p>
-  <strong>Packing List:</strong>
-  <%= @shipment.packing_list.exists? ? link_to("download", @shipment.packing_list.url) : "none" %>
+  <h3>Packing List:</h3>
+	<p>
+	  <strong>Shipper:</strong>
+	  <%=h @shipment.packing_slip.shipper.company_name %>
+	</p>
+	<p>
+	  <strong>Consignee:</strong>
+	  <%=h @shipment.packing_slip.consignee.company_name %>
+	</p>
+	<p>
+	  <strong>Pallets:</strong>
+	  <%=h @shipment.packing_slip.pallets %>
+	</p>
+	<p>
+	  <strong>Total Weight:</strong>
+	  <%=h @shipment.packing_slip.total_weight %>
+	</p>
+
+	<h3>Items</h3>
+	<% @shipment.packing_slip.list_items.each do |li| %>
+		<%= li.item.name %> <%= "#{pluralize li.qty, li.item.uom}" %> <%= li.lot_number %> <%= li.comments %><br />
+	<% end %>
 </p>
 
 <p>

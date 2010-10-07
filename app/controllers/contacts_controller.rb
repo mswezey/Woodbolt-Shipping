@@ -22,9 +22,9 @@ class ContactsController < ApplicationController
         format.js {
           contact_type = @contact.contact_type
           if %w[shipper consignee].include?(contact_type)
-            render :js => "$('#shipment_#{contact_type == "shipper" ? "shipper" : "consignee"}_id').append($('<option></option>').attr('value','#{@contact.id}').text('#{@contact.name}'));$('#shipment_#{contact_type == "shipper" ? "shipper" : "consignee"}_id').val(#{@contact.id});$('#new-contact').dialog('close');$('#new-contact input').not('input:submit').val('');"
+            render :js => "$('#shipment_packing_slip_attributes_#{contact_type == "shipper" ? "shipper" : "consignee"}_id').append($('<option></option>').attr('value','#{@contact.id}').text('#{@contact.company_name}'));$('#shipment_packing_slip_attributes_#{contact_type == "shipper" ? "shipper" : "consignee"}_id').val(#{@contact.id});$('#new-contact').dialog('close');$('#new-contact input').not('input:submit').val('');"
           else
-            render :js => "$('#shipment_bill_to_id').append($('<option></option>').attr('value','#{@contact.id}').text('#{@contact.name}'));$('#new-contact').dialog('close');$('#new-contact input').not('input:submit').val('');"
+            render :js => "$('#shipment_bill_to_id').append($('<option></option>').attr('value','#{@contact.id}').text('#{@contact.company_name}'));$('#new-contact').dialog('close');$('#new-contact input').not('input:submit').val('');"
           end
         }
       end

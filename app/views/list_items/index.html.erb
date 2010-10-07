@@ -1,0 +1,25 @@
+<% title "List Items" %>
+
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Packing Slip</th>
+    <th>Qty</th>
+    <th>Lot Number</th>
+    <th>Comments</th>
+  </tr>
+  <% for list_item in @list_items %>
+    <tr>
+      <td><%=h list_item.item_id %></td>
+      <td><%=h list_item.packing_slip_id %></td>
+      <td><%=h list_item.qty %></td>
+      <td><%=h list_item.lot_number %></td>
+      <td><%=h list_item.comments %></td>
+      <td><%= link_to "Show", list_item %></td>
+      <td><%= link_to "Edit", edit_list_item_path(list_item) %></td>
+      <td><%= link_to "Destroy", list_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New List Item", new_list_item_path %></p>

@@ -1,0 +1,27 @@
+<% title "Packing Slips" %>
+
+<table>
+  <tr>
+    <th>Shipment</th>
+    <th>Shipper</th>
+    <th>Consignee</th>
+    <th>Pallets</th>
+    <th>Total Weight</th>
+    <th>Reference Number</th>
+  </tr>
+  <% for packing_slip in @packing_slips %>
+    <tr>
+      <td><%=h packing_slip.shipment_id %></td>
+      <td><%=h packing_slip.shipper_id %></td>
+      <td><%=h packing_slip.consignee_id %></td>
+      <td><%=h packing_slip.pallets %></td>
+      <td><%=h packing_slip.total_weight %></td>
+      <td><%=h packing_slip.reference_number %></td>
+      <td><%= link_to "Show", packing_slip %></td>
+      <td><%= link_to "Edit", edit_packing_slip_path(packing_slip) %></td>
+      <td><%= link_to "Destroy", packing_slip, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Packing Slip", new_packing_slip_path %></p>

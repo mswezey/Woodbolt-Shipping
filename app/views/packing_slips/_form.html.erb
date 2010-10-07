@@ -1,0 +1,174 @@
+<% form_for @packing_slip do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :shipment_id %><br />
+    <%= f.select :shipment_id, Shipment.all.collect {|s| [s.reference_number, s.id] }, :include_blank => true %>
+  </p>
+	<div class="col-left">
+		<p>
+		  <%= f.label :shipper_id %> <a class='new-contact' href='#' rel='shipper'>Add New</a><br />
+		  <%= f.select :shipper_id, Contact.shippers.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
+		</p>
+	</div>
+
+	<div class="col-right">
+		<p>
+		  <%= f.label :consignee_id %> <a class='new-contact' href='#' rel='consignee'>Add New</a><br />
+		  <%= f.select :consignee_id, Contact.consignees.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
+		</p>
+	</div>
+
+	<br clear="all" />
+  <p>
+    <%= f.label :pallets %><br />
+    <%= f.text_field :pallets %>
+  </p>
+  <p>
+    <%= f.label :total_weight %><br />
+    <%= f.text_field :total_weight %>
+  </p>
+
+	<% f.fields_for :list_items do |builder| %>
+		<%= render 'list_item_fields', :f => builder %>
+	<% end %>
+	<%= link_to_add_fields "Add List Item", f, :list_items %>
+	
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
+<div id="new-contact">
+	<% form_for :contact, :url => contacts_path, :html => {:id => "new-contact-form"} do |f| %>
+	  <%= f.error_messages %>
+	  <p>
+	    <%= f.label :contact_type_id %><br />
+	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID.map {|c| [c[0].humanize, c[1]]}.sort, :prompt => 'Select Contact Type' %>
+	  </p>
+	<div class='col-left-small'>
+	  <p>
+	    <%= f.label :company_name %><br />
+	    <%= f.text_field :company_name %>
+	  </p>
+	  <p>
+	    <%= f.label :contact_name %><br />
+	    <%= f.text_field :contact_name %>
+	  </p>
+	  <p>
+	    <%= f.label :email %><br />
+	    <%= f.text_field :email %>
+	  </p>
+	</div>
+	<div class='col-right-small'>
+	  <p>
+	    <%= f.label :street_1 %><br />
+	    <%= f.text_field :street_1 %>
+	  </p>
+	  <p>
+	    <%= f.label :street_2 %><br />
+	    <%= f.text_field :street_2 %>
+	  </p>
+	  <p>
+	    <%= f.label :city %><br />
+	    <%= f.text_field :city %>
+	  </p>
+	  <p>
+	    <%= f.label :state %><br />
+	    <%= f.text_field :state %>
+	  </p>
+	  <p>
+	    <%= f.label :zip %><br />
+	    <%= f.text_field :zip %>
+	  </p>
+	  <p>
+	    <%= f.label :phone %><br />
+	    <%= f.text_field :phone %>
+	  </p>
+	  <p>
+	    <%= f.label :fax %><br />
+	    <%= f.text_field :fax %>
+	  </p>
+	</div>
+	<br clear="all" />
+	  <p><%= f.submit "Submit" %></p>
+	<% end %>
+</div>
+
+<div id="new-item">
+	<% form_for :item, :url => items_path, :html => {:id => "new-item-form"} do |f| %>
+	  <%= f.error_messages %>
+		<input name="_method" type="hidden" value="post" id="item_method" /> 
+	  <p>
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name %>
+	  </p>
+	  <p>
+	    <%= f.label :uom %><br />
+	    <%= f.text_field :uom %>
+	  </p>
+
+	  <p><%= f.submit "Save Item" %></p>
+	<% end %>
+</div>
+
+<script>
+$(function(){
+	$(".edit-item").click(function(){
+		var item_id = $(this).siblings(".item-select").first().val();
+		if(item_id != ''){
+			// var r=confirm("You will lose any unsaved changes on this form! Are you sure you want to continue?")
+			// 			if (r==true)
+			// 			  {
+			// 			  window.location = '/items/' + item_id + '/edit';
+			// 			  }
+			// 		
+			$.get("/items/"+item_id+".js", {}, function(data){
+				$("#item_name").val(data.item.name);
+				$("#item_uom").val(data.item.uom);
+				$("#item_method").val("put");
+				$("#new-item-form").attr("action", "/items/"+item_id).attr("method","put");
+				$("#new-item").dialog({title : "Edit Item"});
+				$("#new-item").dialog('open');
+			}, "json");
+			}
+			else{
+				alert("Select an item to edit");
+			}
+		return false;
+	});
+	$("#new-item").dialog({ autoOpen: false, width : '660px', title : "New Item" });
+	$(".new-item").live("click", function(){
+		$("#item_method").val("post");
+		$("#new-item-form").attr("action","/items");
+		$("#new-item").dialog({title : "New Item"});
+		$("#new-item").dialog('open');
+		return false;
+	});
+	$("#new-item-form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;
+	});
+	$("#new-contact").dialog({ autoOpen: false, width : '660px', title : "New Contact" });
+	$(".new-contact").click(function(){
+		switch( $(this).attr("rel") )
+		{
+		case "shipper":
+		 var newContactValue =  1;
+		  break;
+		case "consignee":
+		 var newContactValue =  2;
+		  break;
+		case "third_party":
+		 var newContactValue =  3;
+		  break;
+		default:
+		 var newContactValue =  '';
+		}
+		$("#contact_contact_type_id").val(newContactValue);
+		$("#new-contact").dialog('open');
+		return false;
+	});
+	$("#new-contact-form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;
+	});
+});
+</script>

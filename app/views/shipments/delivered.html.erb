@@ -1,0 +1,18 @@
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+	<%= jqgrid_javascripts %>
+<% end -%>
+
+<%= jqgrid("Delivered Shipments", "shipments", "/shipments/delivered",
+	[
+		{ :field => "reference_number", :label => "Reference #" },
+		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true },
+		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select",
+				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
+		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true },
+		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency' },
+		{ :field => "classification_id", :label => "Classification" }
+					
+	]	,
+			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/delivered_post_data" }
+) %>

@@ -1,0 +1,15 @@
+one:
+  shipment_id: 1
+  shipper_id: 1
+  consignee_id: 1
+  pallets: MyString
+  total_weight: MyString
+  reference_number: MyString
+
+two:
+  shipment_id: 1
+  shipper_id: 1
+  consignee_id: 1
+  pallets: MyString
+  total_weight: MyString
+  reference_number: MyString

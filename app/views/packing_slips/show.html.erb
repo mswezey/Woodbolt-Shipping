@@ -1,0 +1,36 @@
+<% title "Packing Slip" %>
+
+<p>
+  <strong>Shipment:</strong>
+  <%=h @packing_slip.shipment_id %>
+</p>
+<p>
+  <strong>Shipper:</strong>
+  <%=h @packing_slip.shipper_id %>
+</p>
+<p>
+  <strong>Consignee:</strong>
+  <%=h @packing_slip.consignee_id %>
+</p>
+<p>
+  <strong>Pallets:</strong>
+  <%=h @packing_slip.pallets %>
+</p>
+<p>
+  <strong>Total Weight:</strong>
+  <%=h @packing_slip.total_weight %>
+</p>
+<p>
+  <strong>Reference Number:</strong>
+  <%=h @packing_slip.reference_number %>
+</p>
+<h3>Items</h3>
+<% @packing_slip.list_items.each do |li| %>
+	<%= li.item.name %> <%= "#{pluralize li.qty, li.item.uom}" %> <%= li.lot_number %> <%= li.comments %><br />
+<% end %>
+
+<p>
+  <%= link_to "Edit", edit_packing_slip_path(@packing_slip) %> |
+  <%= link_to "Destroy", @packing_slip, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", packing_slips_path %>
+</p>

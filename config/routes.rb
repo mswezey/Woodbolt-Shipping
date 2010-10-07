@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :list_items
+
+  map.resources :items
+
+  map.resources :packing_slips
+
   map.resources :carriers
 
 
@@ -8,7 +14,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :contacts
 
-  map.resources :shipments, :member => {:deliver => :get, :invoice => :get}
+  map.bol_upload '/bol_upload/:id', :controller => :shipments, :action => :bol_upload
+
+  map.pending_shipments '/shipments/pending', :controller => :shipments, :action => :pending
+  map.delivered_shipments '/shipments/delivered', :controller => :shipments, :action => :delivered
+  map.invoiced_shipments '/shipments/invoiced', :controller => :shipments, :action => :invoiced
+  map.resources :shipments, :member => {:deliver => :get, :invoice => :get, :pending_post_data => :post, :delivered_post_data => :post, :invoiced_post_data => :post}
 
   map.resources :password_resets
 

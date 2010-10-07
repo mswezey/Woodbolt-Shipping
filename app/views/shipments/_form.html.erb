@@ -1,13 +1,3 @@
-<style>
-.col-left, .col-right {
-	float:left;
-	width:400px;
-}
-.col-left-small, .col-right-small {
-	float:left;
-	width:300px;
-}
-</style>
 <% form_for @shipment, :html => {:multipart => true} do |f| %>
   <%= f.error_messages %>
 <div class="col-left">
@@ -48,8 +38,8 @@
 	  <%= f.select :carrier_id, Carrier.all.collect {|u| [u.name, u.id]}, :prompt => 'Choose Carrier' %>
   </p>
   <p>
-    <%= f.label :invoiced_by_id %><br />
-    <%= f.text_field :invoiced_by_id %>
+    <%= f.label :invoiced_by %><br />
+    <%= f.text_field :invoiced_by %>
   </p>
   <p>
     <%= f.label :bol_pro_number %><br />
@@ -59,7 +49,7 @@
 
 <div class="col-right">
 	<p>
-    <%= f.label :scheduled_pickup %><br />
+    <%= f.label :scheduled_pickup, "Scheduled Pickup Date" %><br />
     <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year %>
   </p>
   <p>
@@ -68,38 +58,31 @@
   </p>
   <p>
     <%= f.label :bill_to_id %> <a class='new-contact' href='#'>Add New</a><br />
-    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
+    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
   </p>
   <p>
-    <%= f.label :deliver_by_date, "Deliver By" %><br />
+    <%= f.label :deliver_by_date %><br />
     <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year %>
   </p>
   <p>
-    <%= f.label :picked_up_at %><br />
-    <%= f.datetime_select :picked_up_at, :prompt => true, :start_year => Date.today.year %>
+    <%= f.label :picked_up_at, "Pickup Time (window)" %><br />
+    <%= f.text_field :picked_up_at %>
   </p>
 </div>
 
 <br clear="all" />
 
 <div class="col-left">
-	<p>
-	  <%= f.label :shipper_id %> <a class='new-contact' href='#' rel='shipper'>Add New</a><br />
-	  <%= f.select :shipper_id, Contact.shippers.collect {|u| [u.name, u.id]}, :include_blank => true %>
-	</p>
-</div>
-
-<div class="col-right">
-	<p>
-	  <%= f.label :consignee_id %> <a class='new-contact' href='#' rel='consignee'>Add New</a><br />
-	  <%= f.select :consignee_id, Contact.consignees.collect {|u| [u.name, u.id]}, :include_blank => true %>
-	</p>
+  <p>
+    <%= f.label :classification_id %><br />
+    <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
+  </p>
 </div>
 
 <br clear="all" />
 
-<div class="col-left">
-  <p>
+
+  <!-- <p>
     <%= f.label :reference_number %><br />
     <%= f.text_field :reference_number %>
   </p>
@@ -118,23 +101,41 @@
   <p>
     <%= f.label :weight %><br />
     <%= f.text_field :weight %>
-  </p>
-</div>
+  </p> -->
+<h2>Packing Slip</h2>
+	<% f.fields_for :packing_slip do |f2| %>
+		<div class="col-left">
+			<p>
+			  <%= f2.label :shipper_id %> <a class='new-contact' href2.'#' rel='shipper'>Add New</a><br />
+			  <%= f2.select :shipper_id, Contact.shippers.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
+			</p>
+		</div>
 
-<div class="col-right">
-  <p>
-    <%= f.label :carrier_invoice_number %><br />
-    <%= f.text_field :carrier_invoice_number %>
-  </p>
-  <p>
-    <%= f.label :classification_id %><br />
-    <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
-  </p>
-</div>
+		<div class="col-right">
+			<p>
+			  <%= f2.label :consignee_id %> <a class='new-contact' href2.'#' rel='consignee'>Add New</a><br />
+			  <%= f2.select :consignee_id, Contact.consignees.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
+			</p>
+		</div>
 
-<br clear="all" />
+		<br clear="all" />
+	  <p>
+	    <%= f2.label :pallets %><br />
+	    <%= f2.text_field :pallets %>
+	  </p>
+	  <p>
+	    <%= f2.label :total_weight %><br />
+	    <%= f2.text_field :total_weight %>
+	  </p>
 
-  <p><%= f.submit "Submit" %></p>
+		<% f2.fields_for :list_items do |builder| %>
+			<%= render 'list_item_fields', :f => builder %>
+		<% end %>
+		<%= link_to_add_fields "Add List Item", f2, :list_items %>
+		
+	<% end %>
+	
+	<p><%= f.submit "Submit" %></p>
 
 <% end %>
 
@@ -162,12 +163,12 @@
 	  </p>
 	<div class='col-left-small'>
 	  <p>
-	    <%= f.label :first_name %><br />
-	    <%= f.text_field :first_name %>
+	    <%= f.label :company_name %><br />
+	    <%= f.text_field :company_name %>
 	  </p>
 	  <p>
-	    <%= f.label :last_name %><br />
-	    <%= f.text_field :last_name %>
+	    <%= f.label :contact_name %><br />
+	    <%= f.text_field :contact_name %>
 	  </p>
 	  <p>
 	    <%= f.label :email %><br />
@@ -209,6 +210,23 @@
 	<% end %>
 </div>
 
+<div id="new-item">
+	<% form_for :item, :url => items_path, :html => {:id => "new-item-form"} do |f| %>
+	  <%= f.error_messages %>
+		<input name="_method" type="hidden" value="post" id="item_method" /> 
+	  <p>
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name %>
+	  </p>
+	  <p>
+	    <%= f.label :uom %><br />
+	    <%= f.text_field :uom %>
+	  </p>
+
+	  <p><%= f.submit "Save Item" %></p>
+	<% end %>
+</div>
+
 <script>
 $(function(){
 	$("#new-carrier").dialog({ autoOpen: false, width : '300px', title : "New Carrier" });
@@ -221,6 +239,37 @@ $(function(){
     return false;
 	});
 	
+	// new stuff from packing list
+	
+	$(".edit-item").live("click", function(){
+		var item_id = $(this).siblings(".item-select").first().val();
+		if(item_id != ''){
+			$.get("/items/"+item_id+".js", {}, function(data){
+				$("#item_name").val(data.item.name);
+				$("#item_uom").val(data.item.uom);
+				$("#item_method").val("put");
+				$("#new-item-form").attr("action", "/items/"+item_id).attr("method","put");
+				$("#new-item").dialog({title : "Edit Item"});
+				$("#new-item").dialog('open');
+			}, "json");
+			}
+			else{
+				alert("Select an item to edit");
+			}
+		return false;
+	});
+	$("#new-item").dialog({ autoOpen: false, width : '660px', title : "New Item" });
+	$(".new-item").live("click", function(){
+		$("#item_method").val("post");
+		$("#new-item-form").attr("action","/items");
+		$("#new-item").dialog({title : "New Item"});
+		$("#new-item").dialog('open');
+		return false;
+	});
+	$("#new-item-form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+    return false;
+	});
 	$("#new-contact").dialog({ autoOpen: false, width : '660px', title : "New Contact" });
 	$(".new-contact").click(function(){
 		switch( $(this).attr("rel") )

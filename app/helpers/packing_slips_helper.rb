@@ -1,0 +1,2 @@
+module PackingSlipsHelper
+end
