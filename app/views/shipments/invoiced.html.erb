@@ -3,7 +3,7 @@
 	<%= jqgrid_javascripts %>
 <% end -%>
 
-<%= jqgrid("Delivered Shipments", "shipments", "/shipments/delivered",
+<%= jqgrid("Invoiced Shipments", "shipments", "/shipments/invoiced",
 	[
 		{ :field => "reference_number", :label => "Reference #" },
 		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true },
@@ -12,8 +12,8 @@
 		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true },
 		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency' },
 		{ :field => "classification_id", :label => "Classification" },
-		{ :field => "invoiced_check", :label => "Invoice", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false }
+		{ :field => "debit_memo_number", :label => "Debit Memo #", :editable => true }
 					
 	]	,
-			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/delivered_post_data" }
+			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/invoiced_post_data" }
 ) %>

@@ -28,7 +28,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:id, :reference_number, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :delivered_check], 
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :delivered_check], 
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -64,7 +64,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type],
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :invoiced_check],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -74,7 +74,44 @@ class ShipmentsController < ApplicationController
       Shipment.find(params[:id]).destroy
     else
       shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], 
-                      :carrier_invoice_number => params[:carrier_invoice_number], :cost => params[:cost], :classification_id => params[:classification_id] }
+                      :carrier_invoice_number => params[:carrier_invoice_number], :cost => params[:cost] }
+      if params[:id] == "_empty"
+        Shipment.create(shipment_params)
+      else
+        Shipment.find(params[:id]).update_attributes(shipment_params)
+      end
+    end
+    render :nothing => true
+  end
+  
+  def invoiced
+    shipments = Shipment.with_state(:invoiced).find(:all) do
+      if params[:_search] == "true"
+        reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
+        carrier_id  =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
+        carrier_invoice_number     =~ "%#{params[:carrier_invoice_number]}%" if params[:carrier_invoice_number].present?
+        cost      =~ "%#{params[:cost]}%" if params[:cost].present?
+        classification_type      =~ "%#{params[:classification_type]}%" if params[:classification_type].present?
+        debit_memo_number      =~ "%#{params[:debit_memo_number]}%" if params[:debit_memo_number].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+    respond_to do |format|
+      format.html
+      format.json { 
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :debit_memo_number],
+                                                         params[:page], params[:rows], shipments.total_entries) }
+    end
+  end
+
+  def invoiced_post_data
+    if params[:oper] == "del"
+      Shipment.find(params[:id]).destroy
+    else
+      shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], 
+                      :carrier_invoice_number => params[:carrier_invoice_number], :cost => params[:cost], :debit_memo_number  => params[:debit_memo_number] }
       if params[:id] == "_empty"
         Shipment.create(shipment_params)
       else

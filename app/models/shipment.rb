@@ -1,11 +1,11 @@
 class Shipment < ActiveRecord::Base
   attr_accessible :packing_slip_attributes, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list
-  attr_accessor :delivered_check
+  attr_accessor :delivered_check, :invoiced_check
   validates_presence_of :deliver_by_date, :classification_id, :packing_slip, :bill_to, :invoiced_by
   validates_uniqueness_of :reference_number
 
-  # validates_attachment_presence :packing_list, :if => lambda { |o| o.state == "delivered" }
-  # validates_attachment_presence :bol, :if => lambda { |o| o.state == "delivered" }
+
+  validates_attachment_presence :bol, :if => lambda { |o| o.state == "delivered" }
   validates_presence_of :picked_up_at, :if => lambda { |o| o.state == "delivered" }
   validates_presence_of :stock_transfer_wo_number, :if => lambda { |o| o.state == "delivered" }
 

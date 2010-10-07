@@ -2,23 +2,20 @@
 	<%= jqgrid_stylesheets %> 
 	<%= jqgrid_javascripts %>
 	<%= javascript_include_tag "ajaxfileupload" %>
-	<%= stylesheet_link_tag "ajaxfileupload" %>
 <% end -%>
 
 <%= jqgrid("Pending Shipments", "shipments", "/shipments/pending",
 	[
-		{ :field => "id", :label => "ID", :width => 35, :resizable => false },
-		{ :field => "reference_number", :label => "Reference #" },
+		{ :field => "reference_number", :label => "Reference #", :width => 90, :resizable => false },
 		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true },
 		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select",
 				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
-		{ :field => "deliver_by_date", :label => "Deliver By", :editable => true, :formatter => 'date' },
+		{ :field => "deliver_by_date", :label => "Deliver By", :editable => true },
 		{ :field => "bol_file", :label => "BOL", :editable => true, :edittype => "file" },
 		{ :field => "packing_slip_info", :label => "Packing Slip", :editable => false },
 		{ :field => "picked_up_at", :label => "Pickup Time", :editable => true },
 		{ :field => "stock_transfer_wo_number", :label => "Stock Transfer / WO #", :editable => true },
-		{ :field => "delivered_check", :label => "Deliver", :editable => true, :edittype => "checkbox",
-				  :editoptions => { :value => "Yes:No" } }
+		{ :field => "delivered_check", :label => "Deliver", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false }
 		
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/pending_post_data" }
