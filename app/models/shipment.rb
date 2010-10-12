@@ -2,7 +2,7 @@ class Shipment < ActiveRecord::Base
   attr_accessible :packing_slip_attributes, :refrigerate, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list, :has_credit, :credit_amount, :credit_memo_number, :credit_memo, :credits_applied
   attr_accessor :delivered_check, :invoiced_check
   validates_presence_of :deliver_by_date, :classification_id, :packing_slip, :bill_to, :invoiced_by
-  validates_uniqueness_of :reference_number
+  # validates_uniqueness_of :reference_number
 
 
   validates_attachment_presence :bol, :if => lambda { |o| o.state == "delivered" }
@@ -28,7 +28,7 @@ class Shipment < ActiveRecord::Base
                     :url => "/shipments/:id/bol/:id-:style.:extension",
                     :path => "/shipments/:id/bol/:id-:style.:extension"
   
-  after_create :generate_ref_num
+  # after_create :generate_ref_num
   after_create :notify_assignee
 
   CLASSIFICATION_TYPE_ID = {
@@ -84,6 +84,10 @@ class Shipment < ActiveRecord::Base
   
   def generate_ref_num
     self.update_attribute(:reference_number, "#{classification_type}-#{id}")
+  end
+  
+  def reference_number
+    "#{classification_type}-#{id}"
   end
   
   def carrier_name

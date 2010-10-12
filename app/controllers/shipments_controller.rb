@@ -30,7 +30,7 @@ class ShipmentsController < ApplicationController
     @shipment.submitter_id = current_user.id
     if @shipment.save
       flash[:notice] = "Successfully created shipment."
-      redirect_to @shipment
+      redirect_to pending_shipments_path
     else
       render :action => 'new'
     end
@@ -74,7 +74,7 @@ class ShipmentsController < ApplicationController
   
   def bol_upload
     @shipment = Shipment.find(params[:id])
-    if @shipment.update_attributes(:bol => params[:bol_file])
+    if @shipment.update_attribute(:bol, params[:bol_file])
       render :js => 'saved'
     else
       render :js => 'error', :status => 500

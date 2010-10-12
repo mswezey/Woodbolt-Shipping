@@ -36,49 +36,12 @@ $(function(){
 		    },
 		    error: function (data, status, e)
 		    {
+						alert("error");
+						alert(data);
+						alert(status);
 		        alert(e);
 		    }
 		});
 	});
 });
-
-// fileUploadHandler : function(formid)
-// 
-// {
-// 
-// 
-// $(formid).attr("method","POST");
-// $(formid).attr("action","");
-// $(formid).attr("enctype","multipart/form-data");
-// $("<br/><button id='buttonUpload'>Upload</button>").insertAfter("#fileToUpload",formid);
-// $("#buttonUpload",formid).click(function(){
-//     $.ajaxFileUpload({
-//         url:'doajaxfileupload.php',
-//         secureuri:false,
-//         fileElementId:'fileToUpload',
-//         dataType: 'json',
-//         success: function (data, status) {
-//             if(typeof(data.error) != 'undefined')
-//             {
-//                 if(data.error != '')
-//                 {
-//                     alert(data.error);
-//                 }else{
-//                     $("#fileToUpload").val("");
-//                     alert(data.msg);
-//                 }
-//             }
-//         },
-//         error: function (data, status, e)
-//         {
-//             alert(e);
-//         }
-//     });
-//     return false;
-// });
-// 
-// }
-
-
-
 </script>

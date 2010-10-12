@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base  
-  default_url_options[:host] = "localhost:3000"  #change before production
+  default_url_options[:host] = "wb-shipping.heroku.com"  #change before production
   
   def password_reset_instructions(user)  
     subject       "Password Reset Instructions"  

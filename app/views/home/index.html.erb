@@ -3,5 +3,5 @@
 <% if current_user %>
 	<p>Welcome <%= current_user.name %></p>
 <% else %>
-	<p>Welcome, please <%= link_to "login", login_path %>.</p>
+	<p>Welcome, please <%= link_to "login", login_path %></p>
 <% end %>
