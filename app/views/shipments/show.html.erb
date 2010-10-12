@@ -25,6 +25,10 @@
   <%=h @shipment.classification_type %>
 </p>
 <p>
+  <strong>Refrigerate:</strong>
+  <%=h @shipment.refrigerate ? "Yes" : "No" %>
+</p>
+<p>
   <strong>BOL/PRO Number:</strong>
   <%=h @shipment.bol_pro_number %>
 </p>

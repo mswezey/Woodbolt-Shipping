@@ -77,6 +77,10 @@
     <%= f.label :classification_id %><br />
     <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
   </p>
+  <p>
+    <%= f.label :refrigerate %><br />
+    <%= f.check_box :refrigerate %>
+  </p>
 </div>
 
 <br clear="all" />

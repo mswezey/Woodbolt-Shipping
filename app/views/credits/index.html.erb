@@ -1,0 +1,20 @@
+<% title "Credits" %>
+
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+	<%= jqgrid_javascripts %>
+<% end -%>
+Question: Should credits that have been applied to still show up on the screen?
+<%= jqgrid("Credits", "credits", "/credits",
+	[
+		{ :field => "reference_number", :label => "Reference #", :width => 90 },
+		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 120 },
+		{ :field => "carrier_id", :label => "Carrier", :width => 90 },
+		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #" },
+		{ :field => "credit_amount", :label => "Credit Amount", :formatter => 'currency', :editable => true, :width => 100 },
+		{ :field => "credit_memo_number", :label => "Credit Memo #", :editable => true, :width => 100 },
+		{ :field => "credit_memo", :label => "Credit Memo", :editable => true },
+		{ :field => "debit_memo_number", :label => "Debit Memo #", :editable => true, :width => 90 }
+	],
+			{ :edit => true, :inline_edit => true, :delete => false, :edit_url => "/credits/post_data" }
+) %>

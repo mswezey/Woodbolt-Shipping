@@ -1,6 +1,76 @@
 class ShipmentsController < ApplicationController
   before_filter :require_user
   protect_from_forgery :except => [:pending_post_data, :delivered_post_data, :invoiced_post_data, :bol_upload]
+
+  def index
+    if params[:team_member_id]
+      @user = User.find(params[:team_member_id])
+      @shipments = params[:status] ? @user.assigned_shipments.with_state(params[:status].to_sym) : @user.assigned_shipments.all
+    else
+      if params[:status] 
+        @shipments = Shipment.with_state(params[:status].to_sym) 
+      else
+        redirect_to shipments_path(:status => :pending)
+      end
+    end
+  end
+  
+  def show
+    @shipment = Shipment.find(params[:id])
+  end
+  
+  def new
+    @shipment = Shipment.new
+    @packing_slip = @shipment.build_packing_slip
+    @packing_slip.list_items.build
+  end
+  
+  def create
+    @shipment = Shipment.new(params[:shipment])
+    @shipment.submitter_id = current_user.id
+    if @shipment.save
+      flash[:notice] = "Successfully created shipment."
+      redirect_to @shipment
+    else
+      render :action => 'new'
+    end
+  end
+  
+  def create_from_packing_slip
+    @packing_slip = PackingSlip.find(params[:id])
+    @shipment = Shipment.new(:submitter_id => current_user.id)
+    @shipment.save(false)
+    @packing_slip.update_attribute(:shipment_id, @shipment.id)
+    redirect_to edit_shipment_path(@shipment)
+  end
+  
+  def edit
+    @shipment = Shipment.find(params[:id])
+  end
+  
+  def update
+    @shipment = Shipment.find(params[:id])
+    if @shipment.update_attributes(params[:shipment])
+      respond_to do |format|
+         format.html {
+           flash[:notice] = "Successfully updated shipment."
+           redirect_to @shipment
+         }
+         format.js {
+           render :nothing => true
+         }
+      end
+    else
+      render :action => 'edit'
+    end
+  end
+  
+  def destroy
+    @shipment = Shipment.find(params[:id])
+    @shipment.destroy
+    flash[:notice] = "Successfully destroyed shipment."
+    redirect_to shipments_url
+  end
   
   def bol_upload
     @shipment = Shipment.find(params[:id])
@@ -64,7 +134,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :invoiced_check],
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :has_credit, :invoiced_check],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -101,7 +171,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :debit_memo_number],
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :credits_applied_check, :debit_memo_number],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -119,61 +189,6 @@ class ShipmentsController < ApplicationController
       end
     end
     render :nothing => true
-  end
-
-  def index
-    if params[:team_member_id]
-      @user = User.find(params[:team_member_id])
-      @shipments = params[:status] ? @user.assigned_shipments.with_state(params[:status].to_sym) : @user.assigned_shipments.all
-    else
-      if params[:status] 
-        @shipments = Shipment.with_state(params[:status].to_sym) 
-      else
-        redirect_to shipments_path(:status => :pending)
-      end
-    end
-  end
-  
-  def show
-    @shipment = Shipment.find(params[:id])
-  end
-  
-  def new
-    @shipment = Shipment.new
-    @packing_slip = @shipment.build_packing_slip
-    @packing_slip.list_items.build
-  end
-  
-  def create
-    @shipment = Shipment.new(params[:shipment])
-    @shipment.submitter_id = current_user.id
-    if @shipment.save
-      flash[:notice] = "Successfully created shipment."
-      redirect_to @shipment
-    else
-      render :action => 'new'
-    end
-  end
-  
-  def edit
-    @shipment = Shipment.find(params[:id])
-  end
-  
-  def update
-    @shipment = Shipment.find(params[:id])
-    if @shipment.update_attributes(params[:shipment])
-      respond_to do |format|
-         format.html {
-           flash[:notice] = "Successfully updated shipment."
-           redirect_to @shipment
-         }
-         format.js {
-           render :nothing => true
-         }
-      end
-    else
-      render :action => 'edit'
-    end
   end
   
   def deliver
@@ -224,10 +239,22 @@ class ShipmentsController < ApplicationController
     end
   end
   
-  def destroy
+  def credit
     @shipment = Shipment.find(params[:id])
-    @shipment.destroy
-    flash[:notice] = "Successfully destroyed shipment."
-    redirect_to shipments_url
+    if @shipment.update_attribute(:has_credit, true)
+      render :nothing => true
+    else
+      render :json => "#{@shipment.errors.map {|e| e.join(' ').to_s.humanize }.join(' ')}", :status => 400
+    end
   end
+  
+  def credit_applied
+    @shipment = Shipment.find(params[:id])
+    if @shipment.update_attribute(:credits_applied, true)
+      render :nothing => true
+    else
+      render :json => "#{@shipment.errors.map {|e| e.join(' ').to_s.humanize }.join(' ')}", :status => 400
+    end
+  end
+  
 end

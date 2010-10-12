@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :credits
+
   map.resources :list_items
 
   map.resources :items
@@ -19,7 +21,9 @@ ActionController::Routing::Routes.draw do |map|
   map.pending_shipments '/shipments/pending', :controller => :shipments, :action => :pending
   map.delivered_shipments '/shipments/delivered', :controller => :shipments, :action => :delivered
   map.invoiced_shipments '/shipments/invoiced', :controller => :shipments, :action => :invoiced
-  map.resources :shipments, :member => {:deliver => :get, :invoice => :get, :pending_post_data => :post, :delivered_post_data => :post, :invoiced_post_data => :post}
+  map.resources :shipments, :member => {:deliver => :get, :invoice => :get, :credit => :get, :credit_applied => :get, :pending_post_data => :post, :delivered_post_data => :post, :invoiced_post_data => :post}
+
+  map.create_from_packing_slip '/shipments/create_from_packing_slip/:id', :controller => :shipments, :action => :create_from_packing_slip
 
   map.resources :password_resets
 

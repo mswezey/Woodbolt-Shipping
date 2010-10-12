@@ -12,7 +12,8 @@
 		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true },
 		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency' },
 		{ :field => "classification_id", :label => "Classification" },
-		{ :field => "invoiced_check", :label => "Invoice", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false }
+		{ :field => "has_credit", :label => "Credits", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false, :editoptions => { :value => "True:False" }, :formatter => 'checkbox' },
+		{ :field => "invoiced_check", :label => "Invoiced", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false }
 					
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/delivered_post_data" }

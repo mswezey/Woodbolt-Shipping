@@ -1,9 +1,5 @@
 <% form_for @packing_slip do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :shipment_id %><br />
-    <%= f.select :shipment_id, Shipment.all.collect {|s| [s.reference_number, s.id] }, :include_blank => true %>
-  </p>
 	<div class="col-left">
 		<p>
 		  <%= f.label :shipper_id %> <a class='new-contact' href='#' rel='shipper'>Add New</a><br />
@@ -111,15 +107,11 @@
 
 <script>
 $(function(){
-	$(".edit-item").click(function(){
+	// new stuff from packing list
+	
+	$(".edit-item").live("click", function(){
 		var item_id = $(this).siblings(".item-select").first().val();
 		if(item_id != ''){
-			// var r=confirm("You will lose any unsaved changes on this form! Are you sure you want to continue?")
-			// 			if (r==true)
-			// 			  {
-			// 			  window.location = '/items/' + item_id + '/edit';
-			// 			  }
-			// 		
 			$.get("/items/"+item_id+".js", {}, function(data){
 				$("#item_name").val(data.item.name);
 				$("#item_uom").val(data.item.uom);

@@ -1,6 +1,6 @@
 class PackingSlipsController < ApplicationController
   def index
-    @packing_slips = PackingSlip.all
+    @packing_slips = PackingSlip.all(:conditions => {:shipment_id => nil})
   end
   
   def show
@@ -9,6 +9,7 @@ class PackingSlipsController < ApplicationController
   
   def new
     @packing_slip = PackingSlip.new
+    @packing_slip.list_items.build
   end
   
   def create

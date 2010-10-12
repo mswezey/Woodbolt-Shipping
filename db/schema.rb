@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101006171417) do
+ActiveRecord::Schema.define(:version => 20101012192255) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20101006171417) do
     t.integer  "consignee_id"
     t.string   "pallets"
     t.string   "total_weight"
-    t.string   "reference_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -106,6 +105,12 @@ ActiveRecord::Schema.define(:version => 20101006171417) do
     t.string   "bol_content_type"
     t.integer  "bol_file_size"
     t.datetime "bol_updated_at"
+    t.boolean  "refrigerate",              :default => false
+    t.boolean  "has_credit",               :default => false
+    t.float    "credit_amount"
+    t.string   "credit_memo_number"
+    t.text     "credit_memo"
+    t.boolean  "credits_applied"
   end
 
   create_table "users", :force => true do |t|
