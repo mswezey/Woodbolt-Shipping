@@ -108,6 +108,7 @@ label {
 	border: 0px;
 	cursor: pointer;
 	margin: 20px;
+	font-size: 12px !important;
 }
 
 #container {
@@ -224,7 +225,7 @@ label {
 
 .bol {
 	float: left;
-	padding: 25px;
+	padding: 20px;
 	width: 330px;
 }
 
@@ -344,4 +345,8 @@ label {
 
 strong {
 	font-weight: bold;
+}
+
+span.larger {
+	font-size: 14px !important;
 }

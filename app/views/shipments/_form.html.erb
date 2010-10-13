@@ -163,7 +163,7 @@
 		
 	<% end %>
 	
-	<p><%= f.submit "Create New Shipment", :class => "btn" %><%= link_to "Cancel", root_path %></p>
+	<p><%= f.submit f.object.new_record? ? "Create New Shipment" : "Update", :class => "btn" %><%= link_to "Cancel", root_path %></p>
 
 <% end %>
 

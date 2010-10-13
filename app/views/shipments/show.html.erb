@@ -9,152 +9,184 @@
 	<div id="gview_shipments" class="ui-jqgrid-view">
 		
 		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
-			<span class="ui-jqgrid-title">Reference Number: <%= strip_tags @shipment.reference_number %></span>
+			<span class="ui-jqgrid-title">Reference Number: <%= strip_tags @shipment.reference_number %></span> &nbsp; &nbsp; 
+			<%= link_to "Edit", edit_shipment_path(@shipment) %> |
+		  <%= link_to "Destroy", @shipment, :confirm => 'Are you sure?', :method => :delete %> |
+		  <%= link_to "View All", shipments_path %>
 		</div>
 		
-<%= render :partial => 'chat_box' %>
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="800px" valign="top">
+			<div class="info">
 
-<div class="info">
+				<p>
+				  <label>status</label><br />
+				  <span class="larger"><%=h @shipment.state.try(:humanize) %></span>
+				</p>
 
-	<p>
-	  <label>status</label><br />
-	  <span class="larger"><%=h @shipment.state.try(:humanize) %></span>
-	</p>
+				<p>
+				  <label>Submitter</label><br />
+				  <span class="larger"><%=h @shipment.submitter.try(:name) %></span>
+				</p>
 
-	<p>
-	  <label>Submitter</label><br />
-	  <span class="larger"><%=h @shipment.submitter.try(:name) %></span>
-	</p>
+				<p>
+				  <label>Assigned To</label><br />
+				  <span class="larger"><%=h @shipment.assigned_to.try(:name) %></span>
+				</p>
+
+				<p>
+				  <label>Scheduled By</label><br />
+				  <span class="larger"><%=h @shipment.scheduled_by.try(:name) %></span>
+				</p>
+
+				<p>
+				  <label>Scheduled Pickup</label><br />
+				  <span class="larger"><%=h @shipment.scheduled_pickup %></span>
+				</p>
+
+				<p>
+				  <label>Deliver By Date</label><br />
+				  <span class="larger"><%=h @shipment.deliver_by_date %></span>
+				</p>
+
+				<p>
+				  <label>Picked Up At</label><br />
+				  <span class="larger"><%=h @shipment.picked_up_at %></span>
+				</p>
+
+				<p>
+				  <label>Classification</label><br />
+				  <span class="larger"><%=h @shipment.classification_type %></span>
+				</p>
+				<p>
+				  <label>Refrigerate</label><br />
+				  <span class="larger"><%=h @shipment.refrigerate ? "Yes" : "No" %></span>
+				</p>
+
+			</div>
+
+			<div class="bol" style="width: 190px;">
+
+				<p>
+				  <label>Bill To</label><br />
+				  <span class="larger"><%=h @shipment.bill_to.try(:company_name) %></span>
+				</p>
+
+				<p>
+				  <label>BOL/PRO Number</label><br />
+				  <span class="larger"><%=h @shipment.bol_pro_number %></span>
+				</p>
+				<p>
+				  <label>Carrier</label><br />
+				  <span class="larger"><%=h @shipment.carrier_id %></span>
+				</p>
+				<p>
+				  <label>Carrier Invoice Number</label><br />
+				  <span class="larger"><%=h @shipment.carrier_invoice_number %></span>
+				</p>
+				<p>
+				  <label>Cost</label><br />
+				  <span class="larger"><%=h number_to_currency(@shipment.cost) %></span>
+				</p>
+
+				<p>
+				  <label>Stock Transfer Wo Number</label><br />
+				  <span class="larger"><%=h @shipment.stock_transfer_wo_number %></span>
+				</p>
+				<p>
+				  <label>Debit Memo Number</label><br />
+				  <span class="larger"><%=h @shipment.debit_memo_number %></span>
+				</p>
+
+			</div>
+
+			<div class="bol" style="width: 190px">
+
+			<p>
+			  <label>Comments</label>
+			  <span class="larger"><%=h @shipment.comments %></span>
+			</p>
+			<p>
+			  <label>Invoiced By</label>
+			  <span class="larger"><%=h @shipment.invoiced_by %></span>
+			</p>
+
+			<p>
+			  <label>Pallets</label>
+			  <span class="larger"><%=h @shipment.pallet_qty %></span>
+			</p>
+			<p>
+			  <label>Pallet Dimensions</label>
+			  <span class="larger"><%=h @shipment.pallet_dimentions %></span>
+			</p>
+			<p>
+			  <label>Weight</label>
+			  <span class="larger"><%=h @shipment.weight %></span>
+			</p>
+			<p>
+			  <label>BOL Date</label>
+			  <span class="larger"><%=h @shipment.bol_date %></span>
+			</p>
+			<p>
+			  <label>BOL</label>
+			  <span class="larger"><%= @shipment.bol.exists? ? link_to("download", @shipment.bol.url) : "none" %></span>
+			</p>
+			
+			</div>
+			
+			<br class="clear" />
+			
+		<div class="slip">
+			
+			  <h2>Packing List</h2>
+				<p>
+				  <label>Shipper</label><br />
+				  <span class="larger"><%=h @shipment.packing_slip.shipper.company_name %></span>
+				</p>
+				<p>
+				  <label>Consignee</label><br />
+				  <span class="larger"><%=h @shipment.packing_slip.consignee.company_name %></span>
+				</p>
+				<p>
+				  <label>Pallets</label><br />
+				  <span class="larger"><%=h @shipment.packing_slip.pallets %></span>
+				</p>
+				<p>
+				  <label>Total Weight</label><br />
+				  <span class="larger"><%=h @shipment.packing_slip.total_weight %></span>
+				</p>
+				
+	</div>
 	
-	<p>
-	  <label>Assigned To</label><br />
-	  <span class="larger"><%=h @shipment.assigned_to.try(:name) %></span>
-	</p>
+	<div class="slip-items" style="width: 474px">
+
+				<% @shipment.packing_slip.list_items.each do |li| %>
+					<div class="fields" style="border: 0 !important;">
+						<p style="float: left;">
+							<span class="larger"><%= li.item.name %></span>
+						</p>
+						<p style="float: left; margin-left: 25px;">
+							<span class="larger"><%= "#{pluralize li.qty, li.item.uom}" %> </span>
+						</p>
+						<p style="float: left; margin-left: 25px;">
+							<span class="larger"><%= li.lot_number %></span>
+						</p>
+						<br class="clear" />
+						<p>
+							<span class="larger"><%= li.comments %></span>
+						</p>
+					</div>
+				<% end %>
+				
+	</div>
 	
-	<p>
-	  <label>Scheduled By</label><br />
-	  <span class="larger"><%=h @shipment.scheduled_by.try(:name) %></span>
-	</p>
-	
-	<p>
-	  <label>Scheduled Pickup</label><br />
-	  <span class="larger"><%=h @shipment.scheduled_pickup %></span>
-	</p>
-
-	<p>
-	  <label>Deliver By Date</label><br />
-	  <span class="larger"><%=h @shipment.deliver_by_date %></span>
-	</p>
-	
-	<p>
-	  <label>Picked Up At</label><br />
-	  <span class="larger"><%=h @shipment.picked_up_at %></span>
-	</p>
-
-	<p>
-	  <label>Classification</label><br />
-	  <span class="larger"><%=h @shipment.classification_type %></span>
-	</p>
-	<p>
-	  <label>Refrigerate</label><br />
-	  <span class="larger"><%=h @shipment.refrigerate ? "Yes" : "No" %></span>
-	</p>
-	
-</div>
-
-<p>
-  <strong>Bill To:</strong>
-  <%=h @shipment.bill_to.try(:company_name) %>
-</p>
-
-<p>
-  <strong>BOL/PRO Number:</strong>
-  <%=h @shipment.bol_pro_number %>
-</p>
-<p>
-  <strong>Carrier:</strong>
-  <%=h @shipment.carrier_id %>
-</p>
-<p>
-  <strong>Carrier Invoice Number:</strong>
-  <%=h @shipment.carrier_invoice_number %>
-</p>
-<p>
-  <strong>Cost:</strong>
-  <%=h number_to_currency(@shipment.cost) %>
-</p>
-
-
-<p>
-  <strong>Stock Transfer Wo Number:</strong>
-  <%=h @shipment.stock_transfer_wo_number %>
-</p>
-<p>
-  <strong>Debit Memo Number:</strong>
-  <%=h @shipment.debit_memo_number %>
-</p>
-<p>
-  <strong>Comments:</strong>
-  <%=h @shipment.comments %>
-</p>
-<p>
-  <strong>Invoiced By:</strong>
-  <%=h @shipment.invoiced_by %>
-</p>
-
-
-<p>
-  <strong>Pallets:</strong>
-  <%=h @shipment.pallet_qty %>
-</p>
-<p>
-  <strong>Pallet Dimentions:</strong>
-  <%=h @shipment.pallet_dimentions %>
-</p>
-<p>
-  <strong>Weight:</strong>
-  <%=h @shipment.weight %>
-</p>
-<p>
-  <strong>BOL Date:</strong>
-  <%=h @shipment.bol_date %>
-</p>
-<p>
-  <strong>BOL:</strong>
-  <%= @shipment.bol.exists? ? link_to("download", @shipment.bol.url) : "none" %>
-</p>
-<p>
-  <h3>Packing List:</h3>
-	<p>
-	  <strong>Shipper:</strong>
-	  <%=h @shipment.packing_slip.shipper.company_name %>
-	</p>
-	<p>
-	  <strong>Consignee:</strong>
-	  <%=h @shipment.packing_slip.consignee.company_name %>
-	</p>
-	<p>
-	  <strong>Pallets:</strong>
-	  <%=h @shipment.packing_slip.pallets %>
-	</p>
-	<p>
-	  <strong>Total Weight:</strong>
-	  <%=h @shipment.packing_slip.total_weight %>
-	</p>
-
-	<h3>Items</h3>
-	<% @shipment.packing_slip.list_items.each do |li| %>
-		<%= li.item.name %> <%= "#{pluralize li.qty, li.item.uom}" %> <%= li.lot_number %> <%= li.comments %><br />
-	<% end %>
-
-
-<p>
-  <%= link_to "Edit", edit_shipment_path(@shipment) %> |
-  <%= link_to "Destroy", @shipment, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", shipments_path %>
-</p>
-
-<br class="clear" />
+		</td>
+		<td width="200px" valign="top">
+			<%= render :partial => 'chat_box' %>
+		</td>
+	</tr>
+</table>
 
 </div>
 
