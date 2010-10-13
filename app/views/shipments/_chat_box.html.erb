@@ -15,7 +15,7 @@
 <div id="shipment-notes">
 <%= render :partial => 'note', :collection => @shipment.notes %>
 </div>
-<%= "<p id='no-notes'>Not currently any notes about this shipment</p>" unless @shipment.notes.size > 0 %>
+<%= "<p id='no-notes'>Not currently any comments about this shipment</p>" unless @shipment.notes.size > 0 %>
 
 <% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
 <p>
@@ -24,7 +24,6 @@
 	<%= f.hidden_field :shipment_id, :value => @shipment.id %><br />
 	<%= f.submit "Post Comment"%>
 </p>
-
 <% end %>
 <script>
 $(function(){
@@ -39,7 +38,13 @@ $(function(){
 		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
 		return false;
 	});
+	setInterval("updateComments()", 8000);
 });
+
+function updateComments() {
+	$("#shipment-notes").load("<%= shipment_notes_path(@shipment, :format => :js )%>");
+}
+
 </script>
 
 </div>

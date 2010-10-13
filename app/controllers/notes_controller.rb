@@ -1,7 +1,16 @@
 class NotesController < ApplicationController
   before_filter :require_user
   def index
-    @notes = Note.all
+    if params[:shipment_id]
+      @shipment = Shipment.find(params[:shipment_id])
+      @notes = @shipment.notes.all
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    else
+      @notes = Note.all
+    end
   end
   
   def show
