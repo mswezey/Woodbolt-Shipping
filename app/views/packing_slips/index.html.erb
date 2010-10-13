@@ -7,13 +7,13 @@
 
 <%= jqgrid("Packing Slips", "packing_slips", "/packing_slips",
 	[
-		{ :field => "shipper_id", :label => "Shipper", :width => 90, :editable => true, :edittype => "select",
+		{ :field => "shipper_id", :label => "Shipper", :width => 110, :editable => true, :edittype => "select",
 				  :editoptions => { :value => Contact.shippers.collect {|u| [u.id, u.company_name]} } },
-		{ :field => "consignee_id", :label => "Consignee", :width => 120, :editable => true, :edittype => "select",
+		{ :field => "consignee_id", :label => "Consignee", :width => 140, :editable => true, :edittype => "select",
 							  :editoptions => { :value => Contact.consignees.collect {|u| [u.id, u.company_name]} } },
 		{ :field => "pallets", :label => "Pallets", :width => 90, :editable => true },
 		{ :field => "total_weight", :label => "Total Weight", :editable => true },
-		{ :field => "actions", :label => "Actions", :width => 200}
+		{ :field => "actions", :label => "Actions", :width => 495, :align => "right"}
 	],
 			{:add => true, :edit => true, :inline_edit => true, :delete => false, :edit_url => "/packing_slips/post_data",
 				:subgrid => { :url => "/packing_slips/list_items",
@@ -21,7 +21,7 @@
 											{ :field => "item_id", :label => "Item", :width => 120 },
 											{ :field => "qty", :label => "Qty", :width => 50 },
 											{ :field => "lot_number", :label => "Lot Number", :width => 90 },
-											{ :field => "comments", :label => "Comments", :width => 230 }
+											{ :field => "comments", :label => "Comments", :width => 690 }
 									  ],
 									}
 								}

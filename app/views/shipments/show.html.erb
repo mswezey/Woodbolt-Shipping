@@ -1,74 +1,72 @@
 <% title "Shipment" %>
 
-<h2>
-  <strong>Reference Number:</strong>
-  <%= strip_tags @shipment.reference_number %>
-</h2>
-<h3>Receives Notifications</h3>
-<% form_for @shipment, :html => {:id => "shipment_notification_list"} do |f| %>
-	<% for user in User.find(:all) %>  
-	    <div>  
-	      <%= check_box_tag "shipment[user_ids][]", user.id, @shipment.users.include?(user) %>  
-	      <%= user.name %>  
-	    </div>  
-	<% end %>
-<% end %>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
 
-<h3>Comments</h3>
-<div id="shipment-notes">
-<%= render :partial => 'note', :collection => @shipment.notes %>
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title">Reference Number: <%= strip_tags @shipment.reference_number %></span>
+		</div>
+		
+<%= render :partial => 'chat_box' %>
+
+<div class="info">
+
+	<p>
+	  <label>status</label><br />
+	  <span class="larger"><%=h @shipment.state.try(:humanize) %></span>
+	</p>
+
+	<p>
+	  <label>Submitter</label><br />
+	  <span class="larger"><%=h @shipment.submitter.try(:name) %></span>
+	</p>
+	
+	<p>
+	  <label>Assigned To</label><br />
+	  <span class="larger"><%=h @shipment.assigned_to.try(:name) %></span>
+	</p>
+	
+	<p>
+	  <label>Scheduled By</label><br />
+	  <span class="larger"><%=h @shipment.scheduled_by.try(:name) %></span>
+	</p>
+	
+	<p>
+	  <label>Scheduled Pickup</label><br />
+	  <span class="larger"><%=h @shipment.scheduled_pickup %></span>
+	</p>
+
+	<p>
+	  <label>Deliver By Date</label><br />
+	  <span class="larger"><%=h @shipment.deliver_by_date %></span>
+	</p>
+	
+	<p>
+	  <label>Picked Up At</label><br />
+	  <span class="larger"><%=h @shipment.picked_up_at %></span>
+	</p>
+
+	<p>
+	  <label>Classification</label><br />
+	  <span class="larger"><%=h @shipment.classification_type %></span>
+	</p>
+	<p>
+	  <label>Refrigerate</label><br />
+	  <span class="larger"><%=h @shipment.refrigerate ? "Yes" : "No" %></span>
+	</p>
+	
 </div>
-<%= "<p id='no-notes'>Not currently any notes about this shipment</p>" unless @shipment.notes.size > 0 %>
 
-<% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
-<p>
-	Add Comment:<br />
-	<%= f.text_area :content %>
-	<%= f.hidden_field :shipment_id, :value => @shipment.id %><br />
-	<%= f.submit "Post Comment"%>
-</p>
-
-<% end %>
-<script>
-$(function(){
-	$("#shipment_notification_list").change(function(){
-		$(this).submit();
-	});
-	$("#shipment_notification_list").submit(function(){
-		$.post($(this).attr('action'), $(this).serialize(), null, "script");
-		return false;
-	});
-	$("#note_form").submit(function(){
-		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
-		return false;
-	});
-});
-</script>
-<p>
-  <strong>Status:</strong>
-  <%=h @shipment.state.try(:humanize) %>
-</p>
-
-<p>
-  <strong>Submitter:</strong>
-  <%=h @shipment.submitter.try(:name) %>
-</p>
-<p>
-  <strong>Assigned To:</strong>
-  <%=h @shipment.assigned_to.try(:name) %>
-</p>
 <p>
   <strong>Bill To:</strong>
   <%=h @shipment.bill_to.try(:company_name) %>
 </p>
-<p>
-  <strong>Classification:</strong>
-  <%=h @shipment.classification_type %>
-</p>
-<p>
-  <strong>Refrigerate:</strong>
-  <%=h @shipment.refrigerate ? "Yes" : "No" %>
-</p>
+
 <p>
   <strong>BOL/PRO Number:</strong>
   <%=h @shipment.bol_pro_number %>
@@ -85,14 +83,8 @@ $(function(){
   <strong>Cost:</strong>
   <%=h number_to_currency(@shipment.cost) %>
 </p>
-<p>
-  <strong>Deliver By Date:</strong>
-  <%=h @shipment.deliver_by_date %>
-</p>
-<p>
-  <strong>Picked Up At:</strong>
-  <%=h @shipment.picked_up_at %>
-</p>
+
+
 <p>
   <strong>Stock Transfer Wo Number:</strong>
   <%=h @shipment.stock_transfer_wo_number %>
@@ -109,14 +101,8 @@ $(function(){
   <strong>Invoiced By:</strong>
   <%=h @shipment.invoiced_by %>
 </p>
-<p>
-  <strong>Scheduled By:</strong>
-  <%=h @shipment.scheduled_by.try(:name) %>
-</p>
-<p>
-  <strong>Scheduled Pickup:</strong>
-  <%=h @shipment.scheduled_pickup %>
-</p>
+
+
 <p>
   <strong>Pallets:</strong>
   <%=h @shipment.pallet_qty %>
@@ -167,3 +153,9 @@ $(function(){
   <%= link_to "Destroy", @shipment, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", shipments_path %>
 </p>
+
+<br class="clear" />
+
+</div>
+
+</div>

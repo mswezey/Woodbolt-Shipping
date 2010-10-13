@@ -1,1 +1,10 @@
-<p><%= image_tag note.user.picture.url(:thumb) if note.user.picture.exists? %><%= note.user.name %>: <%= note.content %></p>
+<p>
+	<%= image_tag note.user.picture.url(:thumb) if note.user.picture.exists? %>
+	
+	<span class="comment-name"><%= note.user.name %></span> <%= note.content %>
+	<br />
+	<span class="time-ago"><%= time_ago_in_words note.created_at %> ago</span>
+	
+	<br class="clear" />
+	
+</p>

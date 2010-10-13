@@ -1,0 +1,45 @@
+<div id="chat-box">
+
+<h3>Receives Notifications</h3>
+<% form_for @shipment, :html => {:id => "shipment_notification_list"} do |f| %>
+	<% for user in User.find(:all) %>  
+	    <div>  
+	      <%= check_box_tag "shipment[user_ids][]", user.id, @shipment.users.include?(user) %>  
+	      <%= user.name %>  
+	    </div>  
+	<% end %>
+<% end %>
+
+<br />
+<h3>Comments</h3>
+<div id="shipment-notes">
+<%= render :partial => 'note', :collection => @shipment.notes %>
+</div>
+<%= "<p id='no-notes'>Not currently any notes about this shipment</p>" unless @shipment.notes.size > 0 %>
+
+<% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
+<p>
+	<h3>Add Comment</h3>
+	<%= f.text_area :content %>
+	<%= f.hidden_field :shipment_id, :value => @shipment.id %><br />
+	<%= f.submit "Post Comment"%>
+</p>
+
+<% end %>
+<script>
+$(function(){
+	$("#shipment_notification_list").change(function(){
+		$(this).submit();
+	});
+	$("#shipment_notification_list").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+		return false;
+	});
+	$("#note_form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
+		return false;
+	});
+});
+</script>
+
+</div>

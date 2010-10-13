@@ -26,13 +26,13 @@ p {
   overflow: hidden;
 }
 
-input {
+.login input {
 	font-size: 14px !important;
 	padding: 4px 6px;
 	border: 1px solid #ccc;
 }
 
-input:focus {
+.login input:focus {
 	border: 1px solid #666;
 }
 
@@ -47,6 +47,41 @@ select {
 
 #shipments {
 	width: 957 !important;
+}
+
+#chat-box {
+	float: right;
+	width: 200px;
+	padding: 15px;
+	background: #a6c9e5;
+	color: #424242;
+}
+
+#chat-box textarea {
+	width: 190px;
+	height: 70px;
+}
+
+#chat-box img {
+	float: left;
+	margin-right: 10px;
+	border: 1px solid #fff;
+}
+
+.comment-name {
+	font-weight: bold;
+}
+
+#chat-box h3 {
+	text-transform: uppercase;
+	border-bottom: 1px solid #424242;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.time-ago {
+	font-size: 9px;
+	color: #7b7b7b;
 }
 
 h1 {
@@ -141,12 +176,39 @@ label {
 	font-size: 11px;
 }
 
-.ui-icon-circle-triangle-n {
+.ui-icon-circle-triangle-n, .ui-jqgrid-pager {
 	display: none !important;
 }
 
 .ui-widget-header {
 	border: 0px !important;
+}
+
+.ui-jqgrid-bdiv {
+	overflow-x: hidden !important;
+}
+
+.ui-jqgrid-bdiv {
+	height: 350px !important;
+}
+
+.ui-subgrid .ui-jqgrid-bdiv {
+	height: auto !important;
+}
+
+.subgrid-data, .subgrid-data .ui-widget-content {
+	border-left: 0 !important;
+	border-bottom: 0 !important;
+	border-top: 0 !important;
+}
+
+.ui-jqgrid tr.jqgrow td {
+	border: 1px solid #A6C9E2 !important;
+}
+
+.ui-subgrid {
+	position: relative;
+	top: 5px;
 }
 
 .new_shipment {
@@ -278,4 +340,8 @@ label {
 .edit {
 	background:#eee;
 	padding:3px;
+}
+
+strong {
+	font-weight: bold;
 }

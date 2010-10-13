@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20101013175556) do
     t.integer  "submitter_id"
     t.integer  "assigned_to_id"
     t.integer  "bill_to_id"
+    t.string   "reference_number"
     t.integer  "classification_id"
     t.string   "bol_pro_number"
     t.integer  "carrier_id"
