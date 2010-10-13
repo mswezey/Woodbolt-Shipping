@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     team_members.resources :shipments
   end
 
-  map.resources :contacts
+  map.resources :contacts, :member => {:post_data => :post}
 
   map.bol_upload '/bol_upload/:id', :controller => :shipments, :action => :bol_upload
 

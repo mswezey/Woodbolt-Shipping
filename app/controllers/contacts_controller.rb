@@ -1,6 +1,41 @@
 class ContactsController < ApplicationController
+  before_filter :require_user
+  protect_from_forgery :except => [:post_data]
+  
   def index
-    @contacts = Contact.all
+    contacts = Contact.find(:all) do
+      if params[:_search] == "true"
+        reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
+        carrier_id  =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
+        carrier_invoice_number     =~ "%#{params[:carrier_invoice_number]}%" if params[:carrier_invoice_number].present?
+        cost      =~ "%#{params[:cost]}%" if params[:cost].present?
+        classification_type      =~ "%#{params[:classification_type]}%" if params[:classification_type].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+    respond_to do |format|
+      format.html
+      format.json { 
+        render :json => contacts.to_jqgrid_json([:contact_type_name, :company_name, :contact_name, :email, :street_1, :street_2, :city, :state, :zip, :phone, :fax],
+                                                         params[:page], params[:rows], contacts.total_entries) }
+    end
+  end
+
+  def post_data
+    if params[:oper] == "del"
+      Contact.find(params[:id]).destroy
+    else
+      contact_params = { :contact_type_id => params[:contact_type_id], :company_name => params[:company_name], :contact_name => params[:contact_name], :email => params[:email], :street_1 => params[:street_1], :street_2 => params[:street_2], :city => params[:city], 
+                      :state => params[:state], :zip => params[:zip], :phone => params[:phone], :fax => params[:fax] }
+      if params[:id] == "_empty"
+        Contact.create(contact_params)
+      else
+        Contact.find(params[:id]).update_attributes(contact_params)
+      end
+    end
+    render :nothing => true
   end
   
   def show

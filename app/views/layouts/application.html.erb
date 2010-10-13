@@ -13,7 +13,7 @@
 			<div id="user_status" style="float:right;">
         <% if current_user %>
           Welcome <%= link_to h(current_user.email), account_path %>! Not you?
-          <%= link_to "Log out", logout_path %>
+          <%= link_to "Log out", logout_path %> | <%= link_to "Team Members", team_members_path %>
         <% else %>
           <%= link_to "Log in", login_path %>
         <% end %>

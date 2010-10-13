@@ -1,37 +1,26 @@
 <% title "Contacts" %>
 
-<table>
-  <tr>
-    <th>Contact Type</th>
-    <th>Company Name</th>
-    <th>Contact Name</th>
-    <th>Email</th>
-    <th>Street 1</th>
-    <th>Street 2</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
-    <th>Phone</th>
-    <th>Fax</th>
-  </tr>
-  <% for contact in @contacts %>
-    <tr>
-      <td><%=h contact.contact_type.try(:humanize) %></td>
-      <td><%=h contact.company_name %></td>
-      <td><%=h contact.contact_name %></td>
-      <td><%=h contact.email %></td>
-      <td><%=h contact.street_1 %></td>
-      <td><%=h contact.street_2 %></td>
-      <td><%=h contact.city %></td>
-      <td><%=h contact.state %></td>
-      <td><%=h contact.zip %></td>
-      <td><%=h contact.phone %></td>
-      <td><%=h contact.fax %></td>
-      <td><%= link_to "Show", contact %></td>
-      <td><%= link_to "Edit", edit_contact_path(contact) %></td>
-      <td><%= link_to "Destroy", contact, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+	<%= jqgrid_javascripts %>
+<% end -%>
+
+<%= jqgrid("Contacts", "contacts", "/contacts",
+	[
+		{ :field => "contact_type_id", :label => "Contact Type", :width => 90, :editable => true, :edittype => "select",
+				  :editoptions => { :value => Contact::CONTACT_TYPE_ID.map {|c| [c[1], c[0].humanize]}.sort } },
+		{ :field => "company_name", :label => "Company Name", :width => 120, :editable => true },
+		{ :field => "contact_name", :label => "Contact Name", :width => 90, :editable => true },
+		{ :field => "email", :label => "Email", :editable => true },
+		{ :field => "street_1", :label => "Street 1", :width => 80, :editable => true },
+		{ :field => "street_2", :label => "Street 2", :width => 80, :editable => true },
+		{ :field => "city", :label => "City", :width => 80, :editable => true },
+		{ :field => "state", :label => "State", :width => 80, :editable => true },
+		{ :field => "zip", :label => "Zip", :width => 80, :editable => true },
+		{ :field => "phone", :label => "Phone", :width => 80, :editable => true },
+		{ :field => "fax", :label => "Fax", :width => 80, :editable => true }
+	],
+			{:add => true, :edit => true, :inline_edit => true, :delete => false, :edit_url => "/contacts/post_data"}
+) %>
 
 <p><%= link_to "New Contact", new_contact_path %></p>

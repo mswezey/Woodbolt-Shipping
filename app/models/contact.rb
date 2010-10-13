@@ -21,6 +21,10 @@ class Contact < ActiveRecord::Base
     CONTACT_TYPE_NAME[contact_type_id]
   end
   
+  def contact_type_name
+    contact_type.humanize
+  end
+  
   def name
     "#{self.first_name} #{self.last_name}"
   end
