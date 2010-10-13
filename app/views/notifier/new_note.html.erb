@@ -1,14 +1,10 @@
-	Shipment: <%= link_to @note.shipment.reference_number, shipment_url(@note.shipment) %>
+	Shipment: <%= shipment_url(@note.shipment) %>
 
 	Shipper: <%= @note.shipment.packing_slip.shipper_name %>
 	Consignee: <%= @note.shipment.packing_slip.consignee_name %>
 
-<hr />
 
-<div style="float:left;">
-	<%= image_tag @note.user.picture.url(:thumb) %>
-</div>
-<div style="float:left;">
-	<%= @note.user.name %> commented on this shipment:<br />
+
+<%= @note.user.name %> commented on this shipment:
+
 	<%= @note.content %>
-</div>
