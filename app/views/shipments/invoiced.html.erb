@@ -5,15 +5,15 @@
 
 <%= jqgrid("Invoiced Shipments", "shipments", "/shipments/invoiced",
 	[
-		{ :field => "reference_number", :label => "Reference #" },
-		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true },
-		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select",
+		{ :field => "reference_number", :label => "Reference #", :resizable => false, :width => "100" },
+		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true, :resizable => false, :width => "200" },
+		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select", :resizable => false, :width => "80",
 				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
-		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true },
-		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency' },
-		{ :field => "classification_id", :label => "Classification" },
-		{ :field => "credits_applied", :label => "Credits Applied" },
-		{ :field => "debit_memo_number", :label => "Debit Memo #", :editable => true }
+		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true, :resizable => false, :width => "280" },
+		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency', :resizable => false, :width => "70" },
+		{ :field => "classification_id", :label => "Classification", :resizable => false, :width => "100", :align => "center" },
+		{ :field => "credits_applied", :label => "Apply Credits", :resizable => false, :width => "90", :align => "center" },
+		{ :field => "debit_memo_number", :label => "Debit Memo #", :editable => true, :resizable => false, :width => "85" }
 					
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/invoiced_post_data" }

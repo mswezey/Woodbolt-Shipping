@@ -1,7 +1,11 @@
+@import "reset-fonts-grids.css";
+
 body {
-  background-color: #4B7399;
-  font-family: Verdana, Helvetica, Arial;
-  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	color: #3a3a3a;
 }
 
 a img {
@@ -12,24 +16,211 @@ a {
   color: #0000FF;
 }
 
+p {
+	margin-bottom: 15px;
+}
+
 .clear {
   clear: both;
   height: 0;
   overflow: hidden;
 }
 
+input {
+	font-size: 14px !important;
+	padding: 4px 6px;
+	border: 1px solid #ccc;
+}
+
+input:focus {
+	border: 1px solid #666;
+}
+
+select {
+	font-size: 14px !important;
+}
+
+#shipments input, #shipments select {
+	font-size: 11px !important;
+	padding: 0px !important;
+}
+
+#shipments {
+	width: 957 !important;
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 15px;
+}
+
+h2 {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+label {
+	text-transform: uppercase;
+	color: #898989;
+}
+
+.btn {
+	background: #3d76a1;
+	padding: 4px 8px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	color: #fff;
+	border: 0px;
+	cursor: pointer;
+	margin: 20px;
+}
+
 #container {
-  width: 75%;
+	position: relative;
+  width: 1000px;
   margin: 0 auto;
   background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
-  margin-top: 20px;
+}
+
+#logo {
+	margin-top: 20px;
+	float: left;
+}
+
+#user_status {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 10px;
+	padding: 6px 8px;
+	color: #aaa;
+}
+
+#user_status a {
+	color: #aaa;
+}
+
+#nav {
+	position: relative;
+}
+
+#nav ul li a {
+	display: block;
+	float: right;
+	padding: 5px 10px;
+	margin: 0 10px 0px 0;
+	text-decoration: none;
+	color: #aaa;
+	font-size: 14px;
+}
+
+#nav ul li a:hover {
+	color: #666;
+}
+
+#nav ul li.selected a {
+	background: #87b6d9;
+	color: #fff;
+}
+
+#nav a:last-child {
+	margin-right: 0px !important;
+}
+
+#sub-nav {
+	position: absolute;
+	right: 5px;
+	bottom: -20px;
+	z-index: 50;
+	color: #fff;
+}
+
+#sub-nav a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 11px;
+}
+
+.ui-icon-circle-triangle-n {
+	display: none !important;
+}
+
+.ui-widget-header {
+	border: 0px !important;
+}
+
+.new_shipment {
+
+}
+
+.info {
+	float: left;
+	padding: 25px 25px 10px;
+	background: #f0f0f0;
+	width: 250px;
+}
+
+.bol {
+	float: left;
+	padding: 25px;
+	width: 330px;
+}
+
+.comments {
+	float: left;
+	width: 250px;
+	padding: 25px;
+}
+
+.comments textarea {
+	width: 250px;
+}
+
+.slip {
+	float: left;
+	padding: 25px 25px 10px;
+	background: #e3e3e3;
+	width: 250px;
+}
+
+.slip-items {
+	float: left;
+	width: 697px;
+	background: #fff;
+	border-top: 1px solid #c0c0c0;
+	border-bottom: 1px solid #c0c0c0;
+	border-left: 1px solid #c0c0c0;
+}
+
+.fields {
+	padding: 25px 25px 10px 25px;
+	border-bottom: 1px solid #c0c0c0;
+}
+
+.fields textarea {
+	width: 600px;
+	height: 30px;
+}
+
+.add-more {
+	float: right;
+	margin: 10px 20px 10px 0;
+	padding: 3px 5px;
+	background: #ccc;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	text-decoration: none;
 }
 
 #flash_notice, #flash_error {
   padding: 5px 8px;
   margin: 10px 0;
+	width: 300px;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -150px;
+	text-align: center;
 }
 
 #flash_notice {
@@ -87,13 +278,4 @@ a {
 .edit {
 	background:#eee;
 	padding:3px;
-}
-
-.col-left, .col-right {
-	float:left;
-	width:400px;
-}
-.col-left-small, .col-right-small {
-	float:left;
-	width:300px;
 }

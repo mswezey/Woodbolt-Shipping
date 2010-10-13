@@ -9,7 +9,8 @@
   </head>
   <body>
     <div id="container">
-      <div id="user_status" style="float:right;">
+	
+			<div id="user_status" style="float:right;">
         <% if current_user %>
           Welcome <%= link_to h(current_user.email), account_path %>! Not you?
           <%= link_to "Log out", logout_path %>
@@ -17,25 +18,36 @@
           <%= link_to "Log in", login_path %>
         <% end %>
       </div>
-	    <br clear="all" />
+	
+			<img src="/images/woodbolt.png" id="logo">
+      
+	    <br class="clear" />
 
     	<div id="nav">
-				<%= link_to "Home", root_path %> | <%= link_to "Create", new_shipment_path %> | <%= link_to "Pending", pending_shipments_path %> | <%= link_to "Delivered", delivered_shipments_path %> | <%= link_to "Invoiced", invoiced_shipments_path %>
+				<ul>
+					<li <%= current_page?(invoiced_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Invoiced", invoiced_shipments_path %></li>
+					<li <%= current_page?(delivered_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Delivered", delivered_shipments_path %></li>
+					<li <%= current_page?(pending_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Pending", pending_shipments_path %></li>
+					<li <%= current_page?(new_shipment_path) ? " class='selected'" : nil -%>><%= link_to "Create", new_shipment_path %></li>
+				</ul>
+				
+				<div id="sub-nav">
+				<%= link_to "Packing Slips", packing_slips_path %> | <%= link_to "Credits", credits_path %> | <%= link_to "Contacts", contacts_path %> | <%= link_to "Carriers", carriers_path %> | <%= link_to "Items", items_path %>
+				</div>
+				
+				<br class="clear" />
 			</div>
 			
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
-      
-      <%- if show_title? -%>
-        <h1><%=h yield(:title) %></h1>
-      <%- end -%>
 
-      <%= yield %>
+      <div class="content">
 
-			<div id="footer-nav">
-				 <%= link_to "Packing Slips", packing_slips_path %> | <%= link_to "Credits", credits_path %> | <%= link_to "Contacts", contacts_path %> | <%= link_to "Carriers", carriers_path %> | <%= link_to "Items", items_path %>
+				<%= yield %>
+			
 			</div>
+
     </div>
   </body>
 </html>
