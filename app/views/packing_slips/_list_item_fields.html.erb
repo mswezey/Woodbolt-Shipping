@@ -1,4 +1,4 @@
-<div class="fields" style="border:solid 1px blue;">
+<div class="fields">
 	<p>
     <%= f.label :item_id %> <a class='new-item' href='#'>add new</a><br />
     <%= f.select :item_id, Item.all.collect {|u| ["#{u.name} (#{u.uom})", u.id]}, {:include_blank => true}, {:class => 'item-select'} %> <a href="#" class="edit-item">edit</a>

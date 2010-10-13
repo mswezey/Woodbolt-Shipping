@@ -6,16 +6,16 @@
 
 <%= jqgrid("Pending Shipments", "shipments", "/shipments/pending",
 	[
-		{ :field => "reference_number", :label => "Reference #", :width => 90, :resizable => false },
-		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true },
-		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select",
+		{ :field => "reference_number", :label => "Reference #", :width => 100, :resizable => false },
+		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 200, :editable => true, :resizable => false },
+		{ :field => "carrier_id", :label => "Carrier", :width => 80, :editable => true, :resizable => false, :edittype => "select",
 				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
-		{ :field => "deliver_by_date", :label => "Deliver By", :editable => true },
-		{ :field => "bol_file", :label => "BOL", :editable => true, :edittype => "file" },
-		{ :field => "packing_slip_info", :label => "Packing Slip", :editable => false },
-		{ :field => "picked_up_at", :label => "Pickup Time", :editable => true },
-		{ :field => "stock_transfer_wo_number", :label => "Stock Transfer / WO #", :editable => true },
-		{ :field => "delivered_check", :label => "Deliver", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false }
+		{ :field => "deliver_by_date", :label => "Deliver By", :width => 90, :editable => true, :resizable => false },
+		{ :field => "bol_file", :label => "BOL", :editable => true, :width => 150, :edittype => "file", :resizable => false },
+		{ :field => "packing_slip_info", :label => "Packing Slip", :width => 90, :editable => false, :resizable => false },
+		{ :field => "picked_up_at", :label => "Pickup Time", :width => 90, :editable => true, :resizable => false },
+		{ :field => "stock_transfer_wo_number", :label => "Stock Transfer / WO #", :width => 150, :editable => true, :resizable => false },
+		{ :field => "delivered_check", :label => "Deliver", :editable => true, :edittype => "checkbox", :width => 55, :resizable => false, :align => "center" }
 		
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/pending_post_data" }

@@ -1,5 +1,21 @@
 <% title "Packing Slips" %>
 
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+	<%= jqgrid_javascripts %>
+<% end -%>
+
+<%= jqgrid("Packing Slips", "packing_slips", "/packing_slips",
+	[
+		{ :field => "company", :label => "Shipment", :width => 90 },
+		{ :field => "shipper", :label => "Shipper", :width => 120 },
+		{ :field => "consignee", :label => "Carrier", :width => 90 },
+		{ :field => "pallets", :label => "Pallets" },
+		{ :field => "total_weight", :label => "Total Weight", :formatter => 'currency', :editable => true, :width => 100 },
+	],
+			{ :edit => true, :inline_edit => true, :delete => false, :edit_url => "/packing_slips/post_data" }
+) %>
+
 <table>
   <tr>
     <th>Shipment</th>
@@ -23,3 +39,7 @@
 </table>
 
 <p><%= link_to "New Packing Slip", new_packing_slip_path %></p>
+
+</div>
+
+</div>

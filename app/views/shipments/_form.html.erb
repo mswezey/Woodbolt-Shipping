@@ -1,90 +1,108 @@
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
+
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title">New Shipment</span>
+		</div>
+		
+		<div class="new-shipment">
+
 <% form_for @shipment, :html => {:multipart => true} do |f| %>
   <%= f.error_messages %>
-<div class="col-left">
-	<p>
+	
+	<div class="info">
+	
+		<% if params[:debug] %>
+		<p>
+	    <%= f.label :submitter_id, "Submitter" %><br />
+	    <%= current_user.name %>
+	  </p>
+		<% end %>
+
+	  <p>
+	    <%= f.label :assigned_to_id, "Assigned To" %><br />
+	    <%= f.select :assigned_to_id, User.all.collect {|u| [u.name, u.id]} %>
+	  </p>
+
+		<p>
+	    <%= f.label :scheduled_by_id %><br />
+	    <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
+	  </p>
+
+		<p>
+	    <%= f.label :scheduled_pickup, "Scheduled Pickup Date" %><br />
+	    <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year %>
+	  </p>
+
+	  <p>
+	    <%= f.label :deliver_by_date %><br />
+	    <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year %>
+	  </p>
+	  <p>
+	    <%= f.label :picked_up_at, "Pickup Time (window)" %><br />
+	    <%= f.text_field :picked_up_at, :style => "width: 170px;" %>
+	  </p>
+  
+		<% if params[:debug] %>
+		<p>
+	    <%= f.label :state, "Status" %><br />
+	    <%= f.select :state, %w[pending delivered invoiced] %>
+	  </p>
+		<% end %>
+		
+	  <p>
+	    <%= f.label :classification_id %><br />
+	    <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
+	  </p>
+	  <p>
+	    <%= f.label :refrigerate? %>  <%= f.check_box :refrigerate %>
+	  </p>
+	</div>
+	
+	<div class="bol">
+	
+		<p>
+	    <%= f.label :bol_date, "Bill of Lading Date" %><br />
+	    <%= f.date_select :bol_date, :prompt => true %>
+	  </p>
+		<p>
+	    <%= f.label :bol, "Attach Bill of Lading" %><br />
+	    <%= f.file_field :bol, :size => "20" %>
+	  </p>
+		<p>
+	    <%= f.label :bol_pro_number %><br />
+	    <%= f.text_field :bol_pro_number %>
+	  </p>
+	
+		<p>
+			<%= f.label :carrier_id %> <a class='new-carrier' href='#' rel='shipper'>Add New</a><br />
+		  <%= f.select :carrier_id, Carrier.all.collect {|u| [u.name, u.id]}, :prompt => 'Choose Carrier' %>
+	  </p>
+	  <p>
+	    <%= f.label :invoiced_by %><br />
+	    <%= f.text_field :invoiced_by %>
+	  </p>
+
+	  <p>
+	    <%= f.label :bill_to_id %> <a class='new-contact' href='#'>Add New</a><br />
+	    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
+	  </p>
+
+	</div>
+	
+	<div class="comments">
+
     <%= f.label :comments %><br />
-    <%= f.text_area :comments, :rows => 10 %>
-  </p>
-</div>
-
-<div class="col-left">
-	<p>
-    <%= f.label :submitter_id, "Submitter" %><br />
-    <%= current_user.name %>
-  </p>
-  <p>
-    <%= f.label :assigned_to_id, "Assigned To" %><br />
-    <%= f.select :assigned_to_id, User.all.collect {|u| [u.name, u.id]} %>
-  </p>
-  <p>
-    <%= f.label :state, "Status" %><br />
-    <%= f.select :state, %w[pending delivered invoiced] %>
-  </p>
-</div>
-
-<br clear="all" />
-
-<div class="col-left">
-	<p>
-    <%= f.label :bol_date, "Bill of Lading Date" %><br />
-    <%= f.date_select :bol_date, :prompt => true %>
-  </p>
-	<p>
-    <%= f.label :bol, "Attach Bill of Lading" %><br />
-    <%= f.file_field :bol %>
-  </p>
-  <p>
-		<%= f.label :carrier_id %> <a class='new-carrier' href='#' rel='shipper'>Add New</a><br />
-	  <%= f.select :carrier_id, Carrier.all.collect {|u| [u.name, u.id]}, :prompt => 'Choose Carrier' %>
-  </p>
-  <p>
-    <%= f.label :invoiced_by %><br />
-    <%= f.text_field :invoiced_by %>
-  </p>
-  <p>
-    <%= f.label :bol_pro_number %><br />
-    <%= f.text_field :bol_pro_number %>
-  </p>
-</div>
-
-<div class="col-right">
-	<p>
-    <%= f.label :scheduled_pickup, "Scheduled Pickup Date" %><br />
-    <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year %>
-  </p>
-  <p>
-    <%= f.label :scheduled_by_id %><br />
-    <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
-  </p>
-  <p>
-    <%= f.label :bill_to_id %> <a class='new-contact' href='#'>Add New</a><br />
-    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
-  </p>
-  <p>
-    <%= f.label :deliver_by_date %><br />
-    <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year %>
-  </p>
-  <p>
-    <%= f.label :picked_up_at, "Pickup Time (window)" %><br />
-    <%= f.text_field :picked_up_at %>
-  </p>
-</div>
-
-<br clear="all" />
-
-<div class="col-left">
-  <p>
-    <%= f.label :classification_id %><br />
-    <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
-  </p>
-  <p>
-    <%= f.label :refrigerate %><br />
-    <%= f.check_box :refrigerate %>
-  </p>
-</div>
-
-<br clear="all" />
-
+    <%= f.text_area :comments %>
+  
+	</div>
+	
+	<br class="clear" />
 
   <!-- <p>
     <%= f.label :reference_number %><br />
@@ -106,40 +124,46 @@
     <%= f.label :weight %><br />
     <%= f.text_field :weight %>
   </p> -->
-<h2>Packing Slip</h2>
+
+	<div class="slip">
+	
+	<h2>Packing Slip</h2>
 	<% f.fields_for :packing_slip do |f2| %>
-		<div class="col-left">
+		
 			<p>
 			  <%= f2.label :shipper_id %> <a class='new-contact' href2.'#' rel='shipper'>Add New</a><br />
 			  <%= f2.select :shipper_id, Contact.shippers.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
 			</p>
-		</div>
 
-		<div class="col-right">
 			<p>
 			  <%= f2.label :consignee_id %> <a class='new-contact' href2.'#' rel='consignee'>Add New</a><br />
 			  <%= f2.select :consignee_id, Contact.consignees.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
 			</p>
-		</div>
 
-		<br clear="all" />
 	  <p>
 	    <%= f2.label :pallets %><br />
-	    <%= f2.text_field :pallets %>
+	    <%= f2.text_field :pallets, :style => "width: 170px;" %>
 	  </p>
 	  <p>
 	    <%= f2.label :total_weight %><br />
-	    <%= f2.text_field :total_weight %>
+	    <%= f2.text_field :total_weight, :style => "width: 170px;" %>
 	  </p>
-
+	</div>
+	
+	<div class="slip-items">
 		<% f2.fields_for :list_items do |builder| %>
 			<%= render 'list_item_fields', :f => builder %>
 		<% end %>
-		<%= link_to_add_fields "Add List Item", f2, :list_items %>
+
+		<%= link_to_add_fields "+ Add List Item", f2, :list_items %>
+		
+	</div>	
+	
+	<br class="clear" />
 		
 	<% end %>
 	
-	<p><%= f.submit "Submit" %></p>
+	<p><%= f.submit "Create New Shipment", :class => "btn" %><%= link_to "Cancel", root_path %></p>
 
 <% end %>
 
@@ -229,6 +253,12 @@
 
 	  <p><%= f.submit "Save Item" %></p>
 	<% end %>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>

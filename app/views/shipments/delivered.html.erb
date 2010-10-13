@@ -5,15 +5,15 @@
 
 <%= jqgrid("Delivered Shipments", "shipments", "/shipments/delivered",
 	[
-		{ :field => "reference_number", :label => "Reference #" },
-		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true },
-		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select",
+		{ :field => "reference_number", :label => "Reference #", :width => 100 },
+		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true, :width => 200, :resizable => false	 },
+		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select", :width => 80, :resizable => false,
 				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
-		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true },
-		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency' },
-		{ :field => "classification_id", :label => "Classification" },
-		{ :field => "has_credit", :label => "Credits", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false, :editoptions => { :value => "True:False" }, :formatter => 'checkbox' },
-		{ :field => "invoiced_check", :label => "Invoiced", :editable => true, :edittype => "checkbox", :width => 60, :resizable => false }
+		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true, :width => 280, :resizable => false },
+		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency', :width => 100, :resizable => false },
+		{ :field => "classification_id", :label => "Classification", :width => 110, :resizable => false, :align => "center" },
+		{ :field => "has_credit", :label => "Credits", :editable => true, :edittype => "checkbox", :width => 70, :resizable => false, :editoptions => { :value => "True:False" }, :formatter => 'checkbox', :resizable => false, :align => "center" },
+		{ :field => "invoiced_check", :label => "Invoiced", :editable => true, :edittype => "checkbox", :width => 65, :resizable => false, :align => "center" }
 					
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/delivered_post_data" }
