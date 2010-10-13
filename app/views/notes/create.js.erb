@@ -1,0 +1,2 @@
+$("#shipment-notes").html("<%= escape_javascript(render(:partial => 'shipments/note', :collection => @shipment.notes)) %>");
+$("#note_content").val('');$("#no-notes").hide();

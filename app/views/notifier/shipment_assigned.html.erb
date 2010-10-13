@@ -1,0 +1,5 @@
+<%= @shipment.assigned_to.name %>,
+
+A new shipment due on <%= @shipment.deliver_by_date %> has been assigned to you.
+
+<%= link_to "Click Here", pending_shipments_url %> to view the details.

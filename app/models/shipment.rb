@@ -1,5 +1,5 @@
 class Shipment < ActiveRecord::Base
-  attr_accessible :packing_slip_attributes, :refrigerate, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list, :has_credit, :credit_amount, :credit_memo_number, :credit_memo, :credits_applied
+  attr_accessible :packing_slip_attributes, :refrigerate, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list, :has_credit, :credit_amount, :credit_memo_number, :credit_memo, :credits_applied, :user_ids
   attr_accessor :delivered_check, :invoiced_check
   validates_presence_of :deliver_by_date, :classification_id, :packing_slip, :bill_to, :invoiced_by
   # validates_uniqueness_of :reference_number
@@ -19,6 +19,8 @@ class Shipment < ActiveRecord::Base
   has_one :consignee, :through => :packing_slip
   belongs_to :carrier
   has_one :packing_slip
+  has_many :notes
+  has_and_belongs_to_many :users # for notifications
   
   accepts_nested_attributes_for :packing_slip
   
@@ -110,7 +112,7 @@ class Shipment < ActiveRecord::Base
   end
   
   def notify_assignee
-    #send email to assignee
+    Notifier.deliver_shipment_assigned(self)
   end
   
 end

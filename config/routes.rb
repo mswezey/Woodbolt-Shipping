@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :notes
+
   map.resources :credits
 
   map.resources :list_items

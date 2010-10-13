@@ -1,4 +1,49 @@
 <% title "Shipment" %>
+
+<h2>
+  <strong>Reference Number:</strong>
+  <%= strip_tags @shipment.reference_number %>
+</h2>
+<h3>Receives Notifications</h3>
+<% form_for @shipment, :html => {:id => "shipment_notification_list"} do |f| %>
+	<% for user in User.find(:all) %>  
+	    <div>  
+	      <%= check_box_tag "shipment[user_ids][]", user.id, @shipment.users.include?(user) %>  
+	      <%= user.name %>  
+	    </div>  
+	<% end %>
+<% end %>
+
+<h3>Comments</h3>
+<div id="shipment-notes">
+<%= render :partial => 'note', :collection => @shipment.notes %>
+</div>
+<%= "<p id='no-notes'>Not currently any notes about this shipment</p>" unless @shipment.notes.size > 0 %>
+
+<% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
+<p>
+	Add Comment:<br />
+	<%= f.text_area :content %>
+	<%= f.hidden_field :shipment_id, :value => @shipment.id %><br />
+	<%= f.submit "Post Comment"%>
+</p>
+
+<% end %>
+<script>
+$(function(){
+	$("#shipment_notification_list").change(function(){
+		$(this).submit();
+	});
+	$("#shipment_notification_list").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+		return false;
+	});
+	$("#note_form").submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
+		return false;
+	});
+});
+</script>
 <p>
   <strong>Status:</strong>
   <%=h @shipment.state.try(:humanize) %>
@@ -15,10 +60,6 @@
 <p>
   <strong>Bill To:</strong>
   <%=h @shipment.bill_to.try(:company_name) %>
-</p>
-<p>
-  <strong>Reference Number:</strong>
-  <%=h @shipment.reference_number %>
 </p>
 <p>
   <strong>Classification:</strong>
@@ -119,7 +160,7 @@
 	<% @shipment.packing_slip.list_items.each do |li| %>
 		<%= li.item.name %> <%= "#{pluralize li.qty, li.item.uom}" %> <%= li.lot_number %> <%= li.comments %><br />
 	<% end %>
-</p>
+
 
 <p>
   <%= link_to "Edit", edit_shipment_path(@shipment) %> |

@@ -1,0 +1,20 @@
+<% title "Note" %>
+
+<p>
+  <strong>Shipment:</strong>
+  <%=h @note.shipment_id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @note.user_id %>
+</p>
+<p>
+  <strong>Content:</strong>
+  <%=h @note.content %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_note_path(@note) %> |
+  <%= link_to "Destroy", @note, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", notes_path %>
+</p>

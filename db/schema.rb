@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101012192255) do
+ActiveRecord::Schema.define(:version => 20101013175556) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(:version => 20101012192255) do
     t.string   "qty"
     t.string   "lot_number"
     t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notes", :force => true do |t|
+    t.integer  "shipment_id"
+    t.integer  "user_id"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -110,6 +118,11 @@ ActiveRecord::Schema.define(:version => 20101012192255) do
     t.string   "credit_memo_number"
     t.text     "credit_memo"
     t.boolean  "credits_applied"
+  end
+
+  create_table "shipments_users", :id => false, :force => true do |t|
+    t.integer "shipment_id"
+    t.integer "user_id"
   end
 
   create_table "users", :force => true do |t|
