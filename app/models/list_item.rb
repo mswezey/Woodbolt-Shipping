@@ -6,4 +6,8 @@ class ListItem < ActiveRecord::Base
   has_one :shipment, :through => :packing_slip
   
   validates_presence_of :qty
+  
+  def item_name
+    "#{item.try(:name)} (#{item.try(:uom)})"
+  end
 end

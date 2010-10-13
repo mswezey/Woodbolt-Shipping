@@ -1,6 +1,11 @@
 class ListItemsController < ApplicationController
   def index
-    @list_items = ListItem.all
+    if params[:packing_slip_id]
+      @packing_slip = PackingSlip.find(params[:packing_slip_id])
+      @list_items = @packing_slip.list_items
+    else
+      @list_items = ListItem.all
+    end
   end
   
   def show

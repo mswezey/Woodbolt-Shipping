@@ -5,7 +5,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :items
 
-  map.resources :packing_slips
+  map.connect '/packing_slips/list_items', :controller => :packing_slips, :action => :list_items
+  map.resources :packing_slips, :member => {:post_data => :post}
 
   map.resources :carriers
 

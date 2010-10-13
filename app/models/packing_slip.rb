@@ -14,4 +14,16 @@ class PackingSlip < ActiveRecord::Base
   def total_qty
     list_items.map(&:qty).sum
   end
+  
+  def shipper_name
+    shipper.try(:company_name)
+  end
+  
+  def consignee_name
+    consignee.try(:company_name)
+  end
+  
+  def jqgrid_action_links
+     "<center><a href='/packing_slips/#{id}'>View</a> <a href='/packing_slips/#{id}/edit'>Edit</a> | <a href='/shipments/create_from_packing_slip/#{id}'>Create Shipment</a></center>"
+  end
 end

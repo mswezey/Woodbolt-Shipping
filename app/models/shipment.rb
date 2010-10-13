@@ -87,7 +87,7 @@ class Shipment < ActiveRecord::Base
   end
   
   def reference_number
-    "#{classification_type}-#{id}"
+    "<a href='/shipments/#{id}'>#{classification_type}-#{id}</a>"
   end
   
   def carrier_name
