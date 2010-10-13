@@ -18,7 +18,7 @@ class Notifier < ActionMailer::Base
   end
   
   def new_note(note)
-    subject       "New Note for Shipment #{classification_type}-#{id}"
+    subject       "New Note for Shipment #{note.shipment.classification_type}-#{note.shipment.id}"
     from          "no-reply@woodbolt.com"
     recipients    note.shipment.users.map(&:email)
     sent_on       Time.now  
