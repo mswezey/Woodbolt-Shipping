@@ -185,6 +185,7 @@ label {
 	z-index: 100;
 	padding: 10px;	
 	-moz-box-shadow: 0 5px 5px #666;
+	-webkit-box-shadow: 0 5px 5px #666;
 }
 
 #create a {
@@ -197,6 +198,11 @@ label {
 
 #create a:hover {
 	color: #000;
+}
+
+.ui-dialog {
+	-moz-box-shadow: 0px 0px 10px #666;
+	-webkit-box-shadow: 0px 0px 10px #666;
 }
 
 .ui-icon-circle-triangle-n {

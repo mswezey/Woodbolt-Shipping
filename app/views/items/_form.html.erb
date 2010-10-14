@@ -1,3 +1,17 @@
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
+
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title"><%= h(yield(:title)) %></span>
+		</div>
+		
+		<div class="new-shipment" style="padding: 25px">
+
 <% form_for @item do |f| %>
   <%= f.error_messages %>
   <p>
@@ -8,5 +22,9 @@
     <%= f.label :uom %><br />
     <%= f.text_field :uom %>
   </p>
-  <p><%= f.submit "Submit" %></p>
+  <p><%= f.submit "Add New Item", :class => "btn" %></p>
 <% end %>
+
+</div>
+
+</div>

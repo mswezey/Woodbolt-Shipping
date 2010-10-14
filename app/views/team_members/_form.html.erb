@@ -1,6 +1,20 @@
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
+
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title"><%= h(yield(:title)) %></span>
+		</div>
+		
+		<div class="new-shipment" style="padding: 25px">
+
 <% url = @user.new_record? ? team_members_path : team_member_path(@user) %>
 <% form_for @user, :url => url do |f| %>
-	<p>
+	<p style="float: right;">
 	  <%= f.label :picture %><br />
 		<%= image_tag f.object.picture.url(:small) if f.object.picture? %><%= "<br />" if f.object.picture? %>
 		<%= f.file_field :picture %>
@@ -25,5 +39,9 @@
 		<%= f.label :password_confirmation %><br />
 		<%= f.text_field :password_confirmation %>
 	</p>	
-	<%= f.submit %>
+	<p><%= f.submit f.object.new_record? ? "Create New Team Member" : "Update", :class => "btn" %><%= link_to "Cancel", team_members_path %></p>
 <% end %>
+
+</div>
+
+</div>

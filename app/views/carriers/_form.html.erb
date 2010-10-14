@@ -22,7 +22,7 @@
     <%= f.label :url %><br />
     <%= f.text_field :url %>
   </p>
-  <p><%= f.submit "Add New Carrier", :class => "btn" %></p>
+  <p><%= f.submit f.object.new_record? ? "Add New Carrier" : "Update", :class => "btn" %><%= link_to "Cancel", carriers_path %></p>
 <% end %>
 
 </div>

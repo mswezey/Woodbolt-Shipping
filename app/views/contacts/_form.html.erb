@@ -1,48 +1,81 @@
-<% form_for @contact do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :contact_type_id %><br />
-    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID %>
-  </p>
-  <p>
-    <%= f.label :company_name %><br />
-    <%= f.text_field :company_name %>
-  </p>
-  <p>
-    <%= f.label :contact_name %><br />
-    <%= f.text_field :contact_name %>
-  </p>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :street_1 %><br />
-    <%= f.text_field :street_1 %>
-  </p>
-  <p>
-    <%= f.label :street_2 %><br />
-    <%= f.text_field :street_2 %>
-  </p>
-  <p>
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </p>
-  <p>
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </p>
-  <p>
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
-  </p>
-  <p>
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
-  </p>
-  <p>
-    <%= f.label :fax %><br />
-    <%= f.text_field :fax %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
+
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title"><%= h(yield(:title)) %></span>
+		</div>
+		
+		<div class="new-shipment">
+
+			<div class="info">
+
+			<% form_for @contact do |f| %>
+			  <%= f.error_messages %>
+			  <p>
+			    <%= f.label :contact_type_id %><br />
+			    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID %>
+			  </p>
+			  <p>
+			    <%= f.label :company_name %><br />
+			    <%= f.text_field :company_name %>
+			  </p>
+			  <p>
+			    <%= f.label :contact_name %><br />
+			    <%= f.text_field :contact_name %>
+			  </p>
+			  <p>
+			    <%= f.label :email %><br />
+			    <%= f.text_field :email %>
+			  </p>
+			</div>
+			
+			<div class="bol">
+			
+			  <p>
+			    <%= f.label :street_1 %><br />
+			    <%= f.text_field :street_1 %>
+			  </p>
+			  <p>
+			    <%= f.label :street_2 %><br />
+			    <%= f.text_field :street_2 %>
+			  </p>
+			  <p>
+			    <%= f.label :city %><br />
+			    <%= f.text_field :city %>
+			  </p>
+			  <p style="float: left;">
+			    <%= f.label :state %><br />
+			    <%= f.text_field :state, :style => "width: 120px" %>
+			  </p>
+			  <p style="float: left; margin-left: 20px">
+			    <%= f.label :zip %><br />
+			    <%= f.text_field :zip, :style => "width: 70px" %>
+			  </p>
+			<br class="clear" />
+			
+		</div>
+		
+		<div class="comments">
+		
+			<p>
+		    <%= f.label :phone %><br />
+		    <%= f.text_field :phone %>
+		  </p>
+		  <p>
+		    <%= f.label :fax %><br />
+		    <%= f.text_field :fax %>
+		  </p>
+			
+		</div>
+		
+		<br class="clear" />
+		
+			  <p><%= f.submit f.object.new_record? ? "Create New Contact" : "Update", :class => "btn" %><%= link_to "Cancel", contacts_path %></p>
 <% end %>
+
+</div>
