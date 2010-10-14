@@ -36,12 +36,12 @@
 
 		<p>
 	    <%= f.label :scheduled_pickup, "Scheduled Pickup Date" %><br />
-	    <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year %>
+	    <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
 	  </p>
 
 	  <p>
 	    <%= f.label :deliver_by_date %><br />
-	    <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year %>
+	    <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
 	  </p>
 	  <p>
 	    <%= f.label :picked_up_at, "Pickup Time (window)" %><br />
@@ -68,7 +68,7 @@
 	
 		<p>
 	    <%= f.label :bol_date, "Bill of Lading Date" %><br />
-	    <%= f.date_select :bol_date, :prompt => true %>
+	    <%= f.date_select :bol_date, :prompt => true, :order => [:month, :day, :year] %>
 	  </p>
 		<p>
 	    <%= f.label :bol, "Attach Bill of Lading" %><br />
@@ -189,7 +189,7 @@
 	    <%= f.label :contact_type_id %><br />
 	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID.map {|c| [c[0].humanize, c[1]]}.sort, :prompt => 'Select Contact Type' %>
 	  </p>
-	<div class='col-left-small'>
+	<div style="float: left;">
 	  <p>
 	    <%= f.label :company_name %><br />
 	    <%= f.text_field :company_name %>
@@ -203,7 +203,7 @@
 	    <%= f.text_field :email %>
 	  </p>
 	</div>
-	<div class='col-right-small'>
+	<div style="float: left; margin-left: 25px">
 	  <p>
 	    <%= f.label :street_1 %><br />
 	    <%= f.text_field :street_1 %>
@@ -216,14 +216,15 @@
 	    <%= f.label :city %><br />
 	    <%= f.text_field :city %>
 	  </p>
-	  <p>
+	  <p style="float: left;">
 	    <%= f.label :state %><br />
-	    <%= f.text_field :state %>
+	    <%= f.text_field :state, :style => "width: 130px;" %>
 	  </p>
-	  <p>
+	  <p style="float: left; margin-left: 20px">
 	    <%= f.label :zip %><br />
-	    <%= f.text_field :zip %>
+	    <%= f.text_field :zip, :style => "width: 100px;" %>
 	  </p>
+	<br class="clear" />
 	  <p>
 	    <%= f.label :phone %><br />
 	    <%= f.text_field :phone %>

@@ -1,18 +1,51 @@
 <% title "Team Members" %>
 
-<table width="100%">
-	<tr style="text-align:left;">
-		<th>Name</th>
-		<th>Email</th>
-		<th>Actions</th>
-	</tr>
-	<% @users.each do |user| %>
-	<tr>
-	  <td><%= link_to h(user.name), team_member_path(user) %></td>
-	  <td><%= link_to "send email", "mailto:#{user.email}" %></td>	
-		<td><%= link_to "Edit", edit_team_member_path(user) %> <%= link_to "Delete", team_member_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
-	</tr>
-	<% end %>
-</table>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
 
-<p><%= link_to "New Team Member", new_team_member_path %></p>
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title"><%= h(yield(:title)) %></span>
+		</div>
+		
+		<div class="ui-jqgrid-hbox">
+			
+			<table class="ui-jqgrid-htable">
+			  <thead>
+					<tr class="ui-jqgrid-labels">
+			    	<th width="300px" class="ui-state-default ui-th-column">Name</th>
+						<th width="195px" class="ui-state-default ui-th-column">Email</th>
+						<th width="480px" class="ui-state-default ui-th-column">Actions</th>
+					</tr>
+			  </thead>
+			</table>
+
+		</div>
+		
+		<br class="clear">
+		
+		<div class="ui-jqgrid-bdiv">
+
+		<table class="ui-jqgrid-btable">
+
+		  <% @users.each do |user| %>
+				
+				    <tr class="ui-widget-content jqgrow">
+				      <td width="295px"><%= link_to h(user.name), team_member_path(user) %></td>
+							<td width="195px"><%= link_to "send email", "mailto:#{user.email}" %></td>
+				      <td width="480px" style="text-align: center"><%= link_to "Edit", edit_team_member_path(user) %> <%= link_to "Delete", team_member_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
+				    </tr>
+				
+		  <% end %>
+
+		</table>
+		
+		</div>
+
+</div>
+
+</div>

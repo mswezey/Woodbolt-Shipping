@@ -1,19 +1,51 @@
 <% title "Items" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Uom</th>
-  </tr>
-  <% for item in @items %>
-    <tr>
-      <td><%=h item.name %></td>
-      <td><%=h item.uom %></td>
-      <td><%= link_to "Show", item %></td>
-      <td><%= link_to "Edit", edit_item_path(item) %></td>
-      <td><%= link_to "Destroy", item, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
 
-<p><%= link_to "New Item", new_item_path %></p>
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title">Carriers</span>
+		</div>
+
+		<div class="ui-jqgrid-hbox">
+			
+			<table class="ui-jqgrid-htable">
+			  <thead>
+					<tr class="ui-jqgrid-labels">
+			    	<th width="300px" class="ui-state-default ui-th-column">Item</th>
+						<th width="195px" class="ui-state-default ui-th-column">Unit of Measure</th>
+						<th width="480px" class="ui-state-default ui-th-column">Actions</th>
+					</tr>
+			  </thead>
+			</table>
+
+		</div>
+		
+		<br class="clear">
+		
+		<div class="ui-jqgrid-bdiv">
+
+		<table class="ui-jqgrid-btable">
+
+		  <% for item in @items %>
+				
+				    <tr class="ui-widget-content jqgrow">
+				      <td width="295px"><%=h item.name %></td>
+							<td width="195px"><%=h item.uom %></td>
+				      <td width="480px" style="text-align: center"><%= link_to "Edit", edit_item_path(item) %> <%= link_to "Destroy", item, :confirm => 'Are you sure?', :method => :delete %></td>
+				    </tr>
+				
+		  <% end %>
+
+		</table>
+		
+		</div>
+
+</div>
+
+</div>
