@@ -1,35 +1,56 @@
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
+
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title"><%= h(yield(:title)) %></span>
+		</div>
+		
+		<div class="new-shipment">
+			
+
 <% form_for @packing_slip do |f| %>
   <%= f.error_messages %>
-	<div class="col-left">
+	<div class="slip">
 		<p>
 		  <%= f.label :shipper_id %> <a class='new-contact' href='#' rel='shipper'>Add New</a><br />
 		  <%= f.select :shipper_id, Contact.shippers.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
 		</p>
-	</div>
 
-	<div class="col-right">
 		<p>
 		  <%= f.label :consignee_id %> <a class='new-contact' href='#' rel='consignee'>Add New</a><br />
 		  <%= f.select :consignee_id, Contact.consignees.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
 		</p>
+		
+		<p>
+	    <%= f.label :pallets %><br />
+	    <%= f.text_field :pallets %>
+	  </p>
+	
+	  <p>
+	    <%= f.label :total_weight %><br />
+	    <%= f.text_field :total_weight %>
+	  </p>
+	
 	</div>
 
-	<br clear="all" />
-  <p>
-    <%= f.label :pallets %><br />
-    <%= f.text_field :pallets %>
-  </p>
-  <p>
-    <%= f.label :total_weight %><br />
-    <%= f.text_field :total_weight %>
-  </p>
+<div class="slip-items">
 
 	<% f.fields_for :list_items do |builder| %>
 		<%= render 'list_item_fields', :f => builder %>
 	<% end %>
 	<%= link_to_add_fields "Add List Item", f, :list_items %>
 	
-  <p><%= f.submit "Submit" %></p>
+</div>	
+
+<br class="clear" />	
+	
+  <p><%= f.submit f.object.new_record? ? "Create New Packing Slip" : "Update", :class => "btn" %><%= link_to "Cancel", root_path %></p>
+
 <% end %>
 
 <div id="new-contact">

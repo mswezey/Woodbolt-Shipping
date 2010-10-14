@@ -1,17 +1,49 @@
 <% title "Carriers" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
-  <% for carrier in @carriers %>
-    <tr>
-      <td><%=h carrier.name %></td>
-      <td><%= link_to "Show", carrier %></td>
-      <td><%= link_to "Edit", edit_carrier_path(carrier) %></td>
-      <td><%= link_to "Destroy", carrier, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
 
-<p><%= link_to "New Carrier", new_carrier_path %></p>
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title">Carriers</span>
+		</div>
+
+		<div class="ui-jqgrid-hbox">
+
+			<table class="ui-jqgrid-htable">
+			  <thead>
+					<tr class="ui-jqgrid-labels">
+			    	<th width="200px" class="ui-state-default ui-th-column">Name</th>
+						<th width="790px" class="ui-state-default ui-th-column">Actions</th>
+					</tr>
+			  </thead>
+			</table>
+
+		</div>
+		
+		<br class="clear">
+		
+		<div class="ui-jqgrid-bdiv">
+
+		<table class="ui-jqgrid-btable">
+
+		  <% for carrier in @carriers %>
+				
+				    <tr class="ui-widget-content jqgrow">
+				      <td width="195px"><%=h carrier.name %></td>
+				      <td width="780px" align="center"><%= link_to "Edit", edit_carrier_path(carrier) %> <%= link_to "Destroy", carrier, :confirm => 'Are you sure?', :method => :delete %></td>
+				    </tr>
+				
+		  <% end %>
+
+		</table>
+		
+		</div>
+
+</div>
+
+</div>

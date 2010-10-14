@@ -177,7 +177,29 @@ label {
 	font-size: 11px;
 }
 
-.ui-icon-circle-triangle-n, .ui-jqgrid-pager {
+#create {
+	position: absolute;
+	right: 190px;
+	top: 27px;
+	background: #fff;
+	z-index: 100;
+	padding: 10px;	
+	-moz-box-shadow: 0 5px 5px #666;
+}
+
+#create a {
+	display: block;
+	color: #666;
+	padding-bottom: 5px;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+#create a:hover {
+	color: #000;
+}
+
+.ui-icon-circle-triangle-n {
 	display: none !important;
 }
 

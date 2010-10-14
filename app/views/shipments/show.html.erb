@@ -104,32 +104,32 @@
 			<div class="bol" style="width: 190px">
 
 			<p>
-			  <label>Comments</label>
+			  <label>Comments</label><br />
 			  <span class="larger"><%=h @shipment.comments %></span>
 			</p>
 			<p>
-			  <label>Invoiced By</label>
+			  <label>Invoiced By</label><br />
 			  <span class="larger"><%=h @shipment.invoiced_by %></span>
 			</p>
 
 			<p>
-			  <label>Pallets</label>
+			  <label>Pallets</label><br />
 			  <span class="larger"><%=h @shipment.pallet_qty %></span>
 			</p>
 			<p>
-			  <label>Pallet Dimensions</label>
+			  <label>Pallet Dimensions</label><br />
 			  <span class="larger"><%=h @shipment.pallet_dimentions %></span>
 			</p>
 			<p>
-			  <label>Weight</label>
+			  <label>Weight</label><br />
 			  <span class="larger"><%=h @shipment.weight %></span>
 			</p>
 			<p>
-			  <label>BOL Date</label>
+			  <label>BOL Date</label><br />
 			  <span class="larger"><%=h @shipment.bol_date %></span>
 			</p>
 			<p>
-			  <label>BOL</label>
+			  <label>BOL</label><br />
 			  <span class="larger"><%= @shipment.bol.exists? ? link_to("download", @shipment.bol.url) : "none" %></span>
 			</p>
 			
@@ -160,25 +160,30 @@
 	</div>
 	
 	<div class="slip-items" style="width: 474px">
-
+				<div class="fields">
+				<h2>Items</h2>
 				<% @shipment.packing_slip.list_items.each do |li| %>
-					<div class="fields" style="border: 0 !important;">
-						<p style="float: left;">
-							<span class="larger"><%= li.item.name %></span>
-						</p>
-						<p style="float: left; margin-left: 25px;">
-							<span class="larger"><%= "#{pluralize li.qty, li.item.uom}" %> </span>
-						</p>
-						<p style="float: left; margin-left: 25px;">
-							<span class="larger"><%= li.lot_number %></span>
-						</p>
-						<br class="clear" />
-						<p>
-							<span class="larger"><%= li.comments %></span>
-						</p>
-					</div>
+						<table width="100%">
+							<tr>
+								<td width="150px">
+									<strong><%= li.item.name %></strong>
+								</td>
+								<td width="75px">
+									<%= "#{pluralize li.qty, li.item.uom}" %>
+								</td>
+								<td width="75px">
+									<%= li.lot_number %>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" bgcolor="#ddd">
+									<div style="font-style: italic; padding: 5px;"><%= li.comments %></div>
+								</td>
+							</tr>
+						</table>
+						<br />
 				<% end %>
-				
+				</div>				
 	</div>
 	
 		</td>

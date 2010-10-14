@@ -1,33 +1,74 @@
 <% title "Packing Slip" %>
 
-<p>
-  <strong>Shipment:</strong>
-  <%= @packing_slip.shipment ? link_to("View", @packing_slip.shipment) : link_to("Create Shipment from packing slip", create_from_packing_slip_path(@packing_slip)) %>
-</p>
-<p>
-  <strong>Shipper:</strong>
-  <%=h @packing_slip.shipper.company_name %>
-</p>
-<p>
-  <strong>Consignee:</strong>
-  <%=h @packing_slip.consignee.company_name %>
-</p>
-<p>
-  <strong>Pallets:</strong>
-  <%=h @packing_slip.pallets %>
-</p>
-<p>
-  <strong>Total Weight:</strong>
-  <%=h @packing_slip.total_weight %>
-</p>
+<% content_for :head do -%>
+	<%= jqgrid_stylesheets %> 
+<% end -%>
 
-<h3>Items</h3>
-<% @packing_slip.list_items.each do |li| %>
-	<%= li.item.name %> <%= "#{pluralize li.qty, li.item.uom}" %> <%= li.lot_number %> <%= li.comments %><br />
-<% end %>
+<div id="gbox_shipments" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: 1005px;">
+	
+	<div id="gview_shipments" class="ui-jqgrid-view">
+		
+		<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
+			<span class="ui-jqgrid-title"><%= h(yield(:title)) %></span>&nbsp; &nbsp; <%= link_to "Edit", edit_packing_slip_path(@packing_slip) %>
+		  <%= link_to "Destroy", @packing_slip, :confirm => 'Are you sure?', :method => :delete %>
+		  <%= link_to "View All", packing_slips_path %>
+		</div>
+		
+		<div class="new-shipment">
+			
+			<div class="slip">
 
 <p>
-  <%= link_to "Edit", edit_packing_slip_path(@packing_slip) %> |
-  <%= link_to "Destroy", @packing_slip, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", packing_slips_path %>
+  <label>Shipment</label><br />
+  <span class="larger"><%= @packing_slip.shipment ? link_to("View", @packing_slip.shipment) : link_to("Create Shipment from packing slip", create_from_packing_slip_path(@packing_slip)) %></span>
 </p>
+<p>
+  <label>Shipper</label><br />
+  <span class="larger"><%=h @packing_slip.shipper.company_name %></span>
+</p>
+<p>
+  <label>Consignee</label><br />
+  <span class="larger"><%=h @packing_slip.consignee.company_name %></span>
+</p>
+<p>
+  <label>Pallets</label><br />
+  <span class="larger"><%=h @packing_slip.pallets %></span>
+</p>
+<p>
+  <label>Total Weight</label><br />
+  <span class="larger"><%=h @packing_slip.total_weight %></span>
+</p>
+
+</div>
+
+<div class="slip-items">
+	<div class="fields">
+		<% @packing_slip.list_items.each do |li| %>
+			<table width="100%">
+				<tr>
+					<td width="150px">
+						<strong><%= li.item.name %></strong>
+					</td>
+					<td width="75px">
+						<%= "#{pluralize li.qty, li.item.uom}" %>
+					</td>
+					<td width="75px">
+						<%= li.lot_number %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" bgcolor="#ddd">
+						<div style="font-style: italic; padding: 5px;"><%= li.comments %></div>
+					</td>
+				</tr>
+			</table>
+			<br />
+		<% end %>
+	</div>
+</div>
+
+<br class="clear" />
+
+</div>
+
+</div>

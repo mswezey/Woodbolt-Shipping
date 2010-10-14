@@ -6,6 +6,15 @@
     <%= stylesheet_link_tag 'application', "jquery-ui" %>
     <%= javascript_include_tag "jquery", "jquery-ui", "jquery.jeditable", "application" %>
     <%= yield(:head) %>
+
+		<script type="text/javascript">
+			$(function(){
+				$('#create-link').hover(function() {
+					$('#create').show();
+				});
+			});
+		</script>
+
   </head>
   <body>
     <div id="container">
@@ -28,8 +37,15 @@
 					<li <%= current_page?(invoiced_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Invoiced", invoiced_shipments_path %></li>
 					<li <%= current_page?(delivered_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Delivered", delivered_shipments_path %></li>
 					<li <%= current_page?(pending_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Pending", pending_shipments_path %></li>
-					<li <%= current_page?(new_shipment_path) ? " class='selected'" : nil -%>><%= link_to "Create", new_shipment_path %></li>
+					<li <%= current_page?(new_shipment_path) ? " class='selected'" : nil -%>><a href="#" id="create-link">Create</a></li>
 				</ul>
+				
+				<div id="create" style="display: none;">
+					<%= link_to "Shipment", new_shipment_path %>
+					<%= link_to "Packing Slip", new_packing_slip_path %>
+					<%= link_to "Contact", new_contact_path %>
+					<%= link_to "Carrier", new_carrier_path %>
+				</div>
 				
 				<div id="sub-nav">
 				<%= link_to "Packing Slips", packing_slips_path %> | <%= link_to "Credits", credits_path %> | <%= link_to "Contacts", contacts_path %> | <%= link_to "Carriers", carriers_path %> | <%= link_to "Items", items_path %>
