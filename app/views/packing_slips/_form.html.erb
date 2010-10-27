@@ -49,7 +49,7 @@
 
 <br class="clear" />	
 	
-  <p><%= f.submit f.object.new_record? ? "Create New Packing Slip" : "Update", :class => "btn" %><%= link_to "Cancel", root_path %></p>
+  <p><%= f.submit f.object.new_record? ? "Create New Packing Slip" : "Update", :class => "btn" %><%= link_to "Cancel", packing_slips_path %></p>
 
 <% end %>
 
@@ -60,50 +60,51 @@
 	    <%= f.label :contact_type_id %><br />
 	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID.map {|c| [c[0].humanize, c[1]]}.sort, :prompt => 'Select Contact Type' %>
 	  </p>
-	<div class='col-left-small'>
-	  <p>
-	    <%= f.label :company_name %><br />
-	    <%= f.text_field :company_name %>
-	  </p>
-	  <p>
-	    <%= f.label :contact_name %><br />
-	    <%= f.text_field :contact_name %>
-	  </p>
-	  <p>
-	    <%= f.label :email %><br />
-	    <%= f.text_field :email %>
-	  </p>
-	</div>
-	<div class='col-right-small'>
-	  <p>
-	    <%= f.label :street_1 %><br />
-	    <%= f.text_field :street_1 %>
-	  </p>
-	  <p>
-	    <%= f.label :street_2 %><br />
-	    <%= f.text_field :street_2 %>
-	  </p>
-	  <p>
-	    <%= f.label :city %><br />
-	    <%= f.text_field :city %>
-	  </p>
-	  <p>
-	    <%= f.label :state %><br />
-	    <%= f.text_field :state %>
-	  </p>
-	  <p>
-	    <%= f.label :zip %><br />
-	    <%= f.text_field :zip %>
-	  </p>
-	  <p>
-	    <%= f.label :phone %><br />
-	    <%= f.text_field :phone %>
-	  </p>
-	  <p>
-	    <%= f.label :fax %><br />
-	    <%= f.text_field :fax %>
-	  </p>
-	</div>
+		<div style="float: left;">
+		  <p>
+		    <%= f.label :company_name %><br />
+		    <%= f.text_field :company_name %>
+		  </p>
+		  <p>
+		    <%= f.label :contact_name %><br />
+		    <%= f.text_field :contact_name %>
+		  </p>
+		  <p>
+		    <%= f.label :email %><br />
+		    <%= f.text_field :email %>
+		  </p>
+		</div>
+		<div style="float: left; margin-left: 25px">
+		  <p>
+		    <%= f.label :street_1 %><br />
+		    <%= f.text_field :street_1 %>
+		  </p>
+		  <p>
+		    <%= f.label :street_2 %><br />
+		    <%= f.text_field :street_2 %>
+		  </p>
+		  <p>
+		    <%= f.label :city %><br />
+		    <%= f.text_field :city %>
+		  </p>
+		  <p style="float: left;">
+		    <%= f.label :state %><br />
+		    <%= f.text_field :state, :style => "width: 130px;" %>
+		  </p>
+		  <p style="float: left; margin-left: 20px">
+		    <%= f.label :zip %><br />
+		    <%= f.text_field :zip, :style => "width: 100px;" %>
+		  </p>
+		<br class="clear" />
+		  <p>
+		    <%= f.label :phone %><br />
+		    <%= f.text_field :phone %>
+		  </p>
+		  <p>
+		    <%= f.label :fax %><br />
+		    <%= f.text_field :fax %>
+		  </p>
+		</div>
 	<br clear="all" />
 	  <p><%= f.submit "Submit" %></p>
 	<% end %>

@@ -1,19 +1,19 @@
 @import "reset-fonts-grids.css";
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 12px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
 	margin: 0px;
 	padding: 0px;
 	color: #3a3a3a;
 }
 
 a img {
-  border: none;
+	border: none;
 }
 
 a {
-  color: #0000FF;
+	color: #0000FF;
 }
 
 p {
@@ -21,9 +21,9 @@ p {
 }
 
 .clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
+	clear: both;
+	height: 0;
+	overflow: hidden;
 }
 
 .login input {
@@ -113,9 +113,9 @@ label {
 
 #container {
 	position: relative;
-  width: 1000px;
-  margin: 0 auto;
-  background-color: #FFF;
+	width: 1000px;
+	margin: 0 auto;
+	background-color: #FFF;
 }
 
 #logo {
@@ -177,13 +177,38 @@ label {
 	font-size: 11px;
 }
 
+ul.dropdown ul {
+	width: 120px;
+	visibility: hidden;
+	position: absolute;
+	top: 100%;
+	right: 175px;
+	z-index: 9999;
+	background: #fff;
+	-moz-box-shadow: 0 5px 5px #ccc;
+	-webkit-box-shadow: 0 5px 5px #ccc;
+}
+
+ul.dropdown ul li {
+	font-weight: normal;
+	background: #f6f6f6;
+	color: #000;
+	margin-left: 20px;
+}
+
+ul.dropdown ul li a {
+	border-right: none;
+	width: 100%;
+	display: inline-block;
+}
+
 #create {
 	position: absolute;
 	right: 190px;
 	top: 27px;
 	background: #fff;
 	z-index: 100;
-	padding: 10px;	
+	padding: 10px;
 	-moz-box-shadow: 0 5px 5px #666;
 	-webkit-box-shadow: 0 5px 5px #666;
 }
@@ -241,7 +266,6 @@ label {
 }
 
 .new_shipment {
-
 }
 
 .info {
@@ -304,8 +328,8 @@ label {
 }
 
 #flash_notice, #flash_error {
-  padding: 5px 8px;
-  margin: 10px 0;
+	padding: 5px 8px;
+	margin: 10px 0;
 	width: 300px;
 	position: absolute;
 	top: 0px;
@@ -315,60 +339,60 @@ label {
 }
 
 #flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
+	background-color: #CFC;
+	border: solid 1px #6C6;
 }
 
 #flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
+	background-color: #FCC;
+	border: solid 1px #C66;
 }
 
 .fieldWithErrors {
-  display: inline;
+	display: inline;
 }
 
 .fieldWithErrors input {
-  border: solid red 1px;
+	border: solid red 1px;
 }
 
 #errorExplanation {
-  width: 400px;
-  border: 2px solid #CF0000;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+	width: 400px;
+	border: 2px solid #CF0000;
+	padding: 0px;
+	padding-bottom: 12px;
+	margin-bottom: 20px;
+	background-color: #f0f0f0;
 }
 
 #errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #c00;
-  color: #fff;
+	text-align: left;
+	font-weight: bold;
+	padding: 5px 5px 5px 15px;
+	font-size: 12px;
+	margin: 0;
+	background-color: #c00;
+	color: #fff;
 }
 
 #errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 8px;
+	color: #333;
+	margin-bottom: 0;
+	padding: 8px;
 }
 
 #errorExplanation ul {
-  margin: 2px 24px;
+	margin: 2px 24px;
 }
 
 #errorExplanation ul li {
-  font-size: 12px;
-  list-style: disc;
+	font-size: 12px;
+	list-style: disc;
 }
 
 .edit {
-	background:#eee;
-	padding:3px;
+	background: #eee;
+	padding: 3px;
 }
 
 strong {

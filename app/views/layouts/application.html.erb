@@ -7,13 +7,6 @@
     <%= javascript_include_tag "jquery", "jquery-ui", "jquery.jeditable", "application" %>
     <%= yield(:head) %>
 
-		<style>
-			/* LEVEL TWO*/
-		ul.dropdown ul 						{ width: 220px; visibility: hidden; position: absolute; top: 100%; right: 60px; z-index:9999; background:#fff;}
-		ul.dropdown ul li 					{ font-weight: normal; background: #f6f6f6; color: #000; border-bottom: 1px solid #ccc; float: none; }				  
-		                                    /* IE 6 & 7 Needs Inline Block */
-		ul.dropdown ul li a					{ border-right: none; width: 100%; display: inline-block; } 
-		</style>
 		<script type="text/javascript">
 			$(function(){
 
@@ -53,7 +46,7 @@
 					<li <%= current_page?(invoiced_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Invoiced", invoiced_shipments_path %></li>
 					<li <%= current_page?(delivered_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Delivered", delivered_shipments_path %></li>
 					<li <%= current_page?(pending_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Pending", pending_shipments_path %></li>
-					<li <%= current_page?(new_shipment_path) ? " class='selected'" : nil -%>><a href="#" id="create-link">Create</a>
+					<li <%= current_page?(new_shipment_path) ? " class='selected'" : nil -%>><a href="#" id="create-link" style="cursor: default;">Create</a>
 						<ul class="sub_menu">
 							<li><%= link_to "Shipment", new_shipment_path %></li>
 							<li><%= link_to "Packing Slip", new_packing_slip_path %></li>
