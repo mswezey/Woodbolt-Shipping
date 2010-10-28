@@ -29,6 +29,7 @@ class ShipmentsController < ApplicationController
     @shipment = Shipment.new(params[:shipment])
     @shipment.submitter_id = current_user.id
     if @shipment.save
+      @shipment.set_to_pending!
       flash[:notice] = "Successfully created shipment."
       redirect_to pending_shipments_path
     else
@@ -51,6 +52,9 @@ class ShipmentsController < ApplicationController
   def update
     @shipment = Shipment.find(params[:id])
     if @shipment.update_attributes(params[:shipment])
+      if @shipment.state == 'created'
+        @shipment.set_to_pending!
+      end
       respond_to do |format|
          format.html {
            flash[:notice] = "Successfully updated shipment."

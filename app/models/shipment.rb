@@ -1,7 +1,7 @@
 class Shipment < ActiveRecord::Base
   attr_accessible :packing_slip_attributes, :refrigerate, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list, :has_credit, :credit_amount, :credit_memo_number, :credit_memo, :credits_applied, :user_ids
   attr_accessor :delivered_check, :invoiced_check
-  validates_presence_of :deliver_by_date, :classification_id, :packing_slip, :bill_to, :invoiced_by
+  validates_presence_of :classification_id, :packing_slip, :bill_to, :invoiced_by
   # validates_uniqueness_of :reference_number
 
 
@@ -31,7 +31,6 @@ class Shipment < ActiveRecord::Base
                     :path => "/shipments/:id/bol/:id-:style.:extension"
   
   # after_create :generate_ref_num
-  after_create :notify_assignee
 
   CLASSIFICATION_TYPE_ID = {
     "FI" => 1,
@@ -96,8 +95,13 @@ class Shipment < ActiveRecord::Base
     carrier.try(:name)
   end
   
-  state_machine :state, :initial => :pending do
-
+  state_machine :state, :initial => :created do
+    after_transition :on => :set_to_pending, :do => :notify_assignee
+    
+    event :set_to_pending do
+      transition :created => :pending
+    end
+    
     event :deliver do
       transition :pending => :delivered
     end
@@ -106,7 +110,7 @@ class Shipment < ActiveRecord::Base
       transition :delivered => :invoiced
     end
 
-    state :pending, :delivered, :invoiced do
+    state :created, :pending, :delivered, :invoiced do
     end
 
   end
