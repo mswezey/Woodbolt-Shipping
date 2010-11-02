@@ -40,7 +40,7 @@
 			<img src="/images/woodbolt.png" id="logo">
       
 	    <br class="clear" />
-			<% unless params[:controller] == "user_sessions" %>
+			<% unless params[:controller] == "user_sessions" or params[:controller] == "home" %>
     	<div id="nav">
 				<ul class="dropdown">
 					<li <%= current_page?(invoiced_shipments_path) ? " class='selected'" : nil -%>><%= link_to "Invoiced", invoiced_shipments_path %></li>
