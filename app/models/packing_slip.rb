@@ -1,5 +1,5 @@
 class PackingSlip < ActiveRecord::Base
-  attr_accessible :shipment_id, :shipper_id, :consignee_id, :pallets, :total_weight, :list_items_attributes
+  attr_accessible :shipment_id, :shipper_id, :consignee_id, :pallets, :total_weight, :list_items_attributes, :reference_number
   
   has_many :list_items, :dependent => :destroy
   belongs_to :shipment
