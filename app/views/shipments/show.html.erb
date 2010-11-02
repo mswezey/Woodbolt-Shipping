@@ -12,7 +12,7 @@
 			<span class="ui-jqgrid-title">Reference Number: <%= strip_tags @shipment.reference_number %></span> &nbsp; &nbsp; 
 			<%= link_to "Edit", edit_shipment_path(@shipment) %> |
 		  <%= link_to "Destroy", @shipment, :confirm => 'Are you sure?', :method => :delete %> |
-		  <%= link_to "View All", shipments_path %>
+		  <%= link_to "View All", pending_shipments_path %>
 		</div>
 		
 <table cellspacing="0" cellpadding="0">
