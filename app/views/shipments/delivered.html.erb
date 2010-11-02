@@ -12,8 +12,8 @@
 		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :editable => true, :width => 280, :resizable => false },
 		{ :field => "cost", :label => "Cost", :editable => true, :formatter => 'currency', :width => 100, :resizable => false },
 		{ :field => "classification_id", :label => "Classification", :width => 110, :resizable => false, :align => "center" },
-		{ :field => "has_credit", :label => "Credits", :editable => true, :edittype => "checkbox", :width => 70, :resizable => false, :editoptions => { :value => "True:False" }, :formatter => 'checkbox', :resizable => false, :align => "center" },
-		{ :field => "invoiced_check", :label => "Invoiced", :editable => true, :edittype => "checkbox", :width => 65, :resizable => false, :align => "center" }
+		{ :field => "has_credit", :label => "Credits", :editable => true, :edittype => "checkbox", :width => 70, :resizable => false, :editoptions => { :value => "Yes:No" }, :formatter => 'checkbox', :resizable => false, :align => "center" },
+		{ :field => "invoice_link", :label => "Invoiced", :editable => false, :width => 65, :resizable => false, :align => "center" }
 					
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/delivered_post_data" }

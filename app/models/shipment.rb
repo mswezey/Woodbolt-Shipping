@@ -91,6 +91,14 @@ class Shipment < ActiveRecord::Base
     "<a href='/shipments/#{id}'>#{classification_type}-#{id}</a>"
   end
   
+  def deliver_link
+    "<a href='#' class='deliver'>Deliver</a>"
+  end
+  
+  def invoice_link
+    "<a href='#' class='invoice'>Invoice</a>"
+  end
+  
   def carrier_name
     carrier.try(:name)
   end

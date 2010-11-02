@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :user_session
 
-  map.root :controller => :user_sessions, :action => :new
+  map.root :controller => :home
 
   # The priority is based upon order of creation: first created -> highest priority.
 

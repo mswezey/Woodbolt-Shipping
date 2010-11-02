@@ -102,7 +102,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :delivered_check], 
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :deliver_link], 
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -138,7 +138,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :has_credit, :invoiced_check],
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :has_credit, :invoice_link],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end

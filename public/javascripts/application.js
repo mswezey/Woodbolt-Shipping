@@ -15,40 +15,76 @@ function pendingHandleSelection(id) {
 	alert('ID selected : ' + id);
 }
 
-$('input[name=delivered_check]').live("change", function(){
-	if($(this).is(":checked")){
-		var checkbox = $(this);
-		$.ajax({
-		   type: "GET",
-		   url: "/shipments/"+ $(this).parent().parent().attr("id")+"/deliver.js",
-		   success: function(){
-				checkbox.parent().parent().hide();
-				alert("Shipment status successfully changed to Delivered");
-		   },
-			error: function(xhr){
-				alert(xhr.responseText);
-				checkbox.attr('checked', false);
-			}
-		 });
-	}
+// $('input[name=delivered_check]').live("change", function(){
+// 	if($(this).is(":checked")){
+// 		var rowId = $(this).parent().parent().attr("id");
+// 		$(this).parent().parent().parent().parent().saveRow(rowId, true);
+// 		var checkbox = $(this);
+// 		$.ajax({
+// 		   type: "GET",
+// 		   url: "/shipments/"+ $(this).parent().parent().attr("id")+"/deliver.js",
+// 		   success: function(){
+// 				checkbox.parent().parent().hide();
+// 				alert("Shipment status successfully changed to Delivered");
+// 		   },
+// 			error: function(xhr){
+// 				alert(xhr.responseText);
+// 				checkbox.attr('checked', false);
+// 			}
+// 		 });
+// 	}
+// });
+
+$('.deliver').live("click", function(){
+	var row = $(this).parent().parent();
+	$(this).parent().parent().parent().parent().saveRow(row.attr("id"), true);
+	$.ajax({
+	   type: "GET",
+	   url: "/shipments/"+ row.attr("id")+"/deliver.js",
+	   success: function(){
+			row.hide();
+			alert("Shipment status successfully changed to Delivered");
+	   },
+		error: function(xhr){
+			alert(xhr.responseText);
+			row.parent().parent().editRow(row.attr("id"), true);
+		}
+	 });
 });
 
-$('input[name=invoiced_check]').live("change", function(){
-	if($(this).is(":checked")){
-		var checkbox = $(this);
+// $('input[name=invoiced_check]').live("change", function(){
+// 	if($(this).is(":checked")){
+// 		var checkbox = $(this);
+// 		$.ajax({
+// 		   type: "GET",
+// 		   url: "/shipments/"+ $(this).parent().parent().attr("id")+"/invoice.js",
+// 		   success: function(){
+// 				checkbox.parent().parent().hide();
+// 				alert("Shipment status successfully changed to Invoiced");
+// 		   },
+// 			error: function(xhr){
+// 				alert(xhr.responseText);
+// 				checkbox.attr('checked', false);
+// 			}
+// 		 });
+// 	}
+// });
+
+$('.invoice').live("click", function(){
+		var row = $(this).parent().parent();
+		$(this).parent().parent().parent().parent().saveRow(row.attr("id"), true);
 		$.ajax({
 		   type: "GET",
-		   url: "/shipments/"+ $(this).parent().parent().attr("id")+"/invoice.js",
+		   url: "/shipments/"+ row.attr("id")+"/invoice.js",
 		   success: function(){
-				checkbox.parent().parent().hide();
+				row.hide();
 				alert("Shipment status successfully changed to Invoiced");
 		   },
 			error: function(xhr){
 				alert(xhr.responseText);
-				checkbox.attr('checked', false);
+				row.parent().parent().editRow(row.attr("id"), true);
 			}
 		 });
-	}
 });
 
 $('input[name=has_credit]').live("change", function(){
