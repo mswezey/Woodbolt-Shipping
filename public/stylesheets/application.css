@@ -46,7 +46,7 @@ select {
 }
 
 form div {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 #shipments {
@@ -270,6 +270,7 @@ ul.dropdown ul li a {
 }
 
 .new_shipment {
+
 }
 
 .info {
@@ -277,6 +278,7 @@ ul.dropdown ul li a {
 	padding: 25px 25px 10px;
 	background: #f0f0f0;
 	width: 250px;
+	margin-bottom: 0px !important;
 }
 
 .bol {
@@ -405,4 +407,8 @@ strong {
 
 span.larger {
 	font-size: 14px !important;
+}
+
+#woodbolt, #woodbolt2 {
+	display: none;
 }

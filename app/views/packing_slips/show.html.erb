@@ -16,7 +16,10 @@
 		
 		<div class="new-shipment">
 			
-			<div class="slip">
+			<h1 id="woodbolt" style="text-align: center; margin-top: 20px;">Woodbolt Distribution</h1>
+			<h2 id="woodbolt2" style="text-align: center; margin-top: 20px; border: 1px solid #000; padding: 5px;">PACKING SLIP</h2>
+		
+<div class="slip">
 
 <p>
   <label>Shipment</label><br />
@@ -44,7 +47,7 @@
 <div class="slip-items">
 	<div class="fields">
 		<% @packing_slip.list_items.each do |li| %>
-			<table width="100%">
+			<table width="100%" style="border-bottom: 1px solid #000;">
 				<tr>
 					<td width="150px">
 						<strong><%= li.item.name %></strong>

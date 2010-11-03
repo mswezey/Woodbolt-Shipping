@@ -1,0 +1,20 @@
+body, html, #container, .new-shipment {
+	background: #fff;
+	overflow: visible !important;
+}
+
+#container {
+	margin: 0 !important;
+}
+
+#user_status, #logo, #nav, .ui-jqgrid-titlebar {
+	display: none !important;
+}
+
+.slip {
+	display: none !important;
+}
+
+#woodbolt, #woodbolt2 {
+	display: block !important;
+}
