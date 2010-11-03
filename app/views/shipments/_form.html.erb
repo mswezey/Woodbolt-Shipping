@@ -18,83 +18,84 @@
 	<div class="info">
 	
 		<% if params[:debug] %>
-		<p>
+		<div>
 	    <%= f.label :submitter_id, "Submitter" %><br />
 	    <%= current_user.name %>
-	  </p>
+	  </div>
 		<% end %>
 
-	  <p>
+	  <div>
 	    <%= f.label :assigned_to_id, "Assigned To" %><br />
 	    <%= f.select :assigned_to_id, User.all.collect {|u| [u.name, u.id]} %>
-	  </p>
+	  </div>
 
-		<p>
+		<div>
 	    <%= f.label :scheduled_by_id %><br />
 	    <%= f.select :scheduled_by_id, User.all.collect {|u| [u.name, u.id]}, :include_blank => true %>
-	  </p>
+	  </div>
 
-		<p>
+		<div>
 	    <%= f.label :scheduled_pickup, "Scheduled Pickup Date" %><br />
 			<%= f.text_field :scheduled_pickup %>
 	    <%#= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
-	  </p>
+	  </div>
 
-	  <p>
+	  <div>
 	    <%= f.label :deliver_by_date %><br />
 			<%= f.text_field :deliver_by_date %>
 	    <%#= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
-	  </p>
-	  <p>
+	  </div>
+
+	  <div>
 	    <%= f.label :picked_up_at, "Pickup Time (window)" %><br />
 	    <%= f.text_field :picked_up_at, :style => "width: 170px;" %>
-	  </p>
+	  </div>
   
 		<% if params[:debug] %>
-		<p>
+		<div>
 	    <%= f.label :state, "Status" %><br />
 	    <%= f.select :state, %w[pending delivered invoiced] %>
-	  </p>
+	  </div>
 		<% end %>
 		
-	  <p>
+	  <div>
 	    <%= f.label :classification_id %><br />
 	    <%= f.select :classification_id, Shipment::CLASSIFICATION_TYPE_ID.sort %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :refrigerate? %>  <%= f.check_box :refrigerate %>
-	  </p>
+	  </div>
 	</div>
 	
 	<div class="bol">
 	
-		<p>
+		<div>
 	    <%= f.label :bol_date, "Bill of Lading Date" %><br />
 			<%= f.text_field :bol_date %>
 	    <%#= f.date_select :bol_date, :prompt => true, :order => [:month, :day, :year] %>
-	  </p>
-		<p>
+	  </div>
+		<div>
 	    <%= f.label :bol, "Attach Bill of Lading" %><br />
 	    <%= f.file_field :bol, :size => "20" %>
-	  </p>
-		<p>
+	  </div>
+		<div>
 	    <%= f.label :bol_pro_number %><br />
 	    <%= f.text_field :bol_pro_number %>
-	  </p>
+	  </div>
 	
-		<p>
+		<div>
 			<%= f.label :carrier_id %> <a class='new-carrier' href='#' rel='shipper'>Add New</a><br />
 		  <%= f.select :carrier_id, Carrier.all.collect {|u| [u.name, u.id]}, :prompt => 'Choose Carrier' %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :invoiced_by %><br />
 	    <%= f.text_field :invoiced_by %>
-	  </p>
+	  </div>
 
-	  <p>
+	  <div>
 	    <%= f.label :bill_to_id %> <a class='new-contact' href='#'>Add New</a><br />
 	    <%= f.select :bill_to_id, Contact.all.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
-	  </p>
+	  </div>
 
 	</div>
 	
@@ -107,54 +108,54 @@
 	
 	<br class="clear" />
 
-  <!-- <p>
+  <!-- <div>
     <%= f.label :reference_number %><br />
     <%= f.text_field :reference_number %>
-  </p>
-	<p>
+  </div>
+	<div>
     <%= f.label :packing_list, "Attach Packing List" %><br />
     <%= f.file_field :packing_list %>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= f.label :pallet_qty, "Pallets" %><br />
     <%= f.text_field :pallet_qty %>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= f.label :pallet_dimentions %><br />
     <%= f.text_field :pallet_dimentions %>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= f.label :weight %><br />
     <%= f.text_field :weight %>
-  </p> -->
+  </div> -->
 
 	<div class="slip">
 	
 	<h2>Packing Slip</h2>
 	<% f.fields_for :packing_slip do |f2| %>
 		
-			<p>
+			<div>
 			  <%= f2.label :shipper_id %> <a class='new-contact' href2.'#' rel='shipper'>Add New</a><br />
 			  <%= f2.select :shipper_id, Contact.shippers.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
-			</p>
+			</div>
 
-			<p>
+			<div>
 			  <%= f2.label :consignee_id %> <a class='new-contact' href2.'#' rel='consignee'>Add New</a><br />
 			  <%= f2.select :consignee_id, Contact.consignees.collect {|u| [u.company_name, u.id]}, :include_blank => true %>
-			</p>
+			</div>
 
-	  <p>
+	  <div>
 	    <%= f2.label :pallets %><br />
 	    <%= f2.text_field :pallets, :style => "width: 170px;" %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f2.label :total_weight %><br />
 	    <%= f2.text_field :total_weight, :style => "width: 170px;" %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f2.label :reference_number %><br />
 	    <%= f2.text_field :reference_number, :style => "width: 170px;" %>
-	  </p>
+	  </div>
 	</div>
 	
 	<div class="slip-items">
@@ -170,79 +171,79 @@
 		
 	<% end %>
 	
-	<p><%= f.submit f.object.new_record? ? "Create New Shipment" : "Update", :class => "btn" %><%= link_to "Cancel", root_path %></p>
+	<div><%= f.submit f.object.new_record? ? "Create New Shipment" : "Update", :class => "btn" %><%= link_to "Cancel", root_path %></div>
 
 <% end %>
 
 <div id="new-carrier">
 	<% form_for :carrier, :url => carriers_path, :html => {:id => "new-carrier-form"} do |f| %>
 	  <%= f.error_messages %>
-	  <p>
+	  <div>
 	    <%= f.label :name %><br />
 	    <%= f.text_field :name %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :url %><br />
 	    <%= f.text_field :url %>
-	  </p>
-	  <p><%= f.submit "Submit" %></p>
+	  </div>
+	  <div><%= f.submit "Submit" %></div>
 	<% end %>
 </div>
 
 <div id="new-contact">
 	<% form_for :contact, :url => contacts_path, :html => {:id => "new-contact-form"} do |f| %>
 	  <%= f.error_messages %>
-	  <p>
+	  <div>
 	    <%= f.label :contact_type_id %><br />
 	    <%= f.select :contact_type_id, Contact::CONTACT_TYPE_ID.map {|c| [c[0].humanize, c[1]]}.sort, :prompt => 'Select Contact Type' %>
-	  </p>
+	  </div>
 	<div style="float: left;">
-	  <p>
+	  <div>
 	    <%= f.label :company_name %><br />
 	    <%= f.text_field :company_name %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :contact_name %><br />
 	    <%= f.text_field :contact_name %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :email %><br />
 	    <%= f.text_field :email %>
-	  </p>
+	  </div>
 	</div>
 	<div style="float: left; margin-left: 25px">
-	  <p>
+	  <div>
 	    <%= f.label :street_1 %><br />
 	    <%= f.text_field :street_1 %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :street_2 %><br />
 	    <%= f.text_field :street_2 %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :city %><br />
 	    <%= f.text_field :city %>
-	  </p>
-	  <p style="float: left;">
+	  </div>
+	  <div style="float: left;">
 	    <%= f.label :state %><br />
 	    <%= f.text_field :state, :style => "width: 130px;" %>
-	  </p>
-	  <p style="float: left; margin-left: 20px">
+	  </div>
+	  <div style="float: left; margin-left: 20px">
 	    <%= f.label :zip %><br />
 	    <%= f.text_field :zip, :style => "width: 100px;" %>
-	  </p>
+	  </div>
 	<br class="clear" />
-	  <p>
+	  <div>
 	    <%= f.label :phone %><br />
 	    <%= f.text_field :phone %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :fax %><br />
 	    <%= f.text_field :fax %>
-	  </p>
+	  </div>
 	</div>
 	<br clear="all" />
-	  <p><%= f.submit "Submit" %></p>
+	  <div><%= f.submit "Submit" %></div>
 	<% end %>
 </div>
 
@@ -250,16 +251,16 @@
 	<% form_for :item, :url => items_path, :html => {:id => "new-item-form"} do |f| %>
 	  <%= f.error_messages %>
 		<input name="_method" type="hidden" value="post" id="item_method" /> 
-	  <p>
+	  <div>
 	    <%= f.label :name %><br />
 	    <%= f.text_field :name %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :uom %><br />
 	    <%= f.text_field :uom %>
-	  </p>
+	  </div>
 
-	  <p><%= f.submit "Save Item" %></p>
+	  <div><%= f.submit "Save Item" %></div>
 	<% end %>
 </div>
 
