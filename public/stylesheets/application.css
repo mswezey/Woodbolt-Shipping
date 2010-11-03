@@ -45,6 +45,10 @@ select {
 	padding: 0px !important;
 }
 
+form div {
+	margin-bottom: 10px;
+}
+
 #shipments {
 	width: 957 !important;
 }

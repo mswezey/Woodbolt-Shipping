@@ -1,20 +1,21 @@
 <div class="fields">
-	<p style="float: left;">
+	<div style="float: left;">
     <%= f.label :item_id %> <a class='new-item' href='#'>add new</a><br />
     <%= f.select :item_id, Item.all.collect {|u| ["#{u.name} (#{u.uom})", u.id]}, {:include_blank => true}, {:class => 'item-select'} %> <a href="#" class="edit-item">edit</a>
-  </p>
-  <p style="float: left; margin-left: 25px;">
+  </div>
+  <div style="float: left; margin-left: 25px;">
     <%= f.label :qty %><br />
     <%= f.text_field :qty, :style => "width: 100px" %>
-  </p>
-  <p style="float: left; margin-left: 25px;">
+  </div>
+  <div style="float: left; margin-left: 25px;">
     <%= f.label :lot_number %><br />
     <%= f.text_field :lot_number, :style => "width: 100px" %>
-  </p>
+  </div>
 <br class="clear" />
-  <p>
+  <div style="margin-top: 10px;">
     <label>ITEM DESCRIPTION</label><br />
     <%= f.text_area :comments %>
-  </p>
+  </div>
+	<br />
 	<%= link_to_remove_fields "<img src='/images/trash.png' />", f %>
 </div>
