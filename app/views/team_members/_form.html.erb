@@ -14,6 +14,7 @@
 
 <% url = @user.new_record? ? team_members_path : team_member_path(@user) %>
 <% form_for @user, :url => url do |f| %>
+	<%= f.error_messages %>
 	<p style="float: right;">
 	  <%= f.label :picture %><br />
 		<%= image_tag f.object.picture.url(:small) if f.object.picture? %><%= "<br />" if f.object.picture? %>

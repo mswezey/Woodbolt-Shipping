@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
                       :url => "/users/pictures/:id/:style.:extension",
                       :path => "/users/pictures/:id/:style.:extension"
     
-  validates_attachment_size :picture, :less_then => 2.megabytes, :message => "The photo must be no more than #{2.megabytes}"
-  validates_attachment_content_type :picture, :content_type => ['image/jpeg', 'image/jpg', 'image/png'], :message => "Only JPEG and PNG files are allowed."
+  # validates_attachment_size :picture, :less_then => 2.megabytes, :message => "The photo must be no more than #{2.megabytes}"
+  # validates_attachment_content_type :picture, :content_type => ['image/jpeg', 'image/jpg', 'image/png'], :message => "Only JPEG and PNG files are allowed."
   
   has_many :pictures, :as => :owner, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :reject_if => lambda { |a| a[:file].blank? }, :allow_destroy => true
