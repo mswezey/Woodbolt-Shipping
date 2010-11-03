@@ -9,7 +9,7 @@ class Note < ActiveRecord::Base
   after_create :email_users
   
   def email_users
-    Notifier.deliver_new_note(self)
+    Notifier.deliver_new_note(self) if shipment.users.size < 0
   end
   
 end

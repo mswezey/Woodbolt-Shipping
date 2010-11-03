@@ -4,6 +4,7 @@ class PackingSlipsController < ApplicationController
     packing_slips = PackingSlip.find(:all, :conditions => {:shipment_id => nil}) do
       if params[:_search] == "true"
         shipper    =~ "%#{params[:shipper]}%" if params[:shipper].present?
+        reference_number =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
         consignee =~ "%#{params[:consignee]}%" if params[:consignee].present?
         pallets  =~ "%#{params[:pallets]}%" if params[:pallets].present?
         total_weight     =~ "%#{params[:total_weight]}%" if params[:total_weight].present?
@@ -14,7 +15,7 @@ class PackingSlipsController < ApplicationController
     respond_to do |format|
       format.html 
       format.json { 
-        render :json => packing_slips.to_jqgrid_json([:shipper_name, :consignee_name, :pallets, :total_weight, :jqgrid_action_links],
+        render :json => packing_slips.to_jqgrid_json([:shipper_name, :consignee_name, :reference_number, :pallets, :total_weight, :jqgrid_action_links],
                                                          params[:page], params[:rows], packing_slips.total_entries) }
     end
   end
@@ -23,7 +24,7 @@ class PackingSlipsController < ApplicationController
     if params[:oper] == "del"
       PackingSlip.find(params[:id]).destroy
     else
-      packing_slip_params = { :shipper_id => params[:shipper_id], :consignee_id => params[:consignee_id], 
+      packing_slip_params = { :shipper_id => params[:shipper_id], :consignee_id => params[:consignee_id], :reference_number => params[:reference_number],
                       :pallets => params[:pallets], :total_weight => params[:total_weight] }
       if params[:id] == "_empty"
         PackingSlip.create(packing_slip_params)

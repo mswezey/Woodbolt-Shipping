@@ -11,6 +11,7 @@
 				  :editoptions => { :value => Contact.shippers.collect {|u| [u.id, u.company_name]} } },
 		{ :field => "consignee_id", :label => "Consignee", :width => 140, :editable => true, :edittype => "select",
 							  :editoptions => { :value => Contact.consignees.collect {|u| [u.id, u.company_name]} } },
+		{ :field => "reference_number", :label => "Reference Num", :width => 90, :editable => true },
 		{ :field => "pallets", :label => "Pallets", :width => 90, :editable => true },
 		{ :field => "total_weight", :label => "Total Weight", :editable => true },
 		{ :field => "actions", :label => "Actions", :width => 495, :align => "right"}
