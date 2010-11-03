@@ -20,6 +20,14 @@
 		<%= f.file_field :picture %>
 	</p>
 	<p>
+    <%= f.label :roles %><br />
+	<% for role in User::ROLES %>
+		<%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
+		<%=h role.humanize %><br />
+	<% end %>
+	<%= hidden_field_tag "user[roles][]", "" %>
+  </p>
+	<p>
 		<%= f.label :first_name %><br />
 		<%= f.text_field :first_name %>
 	</p>

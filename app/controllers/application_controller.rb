@@ -33,6 +33,22 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
+    
+    def require_admin_user
+      require_user
+      if current_user and !current_user.admin?
+        render_404
+      end
+    end
+    
+    def render_404
+      if request.format.xml? || request.format.json?
+        render :nothing => true, :status => 404
+      else
+        render :file => "#{RAILS_ROOT}/public/404.html",  
+        :status => 404 and return
+      end
+    end
 
     def store_location
       session[:return_to] = request.request_uri

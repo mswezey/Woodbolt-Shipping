@@ -17,6 +17,25 @@ class User < ActiveRecord::Base
   has_many :notes
   has_and_belongs_to_many :shipments # for notifications
   
+  # MS: this is for admins of the application
+  ROLES = %w[admin] # MS: This is for the bitmask.. ONLY ADD NEW ROLES TO THE END OF THIS ARRAY
+  
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
+  end
+  
+  def roles
+    ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
+  end
+  
+  def role?(role)
+    roles.map(&:to_sym).include?(role)
+  end
+  
+  def admin?
+    roles.include?("admin")
+  end
+  
   def name
     "#{self.first_name} #{self.last_name}"
   end

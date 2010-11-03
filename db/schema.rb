@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101102211818) do
+ActiveRecord::Schema.define(:version => 20101103200056) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20101102211818) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.integer  "roles_mask"
   end
 
 end
