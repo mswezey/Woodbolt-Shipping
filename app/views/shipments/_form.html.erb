@@ -36,13 +36,16 @@
 
 		<div>
 	    <%= f.label :scheduled_pickup, "Scheduled Pickup Date" %><br />
-	    <%= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
+			<%= f.text_field :scheduled_pickup %>
+	    <%#= f.date_select :scheduled_pickup, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
 	  </div>
 
 	  <div>
 	    <%= f.label :deliver_by_date %><br />
-	    <%= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
+			<%= f.text_field :deliver_by_date %>
+	    <%#= f.date_select :deliver_by_date, :prompt => true, :start_year => Date.today.year, :order => [:month, :day, :year] %>
 	  </div>
+
 	  <div>
 	    <%= f.label :picked_up_at, "Pickup Time (window)" %><br />
 	    <%= f.text_field :picked_up_at, :style => "width: 170px;" %>
@@ -68,7 +71,8 @@
 	
 		<div>
 	    <%= f.label :bol_date, "Bill of Lading Date" %><br />
-	    <%= f.date_select :bol_date, :prompt => true, :order => [:month, :day, :year] %>
+			<%= f.text_field :bol_date %>
+	    <%#= f.date_select :bol_date, :prompt => true, :order => [:month, :day, :year] %>
 	  </div>
 		<div>
 	    <%= f.label :bol, "Attach Bill of Lading" %><br />
@@ -333,5 +337,8 @@ $(function(){
 		$.post($(this).attr('action'), $(this).serialize(), null, "script");
     return false;
 	});
+	$("#shipment_scheduled_pickup").datepicker({dateFormat: "yy-mm-dd"});
+	$("#shipment_deliver_by_date").datepicker({dateFormat: "yy-mm-dd"});
+	$("#shipment_bol_date").datepicker({dateFormat: "yy-mm-dd"});	
 });
 </script>

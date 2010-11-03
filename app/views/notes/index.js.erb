@@ -1,1 +1,5 @@
-<%= render(:partial => 'shipments/note', :collection => @shipment.notes) %>
+<% if @shipment %>
+	<%= render(:partial => 'shipments/note', :collection => @shipment.notes) %>
+<% else %>
+	<%= render(:partial => 'shipments/note', :collection => Note.all(:limit => 30) ) %>
+<% end %>

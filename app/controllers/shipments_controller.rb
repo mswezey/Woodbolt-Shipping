@@ -90,6 +90,7 @@ class ShipmentsController < ApplicationController
     shipments = Shipment.with_state(:pending).find(:all) do
       if params[:_search] == "true"
         reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_date =~ "%#{params[:bol_date]}%" if params[:bol_date].present?
         bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
         carrier_id =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
         deliver_by_date  =~ "%#{params[:deliver_by_date]}%" if params[:deliver_by_date].present?
@@ -102,7 +103,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :deliver_link], 
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_date, :bol_pro_number, :carrier_name, :deliver_by_date, :bol_file, :packing_slip_info, :picked_up_at, :stock_transfer_wo_number, :deliver_link], 
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -111,7 +112,7 @@ class ShipmentsController < ApplicationController
     if params[:oper] == "del"
       Shipment.find(params[:id]).destroy
     else
-      shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], :deliver_by_date => params[:deliver_by_date], 
+      shipment_params = { :bol_pro_number => params[:bol_pro_number], :bol_date => params[:bol_date], :carrier_id => params[:carrier_id], :deliver_by_date => params[:deliver_by_date], 
                       :picked_up_at => params[:picked_up_at], :stock_transfer_wo_number => params[:stock_transfer_wo_number] }
       if params[:id] == "_empty"
         Shipment.create(shipment_params)
@@ -126,6 +127,7 @@ class ShipmentsController < ApplicationController
     shipments = Shipment.with_state(:delivered).find(:all) do
       if params[:_search] == "true"
         reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_date =~ "%#{params[:bol_date]}%" if params[:bol_date].present?
         bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
         carrier_id  =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
         carrier_invoice_number     =~ "%#{params[:carrier_invoice_number]}%" if params[:carrier_invoice_number].present?
@@ -138,7 +140,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :has_credit, :invoice_link],
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_date, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :has_credit, :invoice_link],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -147,7 +149,7 @@ class ShipmentsController < ApplicationController
     if params[:oper] == "del"
       Shipment.find(params[:id]).destroy
     else
-      shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], 
+      shipment_params = { :bol_pro_number => params[:bol_pro_number], :bol_date => params[:bol_date], :carrier_id => params[:carrier_id], 
                       :carrier_invoice_number => params[:carrier_invoice_number], :cost => params[:cost] }
       if params[:id] == "_empty"
         Shipment.create(shipment_params)
@@ -162,6 +164,7 @@ class ShipmentsController < ApplicationController
     shipments = Shipment.with_state(:invoiced).find(:all) do
       if params[:_search] == "true"
         reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
+        bol_date =~ "%#{params[:bol_date]}%" if params[:bol_date].present?
         bol_pro_number =~ "%#{params[:bol_pro_number]}%" if params[:bol_pro_number].present?
         carrier_id  =~ "%#{params[:carrier_id]}%" if params[:carrier_id].present?
         carrier_invoice_number     =~ "%#{params[:carrier_invoice_number]}%" if params[:carrier_invoice_number].present?
@@ -175,7 +178,7 @@ class ShipmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :credits_applied_check, :debit_memo_number],
+        render :json => shipments.to_jqgrid_json([:reference_number, :bol_date, :bol_pro_number, :carrier_name, :carrier_invoice_number, :cost, :classification_type, :credits_applied_check, :debit_memo_number],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end
@@ -184,7 +187,7 @@ class ShipmentsController < ApplicationController
     if params[:oper] == "del"
       Shipment.find(params[:id]).destroy
     else
-      shipment_params = { :bol_pro_number => params[:bol_pro_number], :carrier_id => params[:carrier_id], 
+      shipment_params = { :bol_pro_number => params[:bol_pro_number], :bol_date => params[:bol_date], :carrier_id => params[:carrier_id], 
                       :carrier_invoice_number => params[:carrier_invoice_number], :cost => params[:cost], :debit_memo_number  => params[:debit_memo_number] }
       if params[:id] == "_empty"
         Shipment.create(shipment_params)
