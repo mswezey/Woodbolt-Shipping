@@ -1,2 +1,9 @@
-$("#shipment-notes").html("<%= escape_javascript(render(:partial => 'shipments/note', :collection => @shipment.notes)) %>");
-$("#note_content").val('');$("#no-notes").hide();
+<% if @shipment %>
+	$("#shipment-notes").html("<%= escape_javascript(render(:partial => 'shipments/note', :collection => @shipment.notes)) %>");
+	$("#note_content").val('');
+	$("#no-notes").hide();
+<% else %>
+	$("#shipment-notes").html("<%= escape_javascript(render(:partial => 'shipments/note', :collection => Note.all(:limit => 30))) %>");
+	$("#note_content").val('');
+	$("#no-notes").hide();
+<% end %>

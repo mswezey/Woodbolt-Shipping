@@ -7,6 +7,7 @@
 <%= jqgrid("Pending Shipments", "shipments", "/shipments/pending",
 	[
 		{ :field => "reference_number", :label => "Reference #", :width => 100, :resizable => false },
+		{ :field => "bol_date", :label => "BOL Date", :width => 90, :editable => true, :resizable => false, :class => 'date' },
 		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 200, :editable => true, :resizable => false },
 		{ :field => "carrier_id", :label => "Carrier", :width => 80, :editable => true, :resizable => false, :edittype => "select",
 				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
@@ -23,6 +24,12 @@
 
 <script>
 $(function(){
+	// $("input[name=deliver_by_date]").live("focus", function(){
+	// 	$(this).datepicker({dateFormat: "yy-mm-dd"});
+	// });
+	// $("input[name=bol_date]").live("focus", function(){
+	// 	$(this).datepicker({dateFormat: "yy-mm-dd"});
+	// });
 	$("input[name=bol_file]").live("change", function(){
 		var fileElementId = $(this).attr("id");
 		var shipmentId = $(this).parent().parent().attr("id");
