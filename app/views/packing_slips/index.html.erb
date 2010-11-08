@@ -7,12 +7,12 @@
 
 <%= jqgrid("Packing Slips", "packing_slips", "/packing_slips",
 	[
-		{ :field => "shipper_id", :label => "Shipper", :width => 110, :editable => true, :edittype => "select",
+		{ :field => "shipper_id", :label => "Shipper", :width => 115, :editable => true, :edittype => "select",
 				  :editoptions => { :value => Contact.shippers.collect {|u| [u.id, u.company_name]} } },
 		{ :field => "consignee_id", :label => "Consignee", :width => 140, :editable => true, :edittype => "select",
 							  :editoptions => { :value => Contact.consignees.collect {|u| [u.id, u.company_name]} } },
-		{ :field => "reference_number", :label => "Reference Num", :width => 90, :editable => true },
-		{ :field => "pallets", :label => "Pallets", :width => 90, :editable => true },
+		{ :field => "reference_number", :label => "Reference #", :width => 90, :editable => true },
+		{ :field => "pallets", :label => "Pallets", :width => 80, :editable => true },
 		{ :field => "total_weight", :label => "Total Weight", :editable => true },
 		{ :field => "actions", :label => "Actions", :width => 405, :align => "right"}
 	],

@@ -10,20 +10,20 @@
 	<% end %>
 <% end %>
 
-<br />
-<h3>Comments</h3>
+
+<h3 style="margin-top: 10px;">Comments</h3>
 <div id="shipment-notes">
 <%= render :partial => 'note', :collection => @shipment.notes %>
 </div>
 <%= "<p id='no-notes'>Not currently any comments about this shipment</p>" unless @shipment.notes.size > 0 %>
 
 <% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
-<p>
+
 	<h3>Add Comment</h3>
 	<%= f.text_area :content %>
 	<%= f.hidden_field :shipment_id, :value => @shipment.id %><br />
 	<%= f.submit "Post Comment"%>
-</p>
+
 <% end %>
 <script>
 $(function(){

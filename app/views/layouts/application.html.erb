@@ -75,34 +75,38 @@
 				<%= yield %>
 			
 			</div>
+			
+			<% if current_user%>
+			<% unless params[:controller] == 'shipments' && params[:action] == 'show' %>
+			<div id="chat-box">
+				<% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
+					<h3>Global Chat</h3>
+					<%= f.text_area :content %><br />
+					<%= f.submit "Post Comment"%>
+				<% end %>
 
-    </div>
-		<% unless params[:controller] == 'shipments' && params[:action] == 'show' %>
-		<div id="chat-box">
-			<% form_for :note, :url => notes_path, :html => {:id => "note_form"} do |f| %>
-				<h3>Add Comment</h3>
-				<%= f.text_area :content %><br />
-				<%= f.submit "Post Comment"%>
+				<h3 style="margin-top: 15px;">Comments</h3>
+				<div id="shipment-notes">
+				<%= render :partial => 'shipments/note', :collection => Note.all(:limit => 30) %>
+				</div>
+				<%= "<p id='no-notes'>Not currently any comments about this shipment</p>" unless Note.all.size > 0 %>
+				<script>
+				$(function(){
+					$("#note_form").submit(function(){
+						$.post($(this).attr('action'), $(this).serialize(), null, "script");  
+						return false;
+					});
+					setInterval("updateComments()", 5000);
+				});
+				function updateComments() {
+					$("#shipment-notes").load("<%= notes_path(:format => :js )%>");
+				}
+				</script>
+			</div>
+			<% end %>
 			<% end %>
 
-			<h3>Comments</h3>
-			<div id="shipment-notes">
-			<%= render :partial => 'shipments/note', :collection => Note.all(:limit => 30) %>
-			</div>
-			<%= "<p id='no-notes'>Not currently any comments about this shipment</p>" unless Note.all.size > 0 %>
-			<script>
-			$(function(){
-				$("#note_form").submit(function(){
-					$.post($(this).attr('action'), $(this).serialize(), null, "script");  
-					return false;
-				});
-				setInterval("updateComments()", 5000);
-			});
-			function updateComments() {
-				$("#shipment-notes").load("<%= notes_path(:format => :js )%>");
-			}
-			</script>
-		</div>
-		<% end %>
+    </div>
+
   </body>
 </html>
