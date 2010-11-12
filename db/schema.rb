@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101103200056) do
+ActiveRecord::Schema.define(:version => 20101112195316) do
 
   create_table "carriers", :force => true do |t|
     t.string   "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20101103200056) do
     t.string   "uom"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "list_items", :force => true do |t|
@@ -87,7 +88,6 @@ ActiveRecord::Schema.define(:version => 20101103200056) do
     t.integer  "submitter_id"
     t.integer  "assigned_to_id"
     t.integer  "bill_to_id"
-    t.string   "reference_number"
     t.integer  "classification_id"
     t.string   "bol_pro_number"
     t.integer  "carrier_id"

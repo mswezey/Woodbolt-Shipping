@@ -19,6 +19,7 @@
 					<tr class="ui-jqgrid-labels">
 			    	<th width="300px" class="ui-state-default ui-th-column">Item</th>
 						<th width="195px" class="ui-state-default ui-th-column">Unit of Measure</th>
+						<th width="195px" class="ui-state-default ui-th-column">Description</th>
 						<th width="480px" class="ui-state-default ui-th-column">Actions</th>
 					</tr>
 			  </thead>
@@ -37,6 +38,7 @@
 				    <tr class="ui-widget-content jqgrow">
 				      <td width="295px"><%=h item.name %></td>
 							<td width="195px"><%=h item.uom %></td>
+							<td width="195px"><%=h item.description %></td>
 				      <td width="480px" style="text-align: center"><%= link_to "Edit", edit_item_path(item) %> <%= link_to "Destroy", item, :confirm => 'Are you sure?', :method => :delete %></td>
 				    </tr>
 				

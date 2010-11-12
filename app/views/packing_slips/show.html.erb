@@ -27,11 +27,21 @@
 </p>
 <p>
   <label>Shipper</label><br />
-  <span class="larger"><%=h @packing_slip.shipper.company_name %></span>
+  <span class="larger"><%=h @packing_slip.shipper.company_name %></span><br />
+  <span class="larger"><%=h @packing_slip.shipper.street_1 %></span><br />
+  <span class="larger"><%=h @packing_slip.shipper.street_2 %></span><br />
+  <span class="larger"><%=h "#{@packing_slip.shipper.city}, #{@packing_slip.shipper.state} #{@packing_slip.shipper.zip}" %></span><br />
+  <span class="larger"><%=h @packing_slip.shipper.phone %></span><br />
+  <span class="larger"><%=h @packing_slip.shipper.fax %></span><br />
 </p>
 <p>
   <label>Consignee</label><br />
-  <span class="larger"><%=h @packing_slip.consignee.company_name %></span>
+  <span class="larger"><%=h @packing_slip.consignee.company_name %></span><br />
+  <span class="larger"><%=h @packing_slip.consignee.street_1 %></span><br />
+  <span class="larger"><%=h @packing_slip.consignee.street_2 %></span><br />
+  <span class="larger"><%=h "#{@packing_slip.consignee.city}, #{@packing_slip.consignee.state} #{@packing_slip.consignee.zip}" %></span><br />
+  <span class="larger"><%=h @packing_slip.consignee.phone %></span><br />
+  <span class="larger"><%=h @packing_slip.consignee.fax %></span><br />
 </p>
 <p>
   <label>Pallets</label><br />
@@ -61,7 +71,7 @@
 				</tr>
 				<tr>
 					<td colspan="3" bgcolor="#ddd">
-						<div style="font-style: italic; padding: 5px;"><%= li.comments %></div>
+						<div style="font-style: italic; padding: 5px;"><%= li.item.description %></div>
 					</td>
 				</tr>
 			</table>

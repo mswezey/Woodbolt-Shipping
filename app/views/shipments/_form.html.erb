@@ -259,6 +259,10 @@
 	    <%= f.label :uom %><br />
 	    <%= f.text_field :uom %>
 	  </div>
+	  <div>
+	    <%= f.label :description %><br />
+	    <%= f.text_area :description %>
+	  </div>
 
 	  <div><%= f.submit "Save Item" %></div>
 	<% end %>
@@ -290,6 +294,7 @@ $(function(){
 			$.get("/items/"+item_id+".js", {}, function(data){
 				$("#item_name").val(data.item.name);
 				$("#item_uom").val(data.item.uom);
+				$("#item_description").val(data.item.description);
 				$("#item_method").val("put");
 				$("#new-item-form").attr("action", "/items/"+item_id).attr("method","put");
 				$("#new-item").dialog({title : "Edit Item"});
@@ -339,6 +344,13 @@ $(function(){
 	});
 	$("#shipment_scheduled_pickup").datepicker({dateFormat: "yy-mm-dd"});
 	$("#shipment_deliver_by_date").datepicker({dateFormat: "yy-mm-dd"});
-	$("#shipment_bol_date").datepicker({dateFormat: "yy-mm-dd"});	
+	$("#shipment_bol_date").datepicker({dateFormat: "yy-mm-dd"});
+	$(".item-select").live("change", function(){
+		item_select = $(this);
+		$.get('/items/'+ item_select.val() + ".js", function(data){
+			item_select.parent().parent().find("p.item-description").html(data.item.description);
+			item_select.parent().parent().find("p.item-uom").html(data.item.uom);
+		}, "json");
+	});
 });
 </script>

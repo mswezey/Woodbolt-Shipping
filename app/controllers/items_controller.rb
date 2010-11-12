@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
           redirect_to @item
         }
         format.js {
-          render :js => "$('.item-select option[value=#{@item.id}]').text('#{@item.name} (#{@item.uom})');$('#new-item').dialog('close');"
+          render :js => "$('.item-select option[value=#{@item.id}]').text('#{@item.name} (#{@item.uom})');$('#new-item').dialog('close');$('.item-select').trigger('change');"
         }
       end
     else

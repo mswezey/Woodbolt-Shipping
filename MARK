@@ -1,0 +1,6 @@
+Edit Item Form - save button says "Add New Item" instead of "Save" or "Update"
+
+Added description to http://localhost:3000/items and the table's widths are off now
+
+Added UOM and Description to shipment / packing list forms that are populated via ajax and probably need a little css
+

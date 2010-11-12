@@ -117,15 +117,18 @@
 	<% form_for :item, :url => items_path, :html => {:id => "new-item-form"} do |f| %>
 	  <%= f.error_messages %>
 		<input name="_method" type="hidden" value="post" id="item_method" /> 
-	  <p>
+	  <div>
 	    <%= f.label :name %><br />
 	    <%= f.text_field :name %>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    <%= f.label :uom %><br />
 	    <%= f.text_field :uom %>
-	  </p>
-
+	  </div>
+	  <div>
+	    <%= f.label :description %><br />
+	    <%= f.text_area :description %>
+	  </div>
 	  <p><%= f.submit "Save Item" %></p>
 	<% end %>
 </div>
@@ -144,6 +147,7 @@ $(function(){
 			$.get("/items/"+item_id+".js", {}, function(data){
 				$("#item_name").val(data.item.name);
 				$("#item_uom").val(data.item.uom);
+				$("#item_description").val(data.item.description);
 				$("#item_method").val("put");
 				$("#new-item-form").attr("action", "/items/"+item_id).attr("method","put");
 				$("#new-item").dialog({title : "Edit Item"});
@@ -190,6 +194,13 @@ $(function(){
 	$("#new-contact-form").submit(function(){
 		$.post($(this).attr('action'), $(this).serialize(), null, "script");
     return false;
+	});
+	$(".item-select").live("change", function(){
+		item_select = $(this);
+		$.get('/items/'+ item_select.val() + ".js", function(data){
+			item_select.parent().parent().find("p.item-description").html(data.item.description);
+			item_select.parent().parent().find("p.item-uom").html(data.item.uom);
+		}, "json");
 	});
 });
 </script>

@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name, :uom
+  attr_accessible :name, :uom, :description
   
   has_many :list_items
   
