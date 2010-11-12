@@ -86,7 +86,6 @@ class ShipmentsController < ApplicationController
   end
 
   def pending
-    @first_shipment = Shipment.find(1)
     shipments = Shipment.with_state(:pending).find(:all) do
       if params[:_search] == "true"
         reference_number    =~ "%#{params[:reference_number]}%" if params[:reference_number].present?
