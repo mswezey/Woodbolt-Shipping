@@ -99,6 +99,14 @@ class Shipment < ActiveRecord::Base
     "<a href='#' class='invoice'>Invoice</a>"
   end
   
+  def shipper_name
+    shipper.try(:company_name)
+  end
+  
+  def consignee_name
+    consignee.try(:company_name)
+  end
+  
   def carrier_name
     carrier.try(:name)
   end

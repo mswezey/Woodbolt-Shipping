@@ -6,6 +6,8 @@
 <%= jqgrid("Delivered Shipments", "shipments", "/shipments/delivered",
 	[
 		{ :field => "reference_number", :label => "Ref #", :width => 55 },
+		{ :field => "shipper_name", :label => "Shipper", :width => 55 },
+		{ :field => "consignee_name", :label => "Consignee", :width => 55 },
 		{ :field => "bol_date", :label => "BOL Date", :width => 75, :editable => true, :resizable => false, :class => 'date' },
 		{ :field => "bol_pro_number", :label => "BOL/PRO #", :editable => true, :width => 180, :resizable => false	 },
 		{ :field => "carrier_id", :label => "Carrier", :editable => true, :edittype => "select", :width => 80, :resizable => false,

@@ -19,7 +19,7 @@ class CreditsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { 
-        render :json => shipments.to_jqgrid_json([:reference_number, :bol_pro_number, :carrier_name, :carrier_invoice_number, :credit_amount, :credit_memo_number, :credit_memo, :debit_memo_number],
+        render :json => shipments.to_jqgrid_json([:reference_number, :shipper_name, :consignee_name, :bol_pro_number, :carrier_name, :carrier_invoice_number, :credit_amount, :credit_memo_number, :credit_memo, :debit_memo_number],
                                                          params[:page], params[:rows], shipments.total_entries) }
     end
   end

@@ -8,6 +8,8 @@
 <%= jqgrid("Credits", "credits", "/credits",
 	[
 		{ :field => "reference_number", :label => "Reference #", :width => 100, :resizable => false },
+		{ :field => "shipper_name", :label => "Shipper", :width => 55 },
+		{ :field => "consignee_name", :label => "Consignee", :width => 55 },
 		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 180, :resizable => false },
 		{ :field => "carrier_id", :label => "Carrier", :width => 80, :resizable => false },
 		{ :field => "carrier_invoice_number", :label => "Carrier Invoice #", :resizable => false, :width => 205 },

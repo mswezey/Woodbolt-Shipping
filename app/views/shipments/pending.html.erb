@@ -7,6 +7,8 @@
 <%= jqgrid("Pending Shipments", "shipments", "/shipments/pending",
 	[
 		{ :field => "reference_number", :label => "Ref #", :width => 55, :resizable => false },
+		{ :field => "shipper_name", :label => "Shipper", :width => 55 },
+		{ :field => "consignee_name", :label => "Consignee", :width => 55 },
 		{ :field => "bol_date", :label => "BOL Date", :width => 75, :editable => true, :resizable => false, :class => 'date' },
 		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 180, :editable => true, :resizable => false },
 		{ :field => "carrier_id", :label => "Carrier", :width => 80, :editable => true, :resizable => false, :edittype => "select",
