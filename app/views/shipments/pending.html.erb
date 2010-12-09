@@ -6,19 +6,19 @@
 
 <%= jqgrid("Pending Shipments", "shipments", "/shipments/pending",
 	[
-		{ :field => "reference_number", :label => "Ref #", :width => 55, :resizable => false },
-		{ :field => "shipper_name", :label => "Shipper", :width => 55 },
-		{ :field => "consignee_name", :label => "Consignee", :width => 55 },
+		{ :field => "reference_number", :label => "Ref #", :width => 45, :resizable => false },
+		{ :field => "shipper_name", :label => "Shipper", :width => 65 },
+		{ :field => "consignee_name", :label => "Consignee", :width => 65 },
 		{ :field => "bol_date", :label => "BOL Date", :width => 75, :editable => true, :resizable => false, :class => 'date' },
-		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 180, :editable => true, :resizable => false },
+		{ :field => "bol_pro_number", :label => "BOL/PRO #", :width => 130, :editable => true, :resizable => false },
 		{ :field => "carrier_id", :label => "Carrier", :width => 80, :editable => true, :resizable => false, :edittype => "select",
 				  :editoptions => { :value => Carrier.all.collect {|u| [u.id, u.name]} } },
 		{ :field => "deliver_by_date", :label => "Deliver By", :width => 75, :editable => true, :resizable => false },
-		{ :field => "bol_file", :label => "BOL", :editable => true, :width => 150, :edittype => "file", :resizable => false },
-		{ :field => "packing_slip_info", :label => "Packing Slip", :width => 90, :editable => false, :resizable => false },
-		{ :field => "picked_up_at", :label => "Pickup Time", :width => 90, :editable => true, :resizable => false },
+		{ :field => "bol_file", :label => "BOL", :editable => true, :width => 120, :edittype => "file", :resizable => false },
+		{ :field => "packing_slip_info", :label => "Packing Slip", :width => 80, :editable => false, :resizable => false },
+		{ :field => "picked_up_at", :label => "Pickup Time", :width => 80, :editable => true, :resizable => false },
 		{ :field => "stock_transfer_wo_number", :label => "Stock Transfer / WO #", :width => 150, :editable => true, :resizable => false },
-		{ :field => "deliver_link", :label => "Deliver", :editable => false, :width => 55, :resizable => false, :align => "center" }
+		{ :field => "deliver_link", :label => "Deliver", :editable => false, :width => 45, :resizable => false, :align => "center" }
 		
 	]	,
 			{ :edit => true, :inline_edit => true, :delete => true, :edit_url => "/shipments/pending_post_data" }
