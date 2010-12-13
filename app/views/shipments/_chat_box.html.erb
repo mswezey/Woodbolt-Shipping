@@ -38,7 +38,9 @@ $(function(){
 		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
 		return false;
 	});
+	<% unless RAILS_ENV == 'development' %>
 	setInterval("updateComments()", 5000);
+	<% end %>
 });
 
 function updateComments() {

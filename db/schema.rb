@@ -9,62 +9,62 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101112195316) do
+ActiveRecord::Schema.define(:version => 20101213213600) do
 
   create_table "carriers", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.string    "url"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "contacts", :force => true do |t|
-    t.integer  "contact_type_id"
-    t.string   "company_name"
-    t.string   "contact_name"
-    t.string   "email"
-    t.string   "street_1"
-    t.string   "street_2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "phone"
-    t.string   "fax"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "contact_type_id"
+    t.string    "company_name"
+    t.string    "contact_name"
+    t.string    "email"
+    t.string    "street_1"
+    t.string    "street_2"
+    t.string    "city"
+    t.string    "state"
+    t.string    "zip"
+    t.string    "phone"
+    t.string    "fax"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "items", :force => true do |t|
-    t.string   "name"
-    t.string   "uom"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
+    t.string    "name"
+    t.string    "uom"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.text      "description"
   end
 
   create_table "list_items", :force => true do |t|
-    t.integer  "item_id"
-    t.integer  "packing_slip_id"
-    t.string   "qty"
-    t.string   "lot_number"
-    t.text     "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "item_id"
+    t.integer   "packing_slip_id"
+    t.string    "qty"
+    t.string    "lot_number"
+    t.text      "comments"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "notes", :force => true do |t|
-    t.integer  "shipment_id"
-    t.integer  "user_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "shipment_id"
+    t.integer   "user_id"
+    t.text      "content"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "packing_slips", :force => true do |t|
     t.integer  "shipment_id"
     t.integer  "shipper_id"
     t.integer  "consignee_id"
-    t.string   "pallets"
+    t.integer  "pallets",          :limit => 255
     t.string   "total_weight"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -72,14 +72,14 @@ ActiveRecord::Schema.define(:version => 20101112195316) do
   end
 
   create_table "pictures", :force => true do |t|
-    t.integer  "owner_id",          :null => false
-    t.string   "owner_type",        :null => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "owner_id",          :null => false
+    t.string    "owner_type",        :null => false
+    t.string    "file_file_name"
+    t.string    "file_content_type"
+    t.integer   "file_file_size"
+    t.timestamp "file_updated_at"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   add_index "pictures", ["owner_id", "owner_type"], :name => "index_pictures_on_owner_id_and_owner_type"
@@ -121,6 +121,9 @@ ActiveRecord::Schema.define(:version => 20101112195316) do
     t.string   "credit_memo_number"
     t.text     "credit_memo"
     t.boolean  "credits_applied"
+    t.string   "shipper_name_cache"
+    t.string   "consignee_name_cache"
+    t.string   "carrier_name_cache"
   end
 
   create_table "shipments_users", :id => false, :force => true do |t|
@@ -129,29 +132,29 @@ ActiveRecord::Schema.define(:version => 20101112195316) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "gender"
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.string   "persistence_token"
-    t.string   "single_access_token"
-    t.string   "perishable_token"
-    t.integer  "login_count"
-    t.integer  "failed_login_count"
-    t.datetime "last_request_at"
-    t.datetime "current_login_at"
-    t.datetime "last_login_at"
-    t.string   "current_login_ip"
-    t.string   "last_login_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.integer  "roles_mask"
+    t.string    "email"
+    t.string    "first_name"
+    t.string    "last_name"
+    t.string    "gender"
+    t.string    "crypted_password"
+    t.string    "password_salt"
+    t.string    "persistence_token"
+    t.string    "single_access_token"
+    t.string    "perishable_token"
+    t.integer   "login_count"
+    t.integer   "failed_login_count"
+    t.timestamp "last_request_at"
+    t.timestamp "current_login_at"
+    t.timestamp "last_login_at"
+    t.string    "current_login_ip"
+    t.string    "last_login_ip"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "picture_file_name"
+    t.string    "picture_content_type"
+    t.integer   "picture_file_size"
+    t.timestamp "picture_updated_at"
+    t.integer   "roles_mask"
   end
 
 end
