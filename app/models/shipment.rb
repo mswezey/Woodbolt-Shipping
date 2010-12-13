@@ -1,5 +1,5 @@
 class Shipment < ActiveRecord::Base
-  attr_accessible :packing_slip_attributes, :refrigerate, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list, :has_credit, :credit_amount, :credit_memo_number, :credit_memo, :credits_applied, :user_ids
+  attr_accessible :packing_slip_attributes, :refrigerate, :submitter_id, :assigned_to_id, :bill_to_id, :reference_number, :classification_id, :bol_pro_number, :carrier_id, :carrier_invoice_number, :cost, :deliver_by_date, :picked_up_at, :stock_transfer_wo_number, :debit_memo_number, :comments, :invoiced_by, :scheduled_by_id, :scheduled_pickup, :pallet_qty, :pallet_dimentions, :weight, :bol_date, :consignee_id, :invoiced_by, :shipper_id, :state, :bol, :packing_list, :has_credit, :credit_amount, :credit_memo_number, :credit_memo, :credits_applied, :user_ids, :shipper_name_cache
   attr_accessor :delivered_check, :invoiced_check
   validates_presence_of :classification_id, :packing_slip, :bill_to, :invoiced_by
   # validates_uniqueness_of :reference_number
@@ -22,6 +22,8 @@ class Shipment < ActiveRecord::Base
   has_many :notes
   has_and_belongs_to_many :users # for notifications
   
+  after_validation :update_name_caches
+  
   accepts_nested_attributes_for :packing_slip
   
   has_attached_file :bol,
@@ -29,8 +31,6 @@ class Shipment < ActiveRecord::Base
                     :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
                     :url => "/shipments/:id/bol/:id-:style.:extension",
                     :path => "/shipments/:id/bol/:id-:style.:extension"
-  
-  # after_create :generate_ref_num
 
   CLASSIFICATION_TYPE_ID = {
     "FI" => 1,
@@ -39,6 +39,12 @@ class Shipment < ActiveRecord::Base
     "MISC" => 4
   }
   CLASSIFICATION_TYPE_NAME = CLASSIFICATION_TYPE_ID.invert
+  
+  def update_name_caches
+    update_attribute(:shipper_name_cache, shipper_name)
+    update_attribute(:consignee_name_cache, consignee_name)
+    update_attribute(:carrier_name_cache, carrier_name)
+  end
   
   def classification_type
     CLASSIFICATION_TYPE_NAME[classification_id]
